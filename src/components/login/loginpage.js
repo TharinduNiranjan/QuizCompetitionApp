@@ -1,11 +1,18 @@
 import React, { Fragment, Component } from 'react';
 import {Helmet} from 'react-helmet'
 
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { loginUser } from "../login/auth";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+
 //import {TextField} from '@material-ui/core';
 class Login extends Component{
     constructor(props){
         super(props);
-        this.state={username:'',password:''}
+        this.state={email:'',password:''}
     }
     handleChange(e){
         this.setState({
@@ -13,11 +20,17 @@ class Login extends Component{
         })
     }
     handleSubmit=(e)=>{
-        e.preventDefault()
-        console.log(this.state)
+        const { dispatch } = this.props;
+        console.log(this.props)
+        const { email, password } = this.state;
+        dispatch(loginUser(email, password));
     }
     render(){
-    return(
+        const { loginError, isAuthenticated } = this.props;
+        if (isAuthenticated) {
+            return <Redirect to="/quizcompetition/quiz" />;
+        }else{
+        return(
         <div>
         <Fragment>
             <Helmet><title>Login</title></Helmet>
@@ -25,12 +38,39 @@ class Login extends Component{
                 <section>
                     <h1>Login</h1>
                     <div className="login-container">
-                    <form  onSubmit={this.handleSubmit}>
-                    <input type="text" id='username' name="u" placeholder="Username" required="required" onChange={(e)=>this.handleChange(e)} />
-                    <input type="password" id='password' name="p" placeholder="Password" required="required" onChange={(e)=>this.handleChange(e)} />
-
-                    <button type="submit" class="btn btn-primary btn-block btn-small">Let me in.</button>
-                    </form>
+                    <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              onChange={e=>this.handleChange(e)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              onChange={e=>this.handleChange(e)}
+            />
+            {loginError && (
+              <Typography >
+                Incorrect email or password.
+              </Typography>
+            )}
+            <Button
+              type="button"
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={this.handleSubmit}
+            >
+              Sign In
+            </Button>
                     </div>
             </section>
             </div>
@@ -39,5 +79,13 @@ class Login extends Component{
         </div>
     )
     }
+    }
 }
-export default Login;
+function mapStateToProps(state) {
+    return {
+      isLoggingIn: state.auth.isLoggingIn,
+      loginError: state.auth.loginError,
+      isAuthenticated: state.auth.isAuthenticated
+    };
+  }
+export default (connect(mapStateToProps)(Login));

@@ -1,15 +1,35 @@
 import React from 'react';
-import Home from './components/home/Home';
-import {BrowserRouter as Router,Route} from 'react-router-dom';
-import Login from './components/login/loginpage'
 
-function App() {
+import { Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import ProtectedRoute from "./components/login/auth/protectedRoute";
+import Home from './components/home/Home';
+import Login from './components/login/loginpage'
+import Quiz from './components/quiz/quiz'
+function App(props) {
+  const { isAuthenticated, isVerifying } = props;
+  console.log(props)
   return (
-    <Router>
-      <Route path="/" exact component={Home}/>
+
+    <Switch>
+    <Route exact path='/' component={Home}/>  
+    <ProtectedRoute
+      
+      path="/quizcompetition/quiz"
+      component={Quiz}
+      isAuthenticated={isAuthenticated}
+      isVerifying={isVerifying}
+    />
       <Route path='/quizcompetition/login' component={Login}/>
-    </Router>
+    
+  </Switch>
+
   );
 }
-
-export default App;
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    isVerifying: state.auth.isVerifying
+  };
+}
+export default connect(mapStateToProps)(App);
