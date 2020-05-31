@@ -7,24 +7,36 @@ class Login extends Component{
         super(props);
         this.state={username:'',password:''}
     }
+    handleChange(e){
+        this.setState({
+            [e.target.id]:e.target.value
+        })
+    }
+    handleSubmit=(e)=>{
+        e.preventDefault()
+        console.log(this.state)
+    }
     render(){
     return(
+        <div>
         <Fragment>
             <Helmet><title>Login</title></Helmet>
             <div id="login">
                 <section>
                     <h1>Login</h1>
                     <div className="login-container">
-                    <form >
-                    <input type="text" name="u" placeholder="Username" required="required" />
-                    <input type="password" name="p" placeholder="Password" required="required" />
+                    <form  onSubmit={this.handleSubmit}>
+                    <input type="text" id='username' name="u" placeholder="Username" required="required" onChange={(e)=>this.handleChange(e)} />
+                    <input type="password" id='password' name="p" placeholder="Password" required="required" onChange={(e)=>this.handleChange(e)} />
 
-                    <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-small">Let me in.</button>
                     </form>
                     </div>
             </section>
             </div>
         </Fragment>
+        
+        </div>
     )
     }
 }
