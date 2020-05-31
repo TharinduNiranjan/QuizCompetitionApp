@@ -10,7 +10,7 @@ const Home=()=>
                     <h1>Quiz App</h1>
             <div className="play-button-container">
                 <ul>
-                    <li ><Link className='playbutton' to="/play/instructions">Play</Link></li>
+                    <li ><Link className='playbutton' to="/play/instructions">Instructions</Link></li>
                 </ul>
                 
             </div>
