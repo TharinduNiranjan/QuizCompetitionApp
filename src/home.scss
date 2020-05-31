@@ -1,0 +1,64 @@
+#home{
+    background-image: url('./assests/cover.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content:space-around;
+    height: 100vh;
+    width: 100vw;
+    
+    section{
+        
+        background-color: rgba($color: #ffffff, $alpha: 0.5);        
+        padding-left: 2rem;
+        padding-right: 2rem;
+        margin-top: 15vh;
+        height: 80%;
+        width: 40%;
+    }
+    .play-button-container{
+        width: 100%;
+        text-align: center;
+    }
+    a.playbutton{
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 15px 48px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 100px;
+        margin-bottom: 50px;
+        cursor: pointer;
+        border-radius: 22px;
+        transition: 0.3s linear all;
+    }
+    a.playbutton:hover{
+        background-color: darken($color: green, $amount: 01%);
+    }
+    .auth-container{
+        width: 100%;
+       
+    }
+    .loginbutton{
+        background-color: rgb(48, 84, 182);
+        color: #fff;
+        padding: 15px 48px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-left: 210px;
+        
+        cursor: pointer;
+        border-radius: 22px;
+        transition: 0.3s linear all;
+    }
+    a.loginbutton:hover{
+        background-color: darken($color: rgb(48,84,182), $amount: 08%);
+    }
+    h1{
+        margin: 20px 2px;
+        text-align: center;
+    }
+}
