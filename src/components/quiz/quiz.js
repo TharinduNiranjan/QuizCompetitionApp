@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logoutUser } from "../login/auth";
+import ls from 'local-storage'
 class Quiz extends Component {
+  
   handleLogout = () => {
+    console.log(ls.get('authtoken'));
     const { dispatch } = this.props;
     dispatch(logoutUser());
   };
@@ -12,7 +15,7 @@ class Quiz extends Component {
       <div>
         <h1>This is your app's protected area.</h1>
         <p>Any routes here will also be protected</p>
-        <button onClick={this.handleLogout}>Logout</button>
+        <button onClick={()=>this.handleLogout()}>Logout</button>
         {isLoggingOut && <p>Logging Out....</p>}
         {logoutError && <p>Error logging out</p>}
       </div>

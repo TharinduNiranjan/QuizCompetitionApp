@@ -1,5 +1,5 @@
 import { myFirebase } from "../../firebase/firebase";
-
+import ls from 'local-storage'
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
@@ -64,9 +64,20 @@ export const loginUser = (email, password) => dispatch => {
   dispatch(requestLogin());
   myFirebase
     .auth()
+    .onAuthStateChanged(function(user){
+      if (user) {
+        user.getIdToken().then(function(idToken) {  // <------ Check this line
+            
+            ls.set('authtoken',idToken) // It shows the Firebase token now
+            return idToken;
+        });
+      }
+    })
+  myFirebase
+    .auth()
     .signInWithEmailAndPassword(email, password)
     .then(user => {
-      console.log(user)
+      
       dispatch(receiveLogin(user));
     })
     .catch(error => {
@@ -74,7 +85,6 @@ export const loginUser = (email, password) => dispatch => {
       dispatch(loginError());
     });
 };
-
 export const logoutUser = () => dispatch => {
   dispatch(requestLogout());
   myFirebase
