@@ -68,7 +68,7 @@ export const loginUser = (email, password) => dispatch => {
       if (user) {
         user.getIdToken().then(function(idToken) {  // <------ Check this line
             
-            ls.set('authtoken',idToken) // It shows the Firebase token now
+            ls.set('authtoken',idToken) // added token to local storage as 'authtoken'
             return idToken;
         });
       }
