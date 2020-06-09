@@ -1,21 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { logoutUser } from "../login/auth";
-import ls from 'local-storage'
+import { logoutUser } from "../actions";
+import Button from '@material-ui/core/Button';
 class Quiz extends Component {
   
   handleLogout = () => {
-    console.log(ls.get('authtoken'));
     const { dispatch } = this.props;
     dispatch(logoutUser());
   };
   render() {
-    const { isLoggingOut, logoutError } = this.props;
+   const { isLoggingOut, logoutError } = this.props;
     return (
       <div>
         <h1>This is your app's protected area.</h1>
         <p>Any routes here will also be protected</p>
-        <button onClick={()=>this.handleLogout()}>Logout</button>
+        <Button onClick={this.handleLogout}>Logout</Button>
         {isLoggingOut && <p>Logging Out....</p>}
         {logoutError && <p>Error logging out</p>}
       </div>
@@ -23,6 +22,7 @@ class Quiz extends Component {
   }
 }
 function mapStateToProps(state) {
+  console.log(state)
   return {
     isLoggingOut: state.auth.isLoggingOut,
     logoutError: state.auth.logoutError
