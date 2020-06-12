@@ -10,6 +10,7 @@ class QAdmin extends Component {
       description: "",
       image: "",
       choices: [],
+      questionID: "",
     };
     // let db = new CRUD();
     this.handleChange = this.handleChange.bind(this);
@@ -37,7 +38,6 @@ class QAdmin extends Component {
     });
   }
   handleArrayChange(e) {
-    console.log(e.target.value);
     let r = this.state.choices;
     r.find((o, i) => {
       if (o.text === e.target.name) {
@@ -74,8 +74,8 @@ class QAdmin extends Component {
   }
 
   addQuestion() {
-    // console.log(this.state);
-    if (this.state.questionID) {
+    console.log(this.state.questionID);
+    if (this.state.questionID != "") {
       db.collection(this.col)
         .doc(this.state.questionID)
         .set(
@@ -93,7 +93,6 @@ class QAdmin extends Component {
         );
     } else {
       db.collection(this.col)
-        .doc()
         .add(
           //change schema here
           { description: this.state.description, image: this.state.image, choices: this.state.choices }
@@ -161,8 +160,6 @@ class QAdmin extends Component {
         <button onClick={() => this.addOption()}>Add Choices</button>
         <button onClick={() => this.addQuestion()}>{this.state.questionID ? "Save Changes" : "Add"}</button>
         {/* </form> */}
-
-        <button>Add Question</button>
         <h2>Exisitng Questions</h2>
         {questions}
       </div>
