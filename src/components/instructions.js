@@ -23,11 +23,13 @@ class Instruction extends Component{
                 <div id='instructions' >        
                         <section>
                         <div>
-                        <button className='button' onClick={this.Unilevel}> Uni Instruction</button>
+                        <button className='button' onClick={this.Unilevel}> University Instruction</button>
+                        <div className='divider'/>
                         <button className='button' onClick={this.Scllevel}> School Instruction</button>
                         </div><div id='left'>
-                        <h1>{this.state.content}</h1>
-                        <a>{this.state.content2}</a>
+                        <h1> {this.state.content}</h1>
+                            <a>{this.state.content}</a>
+                            <a>{this.state.content2}</a>
                         </div>
                         <div id='right'>
                         <img className='img' src={MainImage} />   
