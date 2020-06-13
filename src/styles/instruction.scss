@@ -3,29 +3,41 @@
     background-size: cover;
     display: flex;
     justify-content: space-around;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
 
+    .divider{
+        width:2px;
+        height:auto;
+        display:inline-block;
+    }
     section {
-        background-color: rgba($color: #ffffff, $alpha: 0.5);
-        padding-left: 2rem;
-        padding-right: 2rem;
+        background-color: rgba($color: white, $alpha: 0.5);
+        padding-left: 40px;
+        padding-right: 200px;
         margin-top: 15vh;
-        height: 60%;
-        width: 40%;
+        height: 100%;
+        width: 100%;
     }
     button {
-        background-color:red;
-        color: #fff;
-        float: left ;
-        padding: 15px 48px;
+        width: 200px;
+        background-color:#BEBEBE;
+        transition-duration: 0.4s;
+        border: 1px solid black;
+        color: black;
+        float: center;
+        padding: 12px 28px;
         text-align: center;
         text-decoration: none;
-        font-size: 16px;
+        font-size: 12px;
         margin-top: 80px;
         margin-bottom: 50px;
-        border-radius: 14px;
+        border-radius: 8px;
         
+    }
+    .button:hover{
+        background-color: #989898;
+        color: white;
     }
     img {
         max-width: 10%;
@@ -47,10 +59,10 @@
 #left{
     float: left;
     width: 50% ;
-    height: 75%;
+    height: 500px;
 }
 #right{
     float: right;
     width: 50% ;
-    height: 75%;
+    height: 500px;
 }
