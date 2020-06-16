@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { db } from "../firebase/firebase";
+import { db, storage } from "../firebase/firebase";
 import { Form, Button } from "react-bootstrap";
 // let admin = require("firebase-admin");
 
@@ -32,7 +32,14 @@ class QuestionPage extends Component {
       .get()
       .then((question) => {
         console.log(question.data());
-        this.setState({ question: question.data() });
+        let gsReference = storage
+          .ref(question.data().image)
+          .getDownloadURL()
+          .then((url) => {
+            let data = question.data();
+            data.image = url;
+            this.setState({ question: data });
+          });
       });
     db.collection(this.usercol)
       .doc(this.props.user)
@@ -64,7 +71,7 @@ class QuestionPage extends Component {
   render() {
     let choices;
     if (this.state.question.choices) {
-      choices = this.state.question.choices.map((choice, key) => <Form.Check key={key} type="radio" onClick={() => this.select(choice)} label={choice.text} checked={choice.text === this.state.selected.text ? true : false} />);
+      choices = this.state.question.choices.map((choice, key) => <Form.Check key={key} type="radio" onClick={() => this.select(choice)} label={choice.text} defaultChecked={choice.text === this.state.selected.text ? true : false} />);
     }
     return (
       // create the question base
@@ -73,7 +80,7 @@ class QuestionPage extends Component {
           <h1>Question {this.props.number + 1}</h1>
         </div>
         <p>Q {this.state.question.description}</p>
-        <p> {this.state.question.image} </p>
+        <img className="img-fluid" src={this.state.question.image}></img>
         <Form> {choices}</Form>
         <div className="flex">
           <Button onClick={() => this.saveAnswer(this.props.number - 1)}>Prev</Button>
