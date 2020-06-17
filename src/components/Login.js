@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 import Select from 'react-select';
+import ls from 'local-storage';
 import './loginStyle.css';
 import Img from '../assets/png.png';
 const styles = () => ({
@@ -47,7 +48,7 @@ const options = [
   { value: 'tamil', label: 'tamil' },
 ];
 class Login extends Component {
-  state = { email: "", password: "" ,selectedOption: ''};
+  state = { email: "", password: "" ,selectedOption: {}};
 
   handleEmailChange = ({ target }) => {
     this.setState({ email: target.value });
@@ -66,71 +67,23 @@ class Login extends Component {
 
   handleChange = selectedOption => {
     this.setState({ selectedOption });
+    
+    
     console.log(`Option selected:`, selectedOption);
+    
   };
 
   render() {
+    //set language object to local storage
+    ls.set('language',(this.state.selectedOption))
+    console.log(ls.get('language'))
+    //
     const { classes, loginError, isAuthenticated } = this.props;
     if (isAuthenticated) {
       return <Redirect to="/quizcompetition/quiz" />;
     } else {
       return (
-       
-        // <Container component="main" maxWidth="xs">
-        //   <Paper className={classes.paper}>
-         
-        //     <Avatar className={classes.avatar}>
-        //       {/* <LockOutlinedIcon /> */}
-        //     </Avatar>
-        //     <Typography component="h1" variant="h5">
-        //       Sign in
-        //     </Typography>
-        //     <TextField
-        //       variant="outlined"
-        //       margin="normal"
-        //       fullWidth
-        //       id="email"
-        //       label="Email Address"
-        //       name="email"
-        //       onChange={this.handleEmailChange}
-        //     />
-        //     <TextField
-        //       variant="outlined"
-        //       margin="normal"
-        //       fullWidth
-        //       name="password"
-        //       label="Password"
-        //       type="password"
-        //       id="password"
-        //       onChange={this.handlePasswordChange}
-        //     />
-            
-        //     {loginError && (
-        //       <Typography component="p" className={classes.errorText}>
-        //         Incorrect email or password.
-        //       </Typography>
-        //     )}
-        //     <div className="" style={{ width: '358px'}}>
-        //     <Select
-        //     placeholder='select language'
-        //       value={this.selectedOption}
-        //       onChange={this.handleChange}
-        //       options={options}
-        //     /></div><br></br>
-        //     <Button
-        //       type="button"
-        //       fullWidth
-        //       variant="contained"
-        //       color="primary"
-        //       className={classes.submit}
-        //       onClick={this.handleSubmit}
-        //     >
-        //       Sign In
-        //     </Button>
-            
-        //   </Paper>
-          
-        // </Container>
+      
        <div>
     <div class="row" id="navbar">
         <div >μMora Mathematics Competition 2020</div>
@@ -147,7 +100,14 @@ class Login extends Component {
 
                     <label for="psw"><b>Password</b></label>
                     <input onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required></input>
-                   
+                   <p></p>
+                     <Select
+                        placeholder='select language'
+                          value={this.selectedOption}
+                          onChange={this.handleChange}
+                          options={options}
+                        /><br></br>
+
                     <button onClick={this.handleSubmit} type="submit">Login</button>
                     {loginError && (
                   <Typography component="p" className={classes.errorText}>

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { db } from "../../firebase/firebase";
+import { db,myFirebase } from "../../firebase/firebase";
 import QuestionPage from "./questionPage";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
 import ls from 'local-storage';
+import { auth } from "firebase";
 // const schema = {
 //   name : "",
 //   email: "",
@@ -17,7 +18,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userid: "dp2bEKxEyWUag2bvmxJ8", //auth().currentUser,
+      userid: ls.get('UserId'),
       questions: [],
       question: "",
       number: 0,
@@ -101,7 +102,9 @@ class Dashboard extends Component {
   };
 
   render() {
-    console.log(ls.get('UserId'))
+    //language value
+    console.log(ls.get('language').value)
+    //
     const { isLoggingOut, logoutError } = this.props;
     return (
       <div>
