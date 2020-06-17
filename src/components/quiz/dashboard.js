@@ -3,6 +3,7 @@ import { db } from "../../firebase/firebase";
 import QuestionPage from "./questionPage";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
+import ls from 'local-storage';
 // const schema = {
 //   name : "",
 //   email: "",
@@ -100,6 +101,7 @@ class Dashboard extends Component {
   };
 
   render() {
+    console.log(ls.get('UserId'))
     const { isLoggingOut, logoutError } = this.props;
     return (
       <div>
