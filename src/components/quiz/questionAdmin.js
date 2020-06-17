@@ -31,6 +31,7 @@ class QAdmin extends Component {
   }
   // update state on form value changes
   handleChange(e) {
+    console.log(e.target.name, e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   }
   handleArrayChange(e) {
@@ -41,12 +42,12 @@ class QAdmin extends Component {
   handleSinhalaChange(e) {
     let choices = this.state.sinhalaChoices;
     choices[e.target.name] = e.target.value;
-    this.setState({ choices: choices });
+    this.setState({ sinhalaChoices: choices });
   }
   handleTamilChange(e) {
     let choices = this.state.tamilChoices;
     choices[e.target.name] = e.target.value;
-    this.setState({ choices: choices });
+    this.setState({ tamilChoices: choices });
   }
 
   fileUpload(e) {
@@ -75,19 +76,23 @@ class QAdmin extends Component {
       () => {
         // Handle successful uploads on complete
         console.log(upload.snapshot);
-        this.setState({ image: upload.snapshot.ref.fullPath });
+        this.setState({ image: upload.snapshot.ref.fullPath, uploading: false });
         this.showImage(upload.snapshot.ref.fullPath);
-        this.setState({ uploading: false });
       }
     );
   }
   showImage(image) {
-    storage
-      .ref(image)
-      .getDownloadURL()
-      .then((url) => {
-        this.setState({ img: url });
-      });
+    if (image) {
+      storage
+        .ref(image)
+        .getDownloadURL()
+        .then((url) => {
+          this.setState({ img: url });
+        })
+        .catch((error) => {
+          return;
+        });
+    }
   }
 
   editQuestion(id) {
@@ -106,6 +111,10 @@ class QAdmin extends Component {
   }
 
   addQuestion() {
+    if (this.state.uploading) {
+      alert("Still uploading");
+      return;
+    }
     let question = DBQuestion(this.state);
     console.log(question);
     if (this.state.id) {
@@ -116,6 +125,7 @@ class QAdmin extends Component {
   }
   resetState() {
     this.setState(new Question());
+    this.setState({ img: null });
   }
   addOption() {
     let choices = this.state.choices;
@@ -166,7 +176,7 @@ class QAdmin extends Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <Form className="col-6">
+          <div className="col-6">
             <h2>{this.state.id ? "Edit Question" : "Add New Question"} </h2>
             {/* Populate other fields like this */}
             <input value={this.state.description} onChange={this.handleChange} name="description" placeholder="English"></input>
@@ -202,7 +212,7 @@ class QAdmin extends Component {
             {/* Image */}
             <Form.File onChange={this.fileUpload} type="file" name="image" label="Question Image" />
             <p>{this.state.uploading ? "Uploading" : ""}</p>
-            <img className="img-fluid" src={this.state.img}></img>
+            <img alt="Question Figure" className="img-fluid" src={this.state.img}></img>
             <Form.Label>Correct Answer</Form.Label>
             <Form.Control as="select" name="correct" onChange={this.handleChange}>
               <option>A</option>
@@ -213,7 +223,7 @@ class QAdmin extends Component {
             </Form.Control>
             {/* <button onClick={() => this.addOption()}>Add Choices</button> */}
             <button onClick={() => this.addQuestion()}>{this.state.id ? "Save Changes" : "Add"}</button>
-          </Form>
+          </div>
           <div className="col-6">
             <h2>Exisiting Questions</h2>
             {questions}
