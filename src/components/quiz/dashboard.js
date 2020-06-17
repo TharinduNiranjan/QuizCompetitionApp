@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { db } from "../../firebase/firebase";
+import { db, auth } from "../../firebase/firebase";
 import QuestionPage from "./questionPage";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
@@ -17,7 +17,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userid: auth().currentUser.uid, //"dp2bEKxEyWUag2bvmxJ8",
+      userid: ls.get("UserId"), //auth().currentUser.uid,
       questions: [],
       question: "",
       number: 0,
@@ -34,7 +34,7 @@ class Dashboard extends Component {
   // get all questions from Firestore on loading dashboard
   componentDidMount() {
     // this.createNote();
-    console.log(this.state.userid);
+    // console.log(auth().currentUser);
     db.collection(this.usercol)
       .doc(this.state.userid)
       .onSnapshot(
@@ -105,7 +105,6 @@ class Dashboard extends Component {
   };
 
   render() {
-    console.log(ls.get("UserId"));
     const { isLoggingOut, logoutError } = this.props;
     return (
       <div>
@@ -120,7 +119,7 @@ class Dashboard extends Component {
           })}
         </div>
         <QuestionPage question={this.state.question.id} user={this.state.userid} number={this.state.number} changeQuestion={this.changeQuestion}></QuestionPage>
-        <button onClick={() => this.addUser()}>Add User</button>
+        {/* <button onClick={() => this.addUser()}>Add User</button> */}
         <div></div>
 
         <button onClick={this.handleLogout}>Logout</button>

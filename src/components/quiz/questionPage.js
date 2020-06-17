@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { db, storage } from "../firebase/firebase";
+import { db, storage } from "../../firebase/firebase";
 import { Form, Button } from "react-bootstrap";
 // let admin = require("firebase-admin");
 
@@ -51,12 +51,12 @@ class QuestionPage extends Component {
       });
   }
   saveAnswer(number) {
-    this.props.changeQuestion(number);
     // code to save answer to db
     let field = "questions." + (this.props.number + 1) + ".selected"; //add one for zero indexing
     db.collection(this.usercol)
       .doc(this.props.user)
-      .update({ [field]: this.state.selected }); // make array if multiple answers
+      .update({ [field]: this.state.selected })
+      .then(this.props.changeQuestion(number)); // make array if multiple answers
   }
   setFlag(number) {
     let field = "questions." + (this.props.number + 1) + ".flag";
@@ -81,7 +81,7 @@ class QuestionPage extends Component {
           <h1>Question {this.props.number + 1}</h1>
         </div>
         <p>Q {this.state.question.description}</p>
-        <img className="img-fluid" src={this.state.question.image}></img>
+        <img alt="question" className="img-fluid" src={this.state.question.image}></img>
         <Form> {choices}</Form>
         <div className="flex">
           <Button onClick={() => this.saveAnswer(this.props.number - 1)}>Prev</Button>

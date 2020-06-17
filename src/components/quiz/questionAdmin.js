@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import CRUD from "./questionCRUD";
-import { db, storage } from "../firebase/firebase";
+import { db, storage } from "../../firebase/firebase";
 
 class QAdmin extends Component {
   col = "questions";
