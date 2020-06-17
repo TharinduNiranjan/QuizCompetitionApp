@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import ProtectedRoute from "./components/login/auth/protectedRoute";
@@ -21,10 +20,12 @@ function App(props) {
     </Switch>
   );
 }
+
 function mapStateToProps(state) {
   return {
     isAuthenticated: state.auth.isAuthenticated,
     isVerifying: state.auth.isVerifying,
   };
 }
+
 export default connect(mapStateToProps)(App);

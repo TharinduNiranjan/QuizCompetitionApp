@@ -17,7 +17,7 @@ const ProtectedRoute = ({
       ) : (
         <Redirect
           to={{
-            pathname: "/quizcompetition/quiz",
+            pathname: "/quizcompetition/login",
             state: { from: props.location }
           }}
         />

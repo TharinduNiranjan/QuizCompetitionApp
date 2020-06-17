@@ -1,5 +1,5 @@
-import { myFirebase } from "../../firebase/firebase";
-
+import { myFirebase } from "../firebase/firebase";
+import ls from 'local-storage';
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
@@ -66,13 +66,15 @@ export const loginUser = (email, password) => dispatch => {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(user => {
-      console.log(user)
+      console.log(user.user.uid)
+      ls.set('UserId',user.user.uid)
       dispatch(receiveLogin(user));
     })
     .catch(error => {
       //Do something with the error if you want!
       dispatch(loginError());
     });
+  
 };
 
 export const logoutUser = () => dispatch => {

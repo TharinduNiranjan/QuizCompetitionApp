@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { db, auth } from "../firebase/firebase";
+import { db } from "../../firebase/firebase";
 import QuestionPage from "./questionPage";
-
+import { connect } from "react-redux";
+import { logoutUser } from "../../actions/";
+import ls from "local-storage";
 // const schema = {
 //   name : "",
 //   email: "",
@@ -96,8 +98,15 @@ class Dashboard extends Component {
         this.setState({ userid: id });
       });
   }
+  //logout user
+  handleLogout = () => {
+    const { dispatch } = this.props;
+    dispatch(logoutUser());
+  };
 
   render() {
+    console.log(ls.get("UserId"));
+    const { isLoggingOut, logoutError } = this.props;
     return (
       <div>
         <div className="flex">
@@ -112,9 +121,20 @@ class Dashboard extends Component {
         </div>
         <QuestionPage question={this.state.question.id} user={this.state.userid} number={this.state.number} changeQuestion={this.changeQuestion}></QuestionPage>
         <button onClick={() => this.addUser()}>Add User</button>
+        <div></div>
+
+        <button onClick={this.handleLogout}>Logout</button>
+        {isLoggingOut && <p>Logging Out....</p>}
+        {logoutError && <p>Error logging out</p>}
       </div>
     );
   }
 }
 
-export default Dashboard;
+function mapStateToProps(state) {
+  return {
+    isLoggingOut: state.auth.isLoggingOut,
+    logoutError: state.auth.logoutError,
+  };
+}
+export default connect(mapStateToProps)(Dashboard);
