@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { db } from "../firebase/firebase";
+import { db, auth } from "../firebase/firebase";
 import QuestionPage from "./questionPage";
 
 // const schema = {
@@ -15,7 +15,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userid: "dp2bEKxEyWUag2bvmxJ8", //auth().currentUser,
+      userid: auth().currentUser.uid, //"dp2bEKxEyWUag2bvmxJ8",
       questions: [],
       question: "",
       number: 0,
@@ -32,6 +32,7 @@ class Dashboard extends Component {
   // get all questions from Firestore on loading dashboard
   componentDidMount() {
     // this.createNote();
+    console.log(this.state.userid);
     db.collection(this.usercol)
       .doc(this.state.userid)
       .onSnapshot(
@@ -74,6 +75,9 @@ class Dashboard extends Component {
   addUser() {
     db.collection(this.usercol)
       .add({
+        // or use the following to edit an exisitng document
+        // .doc("68VkB97iNFQctYCwYZB9hZEaEVu1")
+        // .set({
         questions: {
           1: {
             id: "9VbgEeAzpZRkoagkJdof",
