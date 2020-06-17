@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import CRUD from "./questionCRUD";
-import { db } from "../firebase/firebase";
+import { db, storage } from "../firebase/firebase";
 
 class QAdmin extends Component {
   col = "questions";
@@ -20,9 +20,10 @@ class QAdmin extends Component {
     this.addQuestion = this.addQuestion.bind(this);
     this.editQuestion = this.editQuestion.bind(this);
     this.renderQuestions = this.renderQuestions.bind(this);
+    this.fileUpload = this.fileUpload.bind(this);
   }
   componentDidMount() {
-    db.collection("questions").onSnapshot((querySnapshot) => {
+    db.collection(this.col).onSnapshot((querySnapshot) => {
       let questions = [];
       querySnapshot.forEach((doc) => {
         questions.push({ id: doc.id, content: doc.data() });
@@ -53,6 +54,46 @@ class QAdmin extends Component {
       choices: r,
     });
   }
+  fileUpload(e) {
+    let file = e.target.files[0];
+    let now = new Date();
+    let time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+    let filename = file.name + time;
+    this.setState({ uploading: true });
+    let storageRef = storage.ref();
+    if (file && this.state.image) {
+      storageRef.child(this.state.image).delete(); // delete previous file
+    }
+
+    let upload = storageRef.child(filename).put(file);
+    upload.on(
+      "state_changed",
+      function (snapshot) {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+      },
+      function (error) {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        // Handle successful uploads on complete
+        console.log(upload.snapshot);
+        this.setState({ image: upload.snapshot.ref.fullPath });
+        this.showImage(upload.snapshot.ref.fullPath);
+        this.setState({ uploading: false });
+      }
+    );
+  }
+  showImage(image) {
+    storage
+      .ref(image)
+      .getDownloadURL()
+      .then((url) => {
+        this.setState({ img: url });
+      });
+  }
 
   editQuestion(id) {
     db.collection(this.col)
@@ -64,6 +105,7 @@ class QAdmin extends Component {
           return;
         }
         let question = snapshot.data();
+        this.showImage(question.image);
         this.setState({
           description: question.description,
           image: question.image,
@@ -75,7 +117,7 @@ class QAdmin extends Component {
 
   addQuestion() {
     console.log(this.state.questionID);
-    if (this.state.questionID != "") {
+    if (this.state.questionID !== "") {
       db.collection(this.col)
         .doc(this.state.questionID)
         .set(
@@ -89,6 +131,7 @@ class QAdmin extends Component {
             image: "",
             choices: [],
             questionID: "",
+            img: "",
           })
         );
     } else {
@@ -140,7 +183,7 @@ class QAdmin extends Component {
     ));
   }
   render() {
-    let questions, selected;
+    let questions;
     if (this.state.questions) {
       questions = this.renderQuestions();
     }
@@ -149,7 +192,9 @@ class QAdmin extends Component {
         <h2>{this.state.questionID ? "Edit Question" : "Add New Question"} </h2>
         {/* Populate other fields like this */}
         <input value={this.state.description} onChange={this.handleChange} name="description" placeholder="Description"></input>
-        <input value={this.state.image} onChange={this.handleChange} name="image" placeholder="Image"></input>
+        <input onChange={this.fileUpload} type="file" name="image" placeholder="Image"></input>
+        <p>{this.state.uploading ? "Uploading" : ""}</p>
+        <img className="img-fluid" src={this.state.img}></img>
         {this.state.choices.map((choice, key) => (
           <div key={key}>
             <input value={choice.text} onChange={this.handleArrayChange} name={choice.text} placeholder="Choice"></input>
