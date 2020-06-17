@@ -21,11 +21,11 @@ class Dashboard extends Component {
       number: 0,
       selected: "",
     };
+    this.usercol = "users";
+    this.questioncol = "questions";
     // this.handleChange = this.handleChange.bind(this);
     this.addUser = this.addUser.bind(this);
     this.updateSelection = this.updateSelection.bind(this);
-    this.usercol = "users";
-    this.questioncol = "questions";
     this.changeQuestion = this.changeQuestion.bind(this);
   }
 

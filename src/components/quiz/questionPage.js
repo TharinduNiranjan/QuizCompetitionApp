@@ -15,9 +15,10 @@ class QuestionPage extends Component {
     };
     this.questioncol = "questions";
     this.usercol = "users";
-    this.saveAnswer = this.saveAnswer.bind(this);
-    this.select = this.select.bind(this);
     this.getQuestion = this.getQuestion.bind(this);
+    this.saveAnswer = this.saveAnswer.bind(this);
+    this.setFlag = this.setFlag.bind(this);
+    this.select = this.select.bind(this);
   }
   componentDidUpdate(oldProps) {
     let id = this.props.question;
@@ -32,7 +33,7 @@ class QuestionPage extends Component {
       .get()
       .then((question) => {
         console.log(question.data());
-        let gsReference = storage
+        storage
           .ref(question.data().image)
           .getDownloadURL()
           .then((url) => {
