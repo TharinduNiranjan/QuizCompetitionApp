@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
 import Login from "./components/Login";
-import Quiz from './components/Quiz'
+import Quiz from './components/quiz/dashboard'
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
   return (
