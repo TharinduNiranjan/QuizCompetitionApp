@@ -26,7 +26,7 @@ class Dashboard extends Component {
     };
     this.usercol = "users";
     this.questioncol = "questions";
-
+    this.timer = this.timer.bind(this);
     this.addUser = this.addUser.bind(this); // testing fucntion to create a fake user
     this.changeQuestion = this.changeQuestion.bind(this); // change question prop of question page (passes question id)
     this.submitAll = this.submitAll.bind(this); // displays submit screen by toggling state parameter submit
@@ -51,6 +51,7 @@ class Dashboard extends Component {
           console.log(error);
         }
       );
+    setInterval(this.timer, 1000);
   }
 
   // Other CRUD Operations
@@ -79,7 +80,17 @@ class Dashboard extends Component {
     dispatch(logoutUser());
     this.props.history.push("/quizcompetition/login");
   };
-
+  timer() {
+    let deadline = new Date("june 20, 2020 15:54:25").getTime();
+    let now = new Date().getTime();
+    let t = deadline - now;
+    // let days = Math.floor(t / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((t % (1000 * 60)) / 1000);
+    let display = hours + ":" + minutes + ":" + seconds;
+    this.setState({ time: display });
+  }
   //testing functions - USER Schema
   addUser() {
     db.collection(this.usercol)
@@ -110,6 +121,7 @@ class Dashboard extends Component {
     return (
       <div>
         <div className="flex">
+          {this.state.time}
           {this.state.questions.map((question, key) => {
             return (
               // create the question base
