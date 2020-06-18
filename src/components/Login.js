@@ -8,8 +8,6 @@ import { withStyles } from "@material-ui/styles";
 // import Button from "@material-ui/core/Button";
 // import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Container from "@material-ui/core/Container";
 import Select from "react-select";
 import ls from "local-storage";
 import "./loginStyle.css";
@@ -85,7 +83,7 @@ class Login extends Component {
           <div class="row" id="navbar">
             <div>μMora Mathematics Competition 2020</div>
             <div id="logo">
-              <img src={Img} id="logoimg" />
+              <img alt="logo" src={Img} id="logoimg" />
             </div>
           </div>
           <div class="row" id="loginbody">

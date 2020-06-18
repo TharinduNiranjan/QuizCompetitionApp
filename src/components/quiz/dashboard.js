@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { db, auth } from "../../firebase/firebase";
+import { db } from "../../firebase/firebase";
 import QuestionPage from "./questionPage";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
