@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { db, storage } from "../../firebase/firebase";
-import { Form, Button } from "react-bootstrap";
+import { Form, Container, Row, Col } from "react-bootstrap";
 // let admin = require("firebase-admin");
 
 class QuestionPage extends Component {
@@ -45,6 +45,7 @@ class QuestionPage extends Component {
               let q = {
                 description: data.description,
                 choices: data.choices,
+                hardness: data.hardness,
                 image: url,
               };
               this.setState({ question: q });
@@ -54,6 +55,7 @@ class QuestionPage extends Component {
           let q = {
             description: data.description,
             choices: data.choices,
+            hardness: data.hardness,
             image: "",
           };
           this.setState({ question: q });
@@ -119,7 +121,6 @@ class QuestionPage extends Component {
     let choices;
     if (this.state.question.choices) {
       choices = Object.keys(this.state.question.choices).map((key) => (
-        // onClick={() => this.select(key)}
         <Form.Check
           key={key}
           type="radio"
@@ -133,22 +134,27 @@ class QuestionPage extends Component {
     }
     return (
       // create the question base
-      <div key={this.props.id}>
-        <div>
-          <h1>Question {this.props.number + 1}</h1>
-        </div>
-        <p>Q {this.state.question.description}</p>
-        {this.state.question.image ? <img alt="question" className="img-fluid" src={this.state.question.image}></img> : ""}
-        <Form> {choices}</Form>
-        <button onClick={() => this.unselect()}>Reset Choices</button>
-        <div className="flex">
-          <Button onClick={() => this.changeQuestion(this.props.number - 1)}>Prev</Button>
-          <Button className="ml-3 mr-3" onClick={() => this.setFlag(this.props.number)}>
-            Flag: {this.state.flag ? "Yes" : "No"}
-          </Button>
-          <Button onClick={() => this.changeQuestion(this.props.number + 1)}>{this.props.number >= 1 ? "Submit" : "Next"}</Button>
-        </div>
-      </div>
+      <Container key={this.props.id}>
+        <Row>
+          <Col sm="2">
+            <p>Question {this.props.number + 1}</p>
+            <p>Difficulty {this.state.question.hardness}</p>
+          </Col>
+          <Col sm="10">
+            <h2>Q {this.state.question.description}</h2>
+            {this.state.question.image ? <img alt="question" className="img-fluid" src={this.state.question.image}></img> : ""}
+            <Form> {choices}</Form>
+            <button onClick={() => this.unselect()}>Reset Choices</button>
+          </Col>
+          <div className="footer">
+            <button onClick={() => this.changeQuestion(this.props.number - 1)}>Prev</button>
+            <button className="ml-3 mr-3" onClick={() => this.setFlag(this.props.number)}>
+              Flag: {this.state.flag ? "Yes" : "No"}
+            </button>
+            <button onClick={() => this.changeQuestion(this.props.number + 1)}>{this.props.number >= 1 ? "Submit" : "Next"}</button>
+          </div>
+        </Row>
+      </Container>
     );
   }
 }

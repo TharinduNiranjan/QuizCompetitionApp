@@ -6,17 +6,19 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Quiz from "./components/quiz/quiz";
 import Dashboard from "./components/quiz/dashboard";
-import QAdmin from "./components/quiz/questionAdmin";
+import StudentAdmin from "./components/quiz/studentAdmin";
+import UniversityAdmin from "./components/quiz/universityAdmin";
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
   console.log(props);
   return (
     <Switch>
       <Route exact path="/" component={Home} />
-      <ProtectedRoute path="/quizcompetition/quiz" component={Dashboard} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
+      <ProtectedRoute path="/quizcompetition/quiz" component={Quiz} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
       <Route path="/quizcompetition/login" component={Login} />
       <Route path="/quizcompetition/dash" component={Dashboard} />
-      <Route path="/quizcompetition/admin" component={QAdmin} />
+      <Route path="/quizcompetition/students" component={StudentAdmin} />
+      <Route path="/quizcompetition/university" component={UniversityAdmin} />
     </Switch>
   );
 }

@@ -12,6 +12,7 @@ class Question {
       this.sinhalaChoices = data.sinhala.choices;
       this.tamilDescription = data.tamil.description;
       this.tamilChoices = data.tamil.choices;
+      this.hardness = data.hardness;
     } else {
       this.description = "";
       this.choices = {
@@ -23,6 +24,7 @@ class Question {
       };
       this.image = "";
       this.correct = "";
+      this.hardness = "";
       this.sinhalaDescription = "";
       this.sinhalaChoices = {
         A: "",
@@ -49,6 +51,7 @@ function DBQuestion(state) {
     sinhala: { description: state.sinhalaDescription, choices: state.sinhalaChoices },
     tamil: { description: state.tamilDescription, choices: state.tamilChoices },
     correct: state.correct,
+    hardness: state.hardness,
   };
 }
 export { Question, DBQuestion };

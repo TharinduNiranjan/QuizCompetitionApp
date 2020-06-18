@@ -2,13 +2,15 @@ import React, { Component } from "react";
 import { Question, DBQuestion } from "./questionClasses";
 import { db, storage } from "../../firebase/firebase";
 import { Form, Row, Col, Container } from "react-bootstrap";
+import QList from "./questionList";
 
 class QAdmin extends Component {
-  col = "questions";
   constructor(props) {
     super(props);
     this.state = new Question();
     // let db = new CRUD();
+    this.col = this.props.collection;
+    this.questionRef = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.handleArrayChange = this.handleArrayChange.bind(this);
     this.handleSinhalaChange = this.handleSinhalaChange.bind(this);
@@ -31,7 +33,6 @@ class QAdmin extends Component {
   }
   // update state on form value changes
   handleChange(e) {
-    console.log(e.target.name, e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   }
   handleArrayChange(e) {
@@ -107,6 +108,7 @@ class QAdmin extends Component {
         let question = new Question(snapshot.data(), snapshot.id);
         this.showImage(question.image);
         this.setState(question);
+        this.questionRef.current.scrollIntoView({ behavior: "smooth" });
       });
   }
 
@@ -172,13 +174,9 @@ class QAdmin extends Component {
     ));
   }
   render() {
-    let questions;
-    if (this.state.questions) {
-      questions = this.renderQuestions();
-    }
     return (
       <div className="container-fluid">
-        <Container>
+        <Container ref={this.questionRef}>
           <h2>{this.state.id ? "Edit Question" : "Add New Question"} </h2>
           <Row>
             <Col sm="6">
@@ -208,6 +206,12 @@ class QAdmin extends Component {
                   <option>C</option>
                   <option>D</option>
                   <option>E</option>
+                </Form.Control>
+                <Form.Label>Difficulty</Form.Label>
+                <Form.Control as="select" name="hardness" onChange={this.handleChange}>
+                  <option>Easy</option>
+                  <option>Hard</option>
+                  <option>Submit</option>
                 </Form.Control>
               </div>
               {/* Image */}
@@ -263,11 +267,8 @@ class QAdmin extends Component {
           </Row>
           {/* <button onClick={() => this.addOption()}>Add Choices</button> */}
           <button onClick={() => this.addQuestion()}>{this.state.id ? "Save Changes" : "Add Question"}</button>
-
-          <Row>
-            <h2>Exisiting Questions</h2>
-            {questions}
-          </Row>
+          <h1>Question List</h1>
+          <QList collection={this.props.collection} edit={this.editQuestion}></QList>
         </Container>
       </div>
     );

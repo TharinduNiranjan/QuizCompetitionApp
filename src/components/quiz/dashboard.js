@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { db } from "../../firebase/firebase";
 import QuestionPage from "./questionPage";
-import SubmitPage from "./submit";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
 import ls from "local-storage";
@@ -18,7 +17,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userid: "68VkB97iNFQctYCwYZB9hZEaEVu1", //ls.get("UserId"), //auth().currentUser.uid, //
+      userid: ls.get("UserId"), //auth().currentUser.uid, //
       lang: "sinhala",
       questions: [],
       question: "",
@@ -42,7 +41,7 @@ class Dashboard extends Component {
           let allquestions = [];
           let qRef = snapshot.data().questions;
           // console.log(snapshot.data());
-          Object.keys(qRef).map((snap) => {
+          Object.keys(qRef).forEach((snap) => {
             allquestions[snap - 1] = qRef[snap];
           });
           this.setState({ questions: allquestions });
@@ -78,6 +77,7 @@ class Dashboard extends Component {
   handleLogout = () => {
     const { dispatch } = this.props;
     dispatch(logoutUser());
+    this.props.history.push("/quizcompetition/login");
   };
 
   //testing functions - USER Schema
@@ -122,7 +122,6 @@ class Dashboard extends Component {
         {this.state.submit ? (
           <div>
             Are you sure you want to submit? You can't change your answers once you submit click a question to
-            {/* <SubmitPage questions={this.state.questions}></SubmitPage> */}
             <button onClick={() => this.revise()}>Go back</button>
             <button onClick={this.handleLogout}>Submit and Leave</button>
           </div>
