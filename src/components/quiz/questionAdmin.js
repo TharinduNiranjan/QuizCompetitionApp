@@ -135,11 +135,14 @@ class QAdmin extends Component {
     });
   }
   removeOption(index) {
-    let choices = this.state.choices;
-    choices.splice(index, 1);
-    this.setState({
-      choices: choices,
-    });
+    let storageRef = storage.ref();
+    storageRef
+      .child(this.state.image)
+      .delete()
+      .then(() => {
+        this.setState({ image: "", img: null });
+        db.collection(this.col).doc(this.state.id).update({ image: "" });
+      });
   }
   renderChoices(choices, correct) {
     // mapping the array caused the answers to render unordered
@@ -212,7 +215,14 @@ class QAdmin extends Component {
             {/* Image */}
             <Form.File onChange={this.fileUpload} type="file" name="image" label="Question Image" />
             <p>{this.state.uploading ? "Uploading" : ""}</p>
-            <img alt="Question Figure" className="img-fluid" src={this.state.img}></img>
+            {this.state.img ? (
+              <div>
+                <img alt="Question Figure" className="img-fluid" src={this.state.img}></img>
+                <button onClick={() => this.removeOption()}>Remove Image</button>
+              </div>
+            ) : (
+              ""
+            )}
             <Form.Label>Correct Answer</Form.Label>
             <Form.Control as="select" name="correct" onChange={this.handleChange}>
               <option>A</option>
