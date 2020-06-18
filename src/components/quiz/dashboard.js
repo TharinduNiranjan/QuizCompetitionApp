@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { db } from "../../firebase/firebase";
+import { db, auth } from "../../firebase/firebase";
 import QuestionPage from "./questionPage";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
@@ -18,7 +18,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       userid: ls.get("UserId"), //auth().currentUser.uid, //
-      lang: "sinhala",
+      lang: ls.get("language").value, //"sinhala",
       questions: [],
       question: "",
       number: 0,
@@ -117,6 +117,9 @@ class Dashboard extends Component {
       });
   }
   render() {
+    //language value
+    console.log(ls.get("language").value);
+    //
     const { isLoggingOut, logoutError } = this.props;
     return (
       <div>
