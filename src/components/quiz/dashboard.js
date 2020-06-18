@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { db, auth } from "../../firebase/firebase";
+import { db } from "../../firebase/firebase";
 import QuestionPage from "./questionPage";
+import SubmitPage from "./submit";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
 import ls from "local-storage";
@@ -17,7 +18,8 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userid: ls.get("UserId"), //auth().currentUser.uid,
+      userid: "68VkB97iNFQctYCwYZB9hZEaEVu1", //ls.get("UserId"), //auth().currentUser.uid, //
+      lang: "sinhala",
       questions: [],
       question: "",
       number: 0,
@@ -25,16 +27,14 @@ class Dashboard extends Component {
     };
     this.usercol = "users";
     this.questioncol = "questions";
-    // this.handleChange = this.handleChange.bind(this);
-    this.addUser = this.addUser.bind(this);
-    this.updateSelection = this.updateSelection.bind(this);
-    this.changeQuestion = this.changeQuestion.bind(this);
+
+    this.addUser = this.addUser.bind(this); // testing fucntion to create a fake user
+    this.changeQuestion = this.changeQuestion.bind(this); // change question prop of question page (passes question id)
+    this.submitAll = this.submitAll.bind(this); // displays submit screen by toggling state parameter submit
   }
 
-  // get all questions from Firestore on loading dashboard
+  // get all questions from Firestore collection users on loading dashboard and map to array
   componentDidMount() {
-    // this.createNote();
-    // console.log(auth().currentUser);
     db.collection(this.usercol)
       .doc(this.state.userid)
       .onSnapshot(
@@ -43,7 +43,7 @@ class Dashboard extends Component {
           let qRef = snapshot.data().questions;
           // console.log(snapshot.data());
           Object.keys(qRef).map((snap) => {
-            allquestions.push(qRef[snap]);
+            allquestions[snap - 1] = qRef[snap];
           });
           this.setState({ questions: allquestions });
           this.changeQuestion(this.state.number);
@@ -54,11 +54,6 @@ class Dashboard extends Component {
       );
   }
 
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  }
   // Other CRUD Operations
 
   // switch between questions
@@ -70,10 +65,22 @@ class Dashboard extends Component {
     this.setState({ question: newq, number: n });
     // console.log(n, newq, this.state);
   }
-  updateSelection(sel) {
-    this.setState({ selected: sel });
+
+  // submit answers and log out
+  submitAll() {
+    this.setState({ submit: true });
   }
-  //testing functions
+  revise() {
+    this.setState({ submit: false });
+    this.changeQuestion(this.state.number);
+  }
+  //logout user
+  handleLogout = () => {
+    const { dispatch } = this.props;
+    dispatch(logoutUser());
+  };
+
+  //testing functions - USER Schema
   addUser() {
     db.collection(this.usercol)
       .add({
@@ -98,12 +105,6 @@ class Dashboard extends Component {
         this.setState({ userid: id });
       });
   }
-  //logout user
-  handleLogout = () => {
-    const { dispatch } = this.props;
-    dispatch(logoutUser());
-  };
-
   render() {
     const { isLoggingOut, logoutError } = this.props;
     return (
@@ -118,11 +119,25 @@ class Dashboard extends Component {
             );
           })}
         </div>
-        <QuestionPage question={this.state.question.id} user={this.state.userid} number={this.state.number} changeQuestion={this.changeQuestion}></QuestionPage>
-        {/* <button onClick={() => this.addUser()}>Add User</button> */}
-        <div></div>
-
-        <button onClick={this.handleLogout}>Logout</button>
+        {this.state.submit ? (
+          <div>
+            Are you sure you want to submit? You can't change your answers once you submit click a question to
+            {/* <SubmitPage questions={this.state.questions}></SubmitPage> */}
+            <button onClick={() => this.revise()}>Go back</button>
+            <button onClick={this.handleLogout}>Submit and Leave</button>
+          </div>
+        ) : (
+          <QuestionPage
+            question={this.state.question.id}
+            user={this.state.userid}
+            number={this.state.number}
+            changeQuestion={this.changeQuestion}
+            submitAll={this.submitAll}
+            lang={this.state.lang}
+          ></QuestionPage>
+        )}
+        {/* <button onClick={() => this.addUser()}>Add User</button> 
+        <button onClick={this.handleLogout}>Logout</button>*/}
         {isLoggingOut && <p>Logging Out....</p>}
         {logoutError && <p>Error logging out</p>}
       </div>
