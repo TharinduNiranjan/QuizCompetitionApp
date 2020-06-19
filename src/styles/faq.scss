@@ -1,0 +1,44 @@
+#faq {
+    background-image: url("../assets/White.jpg");
+    background-size: cover;
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    #loginbody {
+        position: relative;
+    }
+    .divider{
+        width:1%;
+        height:auto;
+        display:inline-block;
+    }
+    section {
+        background-color: rgba($color: white, $alpha: 0.5);
+        padding-left: 5%;
+        padding-right: 5%; 
+        margin-top: 15vh;
+        height: 100%;
+        width: 100%;
+    }
+    h3{
+        text-align: left;
+        font-family: Helvetica;
+        margin-bottom: 6px;
+        font-size: 100%;
+        font-weight: 600;
+      }
+    
+}
+
+#navbar{
+    position: relative;
+    padding:20px;
+    padding-left: 20px;
+    font-size: 2em;
+    padding-right: 100px;
+    margin-top: auto;
+    background-color: rgb(18, 18, 24);
+    color: white;
+    box-shadow: 0px 1px 3px rgb(1, 20, 49);
+}
