@@ -4,6 +4,8 @@ import QuestionPage from "./questionPage";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
 import ls from "local-storage";
+import { Container, Row, Col } from "react-bootstrap";
+import "../../styles/dashboard.scss";
 // const schema = {
 //   name : "",
 //   email: "",
@@ -88,7 +90,12 @@ class Dashboard extends Component {
     let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
     let seconds = Math.floor((t % (1000 * 60)) / 1000);
-    let display = hours + ":" + minutes + ":" + seconds;
+    let display = (
+      <div className="xtimervalue">
+        {hours}:{minutes}
+        <span className="small-text">:{seconds}</span>
+      </div>
+    );
     this.setState({ time: display });
   }
   //testing functions - USER Schema
@@ -117,23 +124,27 @@ class Dashboard extends Component {
       });
   }
   render() {
-    //language value
-    console.log(ls.get("language").value);
-    //
     const { isLoggingOut, logoutError } = this.props;
     return (
-      <div>
-        <div className="flex">
-          {this.state.time}
-          {this.state.questions.map((question, key) => {
-            return (
-              // create the question base
-              <div key={key} className={!question.flag ? (question.selected.length === 0 ? "red" : "green") : "yellow"}>
-                <button onClick={() => this.changeQuestion(key)}>Q {key + 1}</button> {!question.flag ? (question.selected.length === 0 ? "red" : "green") : "yellow"}
-              </div>
-            );
-          })}
-        </div>
+      <Container>
+        <Row className="timerprogress">
+          <Col sm="2" className="xtimervalue">
+            {this.state.time}
+          </Col>
+
+          <Col sm="10">
+            <Row className="xbar">
+              {this.state.questions.map((question, key) => {
+                return (
+                  // create the question base
+                  <Col key={key} onClick={() => this.changeQuestion(key)} className={!question.flag ? (question.selected.length === 0 ? "bRed" : "bGreen") : "bYellow"}>
+                    Q {key + 1}
+                  </Col>
+                );
+              })}
+            </Row>
+          </Col>
+        </Row>
         {this.state.submit ? (
           <div>
             Are you sure you want to submit? You can't change your answers once you submit click a question to
@@ -154,7 +165,7 @@ class Dashboard extends Component {
         <button onClick={this.handleLogout}>Logout</button>*/}
         {isLoggingOut && <p>Logging Out....</p>}
         {logoutError && <p>Error logging out</p>}
-      </div>
+      </Container>
     );
   }
 }

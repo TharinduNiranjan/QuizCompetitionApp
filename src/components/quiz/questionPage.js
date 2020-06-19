@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { db, storage } from "../../firebase/firebase";
-import { Form, Container, Row, Col } from "react-bootstrap";
+import { Form, Row, Col, Container } from "react-bootstrap";
 // let admin = require("firebase-admin");
 
 class QuestionPage extends Component {
@@ -11,6 +11,7 @@ class QuestionPage extends Component {
       question: {
         description: "",
         image: "",
+        hardness: "",
       },
     };
     this.questioncol = "questions";
@@ -41,20 +42,20 @@ class QuestionPage extends Component {
             .ref(question.data().image)
             .getDownloadURL()
             .then((url) => {
-              let data = question.data()[this.props.lang];
+              let data = question.data();
               let q = {
-                description: data.description,
-                choices: data.choices,
+                description: data[this.props.lang].description,
+                choices: data[this.props.lang].choices,
                 hardness: data.hardness,
                 image: url,
               };
               this.setState({ question: q });
             });
         } else {
-          let data = question.data()[this.props.lang];
+          let data = question.data();
           let q = {
-            description: data.description,
-            choices: data.choices,
+            description: data[this.props.lang].description,
+            choices: data[this.props.lang].choices,
             hardness: data.hardness,
             image: "",
           };
@@ -134,27 +135,43 @@ class QuestionPage extends Component {
     }
     return (
       // create the question base
-      <Container key={this.props.id}>
+      <div className="Qcontent" key={this.props.id}>
+        <Row className="xnumcategory">
+          <div className="xqNum">Question {this.props.number + 1} of 30</div>
+          <div className="xqCategory">Category : {this.state.question.hardness}</div>
+        </Row>
         <Row>
-          <Col sm="2">
+          {/* <Col sm="2">
             <p>Question {this.props.number + 1}</p>
             <p>Difficulty {this.state.question.hardness}</p>
+          </Col> */}
+          <Col className="questionContent">
+            <p>{this.state.question.description}</p>
+            {this.state.question.image ? <img alt="question" className="img-fluid Qimage" src={this.state.question.image}></img> : ""}
+            <div className="choices">
+              {choices}
+              <button className="reset" onClick={() => this.unselect()}>
+                Remove Answer
+              </button>
+            </div>
           </Col>
-          <Col sm="10">
-            <h2>Q {this.state.question.description}</h2>
-            {this.state.question.image ? <img alt="question" className="img-fluid" src={this.state.question.image}></img> : ""}
-            <Form> {choices}</Form>
-            <button onClick={() => this.unselect()}>Reset Choices</button>
-          </Col>
-          <div className="footer">
-            <button onClick={() => this.changeQuestion(this.props.number - 1)}>Prev</button>
-            <button className="ml-3 mr-3" onClick={() => this.setFlag(this.props.number)}>
-              Flag: {this.state.flag ? "Yes" : "No"}
-            </button>
-            <button onClick={() => this.changeQuestion(this.props.number + 1)}>{this.props.number >= 1 ? "Submit" : "Next"}</button>
-          </div>
         </Row>
-      </Container>
+        <Container className="dashboard-footer">
+          <Row>
+            <Col sm="4">
+              <button onClick={() => this.changeQuestion(this.props.number - 1)}> {"< Prev"}</button>
+            </Col>
+            <Col sm="4">
+              <button className={this.state.flag ? "flagbutton" : ""} onClick={() => this.setFlag(this.props.number)}>
+                <span>&#9873</span> {this.state.flag ? "Flagged" : "Flag Question"}
+              </button>
+            </Col>
+            <Col sm="4">
+              <button onClick={() => this.changeQuestion(this.props.number + 1)}>{this.props.number >= 1 ? "Submit" : "Next >"}</button>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }
