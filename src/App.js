@@ -8,6 +8,7 @@ import Quiz from "./components/quiz/quiz";
 import Dashboard from "./components/quiz/dashboard";
 import StudentAdmin from "./components/quiz/studentAdmin";
 import UniversityAdmin from "./components/quiz/universityAdmin";
+import JuniorAdmin from "./components/quiz/juniorAdmin";
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
   console.log(props);
@@ -19,6 +20,7 @@ function App(props) {
       <Route path="/quizcompetition/dash" component={Dashboard} />
       <Route path="/quizcompetition/students" component={StudentAdmin} />
       <Route path="/quizcompetition/university" component={UniversityAdmin} />
+      <Route path="/quizcompetition/junior" component={JuniorAdmin} />
     </Switch>
   );
 }
