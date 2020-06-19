@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Quiz from './components/quiz/dashboard'
+import QAdmin from "./components/quiz/questionAdmin";
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
   return (
@@ -14,12 +15,15 @@ function App(props) {
       <Route exact path='/' component={Home}/>
       <ProtectedRoute
         exact
-        path="/quizcompetition/quiz"
+        path="/quizcompetition/dash"
         component={Quiz}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
+      <Route exact path="/quizcompetition/admin" component={QAdmin}  />
       <Route path="/quizcompetition/login" component={Login} />
+      
+
     </Switch>
   );
 }

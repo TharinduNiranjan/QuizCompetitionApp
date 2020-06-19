@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { db,myFirebase } from "../../firebase/firebase";
+import { db, auth } from "../../firebase/firebase";
 import QuestionPage from "./questionPage";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
-import ls from 'local-storage';
-import { auth } from "firebase";
+import ls from "local-storage";
 // const schema = {
 //   name : "",
 //   email: "",
@@ -18,23 +17,24 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userid: ls.get('UserId'),
+      userid: ls.get("UserId"), //auth().currentUser.uid,
       questions: [],
       question: "",
       number: 0,
       selected: "",
     };
+    this.usercol = "users";
+    this.questioncol = "questions";
     // this.handleChange = this.handleChange.bind(this);
     this.addUser = this.addUser.bind(this);
     this.updateSelection = this.updateSelection.bind(this);
-    this.usercol = "users";
-    this.questioncol = "questions";
     this.changeQuestion = this.changeQuestion.bind(this);
   }
 
   // get all questions from Firestore on loading dashboard
   componentDidMount() {
     // this.createNote();
+    // console.log(auth().currentUser);
     db.collection(this.usercol)
       .doc(this.state.userid)
       .onSnapshot(
@@ -77,6 +77,9 @@ class Dashboard extends Component {
   addUser() {
     db.collection(this.usercol)
       .add({
+        // or use the following to edit an exisitng document
+        // .doc("68VkB97iNFQctYCwYZB9hZEaEVu1")
+        // .set({
         questions: {
           1: {
             id: "9VbgEeAzpZRkoagkJdof",
@@ -102,11 +105,11 @@ class Dashboard extends Component {
   };
 
   render() {
-    //language value
-    console.log(ls.get('language').value)
-    //
+    var nowTime=new Date().getTime()/60000;
     const { isLoggingOut, logoutError } = this.props;
-    return (
+    console.log(nowTime-ls.get('timeloggedin'))
+   
+     return (
       <div>
         <div className="flex">
           {this.state.questions.map((question, key) => {
@@ -119,23 +122,22 @@ class Dashboard extends Component {
           })}
         </div>
         <QuestionPage question={this.state.question.id} user={this.state.userid} number={this.state.number} changeQuestion={this.changeQuestion}></QuestionPage>
-        <button onClick={() => this.addUser()}>Add User</button>
-        <div>
+        {/* <button onClick={() => this.addUser()}>Add User</button> */}
+        <div></div>
+
+        <button onClick={this.handleLogout}>Logout</button>
+        {isLoggingOut && <p>Logging Out....</p>}
+        {logoutError && <p>Error logging out</p>}
       </div>
-        
-      <button onClick={this.handleLogout}>Logout</button>
-      {isLoggingOut && <p>Logging Out....</p>}
-      {logoutError && <p>Error logging out</p>}
-      </div>
- 
     );
+        
   }
 }
 
 function mapStateToProps(state) {
   return {
     isLoggingOut: state.auth.isLoggingOut,
-    logoutError: state.auth.logoutError
+    logoutError: state.auth.logoutError,
   };
 }
 export default connect(mapStateToProps)(Dashboard);

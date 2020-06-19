@@ -59,28 +59,32 @@ class Login extends Component {
   };
 
   handleSubmit = () => {
+    console.log(this.state.selectedOption.value)
+    ls.set('language',(this.state.selectedOption))
+   if(this.state.selectedOption.value==null){
+      alert('please select language')
+  }
+    else if(this.state.selectedOption!=null){
     const { dispatch } = this.props;
     const { email, password } = this.state;
 
     dispatch(loginUser(email, password));
-  };
+  }};
 
   handleChange = selectedOption => {
     this.setState({ selectedOption });
-    
-    
     console.log(`Option selected:`, selectedOption);
-    
+   
   };
 
   render() {
     //set language object to local storage
-    ls.set('language',(this.state.selectedOption))
-    console.log(ls.get('language'))
+   
     //
+    
     const { classes, loginError, isAuthenticated } = this.props;
     if (isAuthenticated) {
-      return <Redirect to="/quizcompetition/quiz" />;
+      return <Redirect to="/quizcompetition/dash" />;
     } else {
       return (
       

@@ -74,7 +74,10 @@ export const loginUser = (email, password) => dispatch => {
       //Do something with the error if you want!
       dispatch(loginError());
     });
-  
+    var now = new Date().getTime();
+    var minutes = now/60000;
+    ls.set('timeloggedin',minutes)
+    console.log(minutes)
 };
 
 export const logoutUser = () => dispatch => {
