@@ -41,6 +41,8 @@ class Dashboard extends Component {
       .onSnapshot(
         (snapshot) => {
           let allquestions = [];
+          this.questioncol = snapshot.data().collection;
+          this.deadline = snapshot.data().deadline;
           let qRef = snapshot.data().questions;
           // console.log(snapshot.data());
           Object.keys(qRef).forEach((snap) => {
@@ -83,9 +85,13 @@ class Dashboard extends Component {
     this.props.history.push("/quizcompetition/login");
   };
   timer() {
-    let deadline = new Date("june 20, 2020 15:54:25").getTime();
+    let deadline = new Date(this.deadline).getTime();
     let now = new Date().getTime();
+    // console.log(deadline, this.deadline);
     let t = deadline - now;
+    if (deadline === now) {
+      // logout and submit
+    }
     // let days = Math.floor(t / (1000 * 60 * 60 * 24));
     let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
@@ -101,23 +107,39 @@ class Dashboard extends Component {
   //testing functions - USER Schema
   addUser() {
     db.collection(this.usercol)
-      .add({
-        // or use the following to edit an exisitng document
-        // .doc("68VkB97iNFQctYCwYZB9hZEaEVu1")
-        // .set({
+      // .add({
+      // or use the following to edit an exisitng document
+      .doc("68VkB97iNFQctYCwYZB9hZEaEVu1")
+      .set({
         questions: {
           1: {
-            id: "9VbgEeAzpZRkoagkJdof",
+            id: "YRG15I2qurO8SFfEArFg",
             selected: [],
             flag: false,
           },
           2: {
-            id: "Sd9XqATmC3xdYP948LZX",
+            id: "q2Bp5lSNfLhAhFwNqVKT",
+            selected: [],
+            flag: false,
+          },
+          3: {
+            id: "q2Bp5lSNfLhAhFwNqVKT",
+            selected: [],
+            flag: false,
+          },
+          4: {
+            id: "YRG15I2qurO8SFfEArFg",
+            selected: [],
+            flag: false,
+          },
+          5: {
+            id: "q2Bp5lSNfLhAhFwNqVKT",
             selected: [],
             flag: false,
           },
         },
-        email: "me",
+        collection: "questions",
+        deadline: "june 20, 2020 15:54:25",
       })
       .then((id) => {
         this.setState({ userid: id });
