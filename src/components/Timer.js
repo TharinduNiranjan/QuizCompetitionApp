@@ -1,6 +1,11 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom';
 import './timer.css'
+import Img from '../assets/png.png'
+
+
+
+
 class Timer extends Component{
 
     constructor(props){
@@ -9,10 +14,12 @@ class Timer extends Component{
             count:"Loading..."
         }
     }
+    
+      
     componentDidMount(){
         this.myInterval= setInterval(() => {
             
-            var deadline = new Date("june 20, 2020 15:54:25").getTime();
+            var deadline = new Date("june 28, 2020 15:54:25").getTime();
             var now = new Date().getTime();
             var t = deadline - now;
 
@@ -21,7 +28,7 @@ class Timer extends Component{
             var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)); 
             var seconds = Math.floor((t % (1000 * 60)) / 1000);
 
-            var display=days + " Days : "  + hours + " Hours : " + minutes + " Minutes : " + seconds + " Seconds "
+            var display=days + " D : "  + hours + "h : " + minutes + " m : " + seconds + " s "
             if (t < 0) { 
                 display="Competition has started"
                  
@@ -32,18 +39,35 @@ class Timer extends Component{
             }))
         },1000)
     }
+   
     render() {
+        
         const {count}= this.state
         return (
             <div>
                 <ul class="topnav">
                 <li><p>μMora Mathematics Competition 2020</p></li>
-                <li class="right"><Link to="/quizcompetition/About">About</Link></li>
-                <li class="right"><Link to="/quizcompetition/faq">F.A.Q</Link></li>
-                <li class="right"><Link to="/quizcompetition/instructions">Instructions</Link></li>
+                <li class="right"><Link to="/About">About</Link></li>
+                <li class="right"><Link to="/faq">F.A.Q</Link></li>
+                <li class="right"><Link to="/instructions">Instructions</Link></li>
                 </ul>
-                
-                <h1>{count}</h1>
+                <div class="tflex-container">
+            <div class="tcolumn" id="logoblock">
+                <img src={Img} id="logoimg"/>
+            </div>
+
+            <div class="timercolumn">
+                <div id="timerbox">
+                    <p id="caption">Competition begins in</p>
+        <p id='demo'>{count}</p>
+        <button class='t'><a href="/login">Test Round</a></button>
+                </div>
+            </div>
+            <div class="footer">
+        <a href="https://www.facebook.com/UOM.ECLUB" target="_blank">μMora | EClub | University of Moratuwa</a>
+    </div>
+        </div>
+
                 
                 
                 

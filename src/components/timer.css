@@ -95,7 +95,10 @@ ul.topnav {
     outline: none;
     background-color: rgb(18, 18, 24);
   }
-
+  .t>a{
+    text-decoration: none;
+    color: white;
+}
 .footer {
     text-align: center;
     border-top: 2px solid rgb(18, 18, 24);
