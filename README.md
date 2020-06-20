@@ -1,6 +1,6 @@
-# $\mu$Mora Quiz application
+# μMora Quiz application
 
-Web application for $\mu$Mora Mathematics competition 2020 created by Tharindu Niranjan, Pulasthi Ekanayake, Nusri Nalir and Sandeepa Devin.
+Web application for μMora Mathematics competition 2020 created by Tharindu Niranjan, Pulasthi Ekanayake, Nusri Nalir and Sandeepa Devin.
 
 ### Prerequisites
 
