@@ -11,6 +11,11 @@ import Dashboard from "./components/quiz/dashboard";
 import StudentAdmin from "./components/quiz/studentAdmin";
 import UniversityAdmin from "./components/quiz/universityAdmin";
 import JuniorAdmin from "./components/quiz/juniorAdmin";
+import Faq from "./components/faq";
+import Accordion from './components/FAQ/Accordion;
+import AccordionItem from './components/FAQ/AccordionItem';
+import Instruction from './components/instructions';
+
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
   return (
@@ -22,6 +27,10 @@ function App(props) {
       <Route path="/admin/students" component={StudentAdmin} />
       <Route path="/admin/university" component={UniversityAdmin} />
       <Route path="/admin/junior" component={JuniorAdmin} />
+      <Route path='/instructions' component={Instruction}/>
+      <Route path='/faq' component={Faq}/>
+      <Route path='/FAQ/Accordion' component={Accordion}/>
+      <Route path='/FAQ/AccordionItem' component={AccordionItem}/>
       <Redirect from="*" to="" />
     </Switch>
   );
