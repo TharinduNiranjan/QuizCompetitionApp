@@ -6,6 +6,7 @@ import { logoutUser } from "../../actions/";
 import ls from "local-storage";
 import { Container, Row, Col } from "react-bootstrap";
 import "../../styles/dashboard.scss";
+import { Redirect } from "react-router-dom";
 // const schema = {
 //   name : "",
 //   email: "",
@@ -19,8 +20,8 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userid: ls.get("UserId"), //auth().currentUser.uid, //
-      lang: ls.get("language").value, //"sinhala",
+      userid: "", //auth().currentUser.uid, //
+      lang: "english", //default
       questions: [],
       question: "",
       number: 0,
@@ -36,6 +37,14 @@ class Dashboard extends Component {
 
   // get all questions from Firestore collection users on loading dashboard and map to array
   componentDidMount() {
+    if (ls.get("UserId")) {
+      this.setState({ userid: ls.get("UserId") });
+    } else {
+      return <Redirect to="/quizcompetition/login" />;
+    }
+    if (ls.get("language")) {
+      this.setState({ lang: ls.get("language") });
+    }
     db.collection(this.usercol)
       .doc(this.state.userid)
       .onSnapshot(
