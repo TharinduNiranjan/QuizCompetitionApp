@@ -2,43 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { loginUser } from "../actions";
-import { withStyles } from "@material-ui/styles";
-// import image from "../assets/cover.jpg";
-// import Avatar from "@material-ui/core/Avatar";
-// import Button from "@material-ui/core/Button";
-// import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import Select from "react-select";
 import ls from "local-storage";
 import "./loginStyle.css";
 import Img from "../assets/png.png";
-const styles = () => ({
-  "@global": {
-    body: {
-      backgroundColor: "#ffff",
-    },
-  },
-  paper: {
-    marginTop: 100,
-    display: "flex",
-    padding: 20,
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    marginLeft: "auto",
-    marginRight: "auto",
-    backgroundColor: "#f50057",
-  },
-  form: {
-    marginTop: 1,
-  },
-  errorText: {
-    color: "#f50057",
-    marginBottom: 5,
-    textAlign: "center",
-  },
-});
 
 const options = [
   { value: "sinhala", label: "sinhala" },
@@ -80,19 +47,19 @@ class Login extends Component {
     } else {
       return (
         <div>
-          <div class="row" id="navbar">
+          <div className="row" id="navbar">
             <div>μMora Mathematics Competition 2020</div>
             <div id="logo">
               <img alt="logo" src={Img} id="logoimg" />
             </div>
           </div>
-          <div class="row" id="loginbody">
-            <div class="container col-lg-6 col-md-6">
+          <div className="row" id="loginbody">
+            <div className="logincontainer col-lg-6 col-md-6">
               <div id="loginbox">
                 <div id="signinheader">Sign In</div>
                 <span>
                   <label for="uname">
-                    <b>Username</b>
+                    <b> Username</b>
                   </label>
                 </span>
                 <input onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required></input>
@@ -113,11 +80,7 @@ class Login extends Component {
                 <button onClick={this.handleSubmit} type="submit">
                   Login
                 </button>
-                {loginError && (
-                  <Typography component="p" className={classes.errorText}>
-                    Incorrect email or password.
-                  </Typography>
-                )}
+                {loginError && <div className={classes.errorText}>Incorrect email or password.</div>}
               </div>
             </div>
           </div>
@@ -135,4 +98,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(Login));
+export default connect(mapStateToProps)(Login);
