@@ -4,6 +4,7 @@ import { Form, Row, Col, Container } from "react-bootstrap";
 import { show_latex } from "./latex";
 
 class QuestionPage extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +17,7 @@ class QuestionPage extends Component {
     };
     this.questioncol = "questions";
     this.usercol = "users";
-    this.disconnectUser = ""; // realtime connection to firebase
+    this.disconnectUser = function () {}; // realtime connection to firebase
     this.getQuestion = this.getQuestion.bind(this); // get question from questions collection and create observable from user collection
     this.saveAnswer = this.saveAnswer.bind(this); // save answer on click
     this.changeQuestion = this.changeQuestion.bind(this); // next and previous buttons
@@ -24,10 +25,16 @@ class QuestionPage extends Component {
     this.setFlag = this.setFlag.bind(this); // flag question
     this.handleChange = this.handleChange.bind(this);
   }
+  componentDidMount() {
+    this._isMounted = true;
+  }
   componentDidUpdate(oldProps) {
     // this function updates the question page when dashboard buttons changes prop.question
+
     let id = this.props.question;
     if (oldProps.question !== id && id) {
+      // this._isMounted = false;
+      // this._isMounted = true;
       this.getQuestion(id);
       this.setState({ id: id, number: this.props.number });
     }
@@ -37,11 +44,17 @@ class QuestionPage extends Component {
       .doc(id)
       .get()
       .then((question) => {
+        if (!this._isMounted) {
+          return;
+        }
         if (question.data().image) {
           storage
             .ref(question.data().image)
             .getDownloadURL()
             .then((url) => {
+              if (!this._isMounted) {
+                return;
+              }
               let data = question.data();
               let q = {
                 description: data[this.props.lang].description,
@@ -73,6 +86,7 @@ class QuestionPage extends Component {
   }
   componentWillUnmount() {
     this.disconnectUser();
+    this._isMounted = false;
   }
   resetState() {
     this.setState({

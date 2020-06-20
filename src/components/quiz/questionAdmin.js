@@ -4,7 +4,9 @@ import { db, storage } from "../../firebase/firebase";
 import { Form, Row, Col, Container } from "react-bootstrap";
 import QList from "./questionList";
 import { show_latex } from "./latex";
+
 class QAdmin extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = new Question();
@@ -22,6 +24,7 @@ class QAdmin extends Component {
     this.fileUpload = this.fileUpload.bind(this);
   }
   componentDidMount() {
+    this._isMounted = true;
     db.collection(this.col).onSnapshot((querySnapshot) => {
       let questions = [];
       querySnapshot.forEach((doc) => {
@@ -31,10 +34,12 @@ class QAdmin extends Component {
       this.setState({ questions: questions });
     });
   }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
   // update state on form value changes
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-    console.log(this.state);
   }
   handleArrayChange(e) {
     let choices = this.state.choices;
@@ -89,6 +94,9 @@ class QAdmin extends Component {
         .ref(image)
         .getDownloadURL()
         .then((url) => {
+          if (!this._isMounted) {
+            return;
+          }
           this.setState({ img: url });
         })
         .catch((error) => {
@@ -102,6 +110,9 @@ class QAdmin extends Component {
       .doc(id)
       .get()
       .then((snapshot) => {
+        if (!this._isMounted) {
+          return;
+        }
         if (snapshot.exists === false) {
           console.log("Doesn't exist");
           return;
@@ -121,7 +132,15 @@ class QAdmin extends Component {
     let question = DBQuestion(this.state);
     console.log(question);
     if (this.state.id) {
-      db.collection(this.col).doc(this.state.id).set(question).then(this.resetState());
+      db.collection(this.col)
+        .doc(this.state.id)
+        .set(question)
+        .then(() => {
+          if (!this._isMounted) {
+            return;
+          }
+          this.resetState();
+        });
     } else {
       db.collection(this.col).add(question).then(this.resetState());
     }
@@ -143,6 +162,9 @@ class QAdmin extends Component {
       .child(this.state.image)
       .delete()
       .then(() => {
+        if (!this._isMounted) {
+          return;
+        }
         this.setState({ image: "", img: null });
         db.collection(this.col).doc(this.state.id).update({ image: "" });
       });
@@ -273,7 +295,7 @@ class QAdmin extends Component {
             </Col>
           </Row>
           {/* <button onClick={() => this.addOption()}>Add Choices</button> */}
-          <button onClick={() => this.addQuestion()}>{this.state.id ? "Save Changes" : "Add Question"}</button>
+          <button onClick={() => this.addQuestion()}>{this.state.id !== "" ? "Save Changes" : "Add Question"}</button>
           <h1>Question List</h1>
           <QList collection={this.props.collection} edit={this.editQuestion}></QList>
         </Container>

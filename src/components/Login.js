@@ -5,7 +5,6 @@ import { loginUser } from "../actions";
 import { Form } from "react-bootstrap";
 import ls from "local-storage";
 import "./loginStyle.css";
-import Img from "../assets/png.png";
 
 class Login extends Component {
   constructor(props) {
@@ -41,7 +40,7 @@ class Login extends Component {
   }
 
   render() {
-    const { classes, loginError, isAuthenticated } = this.props;
+    const { loginError, isAuthenticated } = this.props;
     if (isAuthenticated && ls.get("language") && ls.get("UserId")) {
       return <Redirect to="/quiz" />;
     } else {
