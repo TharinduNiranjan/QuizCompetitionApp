@@ -62,6 +62,7 @@ class QuestionPage extends Component {
   }
 
   render() {
+    
     let choices;
     if (this.state.question.choices) {
       choices = this.state.question.choices.map((choice, key) => <Form.Check key={key} type="radio" onClick={() => this.select(choice)} label={choice.text} checked={choice.text === this.state.selected.text ? true : false} />);

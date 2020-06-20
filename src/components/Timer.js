@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import { Link } from 'react-router-dom';
+import './timer.css'
 class Timer extends Component{
 
     constructor(props){
@@ -7,21 +9,6 @@ class Timer extends Component{
             count:"Loading..."
         }
     }
-
-    render() {
-        const {count}= this.state
-        return (
-            <div>
-                <h1>μMora</h1>
-                <h2>Coming soon...</h2>
-                <h1>{count}</h1>
-                <img src="register.png" alt="Footer" width="150" height="57"></img>
-                <img src="maths_2.jpg" alt="Footer" width="1295" height="477"></img>
-                
-            </div>
-        )
-    }
-
     componentDidMount(){
         this.myInterval= setInterval(() => {
             
@@ -45,6 +32,25 @@ class Timer extends Component{
             }))
         },1000)
     }
+    render() {
+        const {count}= this.state
+        return (
+            <div>
+                <ul class="topnav">
+                <li><p>μMora Mathematics Competition 2020</p></li>
+                <li class="right"><Link to="/quizcompetition/About">About</Link></li>
+                <li class="right"><Link to="/quizcompetition/faq">F.A.Q</Link></li>
+                <li class="right"><Link to="/quizcompetition/instructions">Instructions</Link></li>
+                </ul>
+                
+                <h1>{count}</h1>
+                
+                
+                
+            </div>
+        )
+    }
 
+    
 }
 export default Timer

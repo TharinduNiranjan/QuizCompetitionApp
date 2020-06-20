@@ -6,24 +6,23 @@ import { connect } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
 import Login from "./components/Login";
-import Quiz from './components/quiz/dashboard'
-import QAdmin from "./components/quiz/questionAdmin";
+import Quiz from "./components/quiz/quiz";
+import Dashboard from "./components/quiz/dashboard";
+import StudentAdmin from "./components/quiz/studentAdmin";
+import UniversityAdmin from "./components/quiz/universityAdmin";
+import JuniorAdmin from "./components/quiz/juniorAdmin";
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
   return (
     <Switch>
-      <Route exact path='/' component={Home}/>
-      <ProtectedRoute
-        exact
-        path="/quizcompetition/dash"
-        component={Quiz}
-        isAuthenticated={isAuthenticated}
-        isVerifying={isVerifying}
-      />
-      <Route exact path="/quizcompetition/admin" component={QAdmin}  />
+      <Route exact path="/" component={Home} />
+      <ProtectedRoute path="/quizcompetition/quiz" component={Quiz} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
       <Route path="/quizcompetition/login" component={Login} />
-      
-
+      <Route path="/quizcompetition/dash" component={Dashboard} />
+      <Route path="/quizcompetition/students" component={StudentAdmin} />
+      <dRoute path="/quizcompetition/university" component={UniversityAdmin} />
+      <Route path="/quizcompetition/junior" component={JuniorAdmin} />
+      <Route component={() => (<div>404 Not found</div>)} />
     </Switch>
   );
 }

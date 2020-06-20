@@ -1,0 +1,254 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+}
+/*------------color change classes---------*/
+
+/*---Add this class to the IDs from 1 to 30 to make its background red and text white --- */
+.bRed {
+  background-color: #cc3333 !important;
+  color: white;
+}
+
+/*---Add this class to the IDs from 1 to 30 to make its background green and text white --- */
+.bGreen {
+  background-color: #336666 !important;
+  color: white;
+}
+.bYellow {
+  background-color: #ff9900 !important;
+  color: white;
+}
+/*---Add this class to the ID flagbutton to make it red --- */
+.flagcolorRed {
+  background-image: linear-gradient(rgb(207, 0, 0), rgb(238, 0, 0)) !important;
+  color: white !important;
+}
+/*-----------------------------------------*/
+
+html,
+body {
+  height: 100vh;
+
+  /*overflow: hidden;*/
+}
+
+#navbar {
+  overflow: auto;
+  position: relative;
+  height: 10%;
+  padding: 15px;
+  padding-left: 20px;
+  font-size: 30px;
+  height: auto;
+  background-color: rgb(32, 32, 32);
+  color: white;
+  box-shadow: 0px 1px 2px rgb(0, 39, 61);
+}
+
+button.submit {
+  padding: 0.5%;
+  position: absolute;
+  width: 20%;
+  right: 10%;
+  top: 50%;
+  font-weight: 800;
+  font-size: 16px;
+  transform: translateY(-50%);
+  background-image: linear-gradient(rgb(207, 0, 0), rgb(238, 0, 0));
+}
+/*---------------Question block-------------*/
+// div > span {
+//   position: absolute;
+//   left: 50%;
+//   top: 50%;
+//   transform: translate(-50%, -50%);
+// }
+.dashboard > div {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.small-text {
+  font-size: 50%;
+}
+.timerprogress {
+  border: 2px solid black;
+  border-top: 0px;
+  background-color: #e1f8ff;
+  padding: 1em;
+}
+#xtimer,
+#xprogress {
+  overflow: visible;
+  height: 100%;
+  padding: 1%;
+  text-align: center;
+}
+.xtimervalue {
+  font-size: 1.5em;
+  // font-weight: bold;
+  vertical-align: middle;
+  text-align: center;
+}
+.verticalCenter {
+  position: relative;
+  top: 60%;
+  overflow: auto;
+  transform: translateY(-50%);
+}
+.xbar {
+  padding-left: 1%;
+  padding-right: 1%;
+  width: 100%;
+  overflow: auto;
+}
+.xbar > div {
+  text-align: center;
+  float: left;
+  width: 3.33%;
+  background-color: rgb(127, 197, 202);
+  border: 0.5px solid rgb(117, 117, 117);
+}
+.xnumcategory {
+  display: flex;
+  justify-content: center;
+  margin: 0.5em 0 1em 0;
+  padding-bottom: 0.5em;
+  border-bottom: solid 1px black;
+}
+
+.xqNum,
+.xqCategory {
+  font-weight: 600;
+  min-width: 300px;
+  padding: 0.5em;
+  color: white;
+  background-color: rgb(0, 115, 168);
+  margin: 0;
+}
+.xqNum {
+  text-align: center;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background-color: rgb(0, 64, 148);
+  padding-right: 1em;
+}
+.xqCategory {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding-left: 1em;
+}
+
+.Qcontent {
+  background-color: white;
+  height: 77%;
+}
+.questionContent {
+  font-size: 1em;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+label {
+  font-size: 1em;
+}
+
+.reset {
+  border: none;
+  margin-top: 10px;
+  background: red;
+  color: white;
+}
+.dashboard-footer {
+  position: fixed;
+  bottom: 0;
+  padding: 1em 0 0 0;
+  border-top: solid 2px black;
+  width: 100%;
+  height: 10vh;
+  color: white;
+  background-color: #c5f1ff;
+  text-align: center;
+}
+#next,
+#previous,
+#flag {
+  height: 100%;
+}
+.cRed {
+  color: red;
+}
+.flagbutton {
+  color: black;
+  background-image: linear-gradient(rgb(252, 167, 10), rgb(252, 167, 10)) !important;
+  outline: none;
+}
+
+button {
+  padding: 0.2em 1em;
+  min-width: 150px;
+  border: solid 1px;
+  background: transparent;
+  color: black;
+  // border-radius: 20px;
+}
+button:hover {
+  opacity: 0.9;
+}
+
+/********** Large devices only **********/
+
+/********** Medium devices only **********/
+@media (min-width: 768px) and (max-width: 1199px) {
+  #xbar p {
+    float: left;
+    width: 6.66%;
+    margin-bottom: 1%;
+  }
+  #timerprogress {
+    height: auto;
+    overflow: auto;
+  }
+  .verticalCenter {
+    transform: none;
+  }
+  #reset {
+    width: 30%;
+  }
+}
+
+@media (max-width: 767px) {
+  #xbar p {
+    float: left;
+    width: 10%;
+    margin-bottom: 1%;
+  }
+  .verticalCenter {
+    transform: none;
+  }
+  #timerprogress {
+    height: auto;
+    overflow: auto;
+  }
+  #Qimage {
+    width: 100%;
+  }
+  #reset {
+    width: 50%;
+  }
+  button {
+    width: 60%;
+  }
+  #flagbutton {
+    width: 100%;
+  }
+  .footer {
+    height: 11%;
+  }
+  #xqNum,
+  #xqCategory {
+    width: 95%;
+  }
+}

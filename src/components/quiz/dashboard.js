@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { db, auth } from "../../firebase/firebase";
+import { db } from "../../firebase/firebase";
 import QuestionPage from "./questionPage";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
 import ls from "local-storage";
+import { Container, Row, Col } from "react-bootstrap";
+//import "../../styles/dashboard.scss";
 // const schema = {
 //   name : "",
 //   email: "",
@@ -17,7 +19,8 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userid: ls.get("UserId"), //auth().currentUser.uid,
+      userid: ls.get("UserId"), //auth().currentUser.uid, //
+      lang: ls.get("language").value, //"sinhala",
       questions: [],
       question: "",
       number: 0,
@@ -25,25 +28,25 @@ class Dashboard extends Component {
     };
     this.usercol = "users";
     this.questioncol = "questions";
-    // this.handleChange = this.handleChange.bind(this);
-    this.addUser = this.addUser.bind(this);
-    this.updateSelection = this.updateSelection.bind(this);
-    this.changeQuestion = this.changeQuestion.bind(this);
+    this.timer = this.timer.bind(this);
+    this.addUser = this.addUser.bind(this); // testing fucntion to create a fake user
+    this.changeQuestion = this.changeQuestion.bind(this); // change question prop of question page (passes question id)
+    this.submitAll = this.submitAll.bind(this); // displays submit screen by toggling state parameter submit
   }
 
-  // get all questions from Firestore on loading dashboard
+  // get all questions from Firestore collection users on loading dashboard and map to array
   componentDidMount() {
-    // this.createNote();
-    // console.log(auth().currentUser);
     db.collection(this.usercol)
       .doc(this.state.userid)
       .onSnapshot(
         (snapshot) => {
           let allquestions = [];
+          this.questioncol = snapshot.data().collection;
+          this.deadline = snapshot.data().deadline;
           let qRef = snapshot.data().questions;
           // console.log(snapshot.data());
-          Object.keys(qRef).map((snap) => {
-            allquestions.push(qRef[snap]);
+          Object.keys(qRef).forEach((snap) => {
+            allquestions[snap - 1] = qRef[snap];
           });
           this.setState({ questions: allquestions });
           this.changeQuestion(this.state.number);
@@ -52,13 +55,9 @@ class Dashboard extends Component {
           console.log(error);
         }
       );
+    setInterval(this.timer, 1000);
   }
 
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  }
   // Other CRUD Operations
 
   // switch between questions
@@ -70,65 +69,125 @@ class Dashboard extends Component {
     this.setState({ question: newq, number: n });
     // console.log(n, newq, this.state);
   }
-  updateSelection(sel) {
-    this.setState({ selected: sel });
+
+  // submit answers and log out
+  submitAll() {
+    this.setState({ submit: true });
   }
-  //testing functions
-  addUser() {
-    db.collection(this.usercol)
-      .add({
-        // or use the following to edit an exisitng document
-        // .doc("68VkB97iNFQctYCwYZB9hZEaEVu1")
-        // .set({
-        questions: {
-          1: {
-            id: "9VbgEeAzpZRkoagkJdof",
-            selected: [],
-            flag: false,
-          },
-          2: {
-            id: "Sd9XqATmC3xdYP948LZX",
-            selected: [],
-            flag: false,
-          },
-        },
-        email: "me",
-      })
-      .then((id) => {
-        this.setState({ userid: id });
-      });
+  revise() {
+    this.setState({ submit: false });
+    this.changeQuestion(this.state.number);
   }
   //logout user
   handleLogout = () => {
     const { dispatch } = this.props;
     dispatch(logoutUser());
+    this.props.history.push("/quizcompetition/login");
   };
-
+  timer() {
+    let deadline = new Date(this.deadline).getTime();
+    let now = new Date().getTime();
+    // console.log(deadline, this.deadline);
+    let t = deadline - now;
+    if (deadline === now) {
+      // logout and submit
+    }
+    // let days = Math.floor(t / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((t % (1000 * 60)) / 1000);
+    let display = (
+      <div className="xtimervalue">
+        {hours}:{minutes}
+        <span className="small-text">:{seconds}</span>
+      </div>
+    );
+    this.setState({ time: display });
+  }
+  //testing functions - USER Schema
+  addUser() {
+    db.collection(this.usercol)
+      // .add({
+      // or use the following to edit an exisitng document
+      .doc("68VkB97iNFQctYCwYZB9hZEaEVu1")
+      .set({
+        questions: {
+          1: {
+            id: "YRG15I2qurO8SFfEArFg",
+            selected: [],
+            flag: false,
+          },
+          2: {
+            id: "q2Bp5lSNfLhAhFwNqVKT",
+            selected: [],
+            flag: false,
+          },
+          3: {
+            id: "q2Bp5lSNfLhAhFwNqVKT",
+            selected: [],
+            flag: false,
+          },
+          4: {
+            id: "YRG15I2qurO8SFfEArFg",
+            selected: [],
+            flag: false,
+          },
+          5: {
+            id: "q2Bp5lSNfLhAhFwNqVKT",
+            selected: [],
+            flag: false,
+          },
+        },
+        collection: "questions",
+        deadline: "june 20, 2020 15:54:25",
+      })
+      .then((id) => {
+        this.setState({ userid: id });
+      });
+  }
   render() {
-    var nowTime=new Date().getTime()/60000;
     const { isLoggingOut, logoutError } = this.props;
-    console.log(nowTime-ls.get('timeloggedin'))
-   
-     return (
-      <div>
-        <div className="flex">
-          {this.state.questions.map((question, key) => {
-            return (
-              // create the question base
-              <div key={key} className={!question.flag ? (question.selected.length === 0 ? "red" : "green") : "yellow"}>
-                <button onClick={() => this.changeQuestion(key)}>Q {key + 1}</button> {!question.flag ? (question.selected.length === 0 ? "red" : "green") : "yellow"}
-              </div>
-            );
-          })}
-        </div>
-        <QuestionPage question={this.state.question.id} user={this.state.userid} number={this.state.number} changeQuestion={this.changeQuestion}></QuestionPage>
-        {/* <button onClick={() => this.addUser()}>Add User</button> */}
-        <div></div>
+    return (
+      <Container>
+        <Row className="timerprogress">
+          <Col sm="2" className="xtimervalue">
+            {this.state.time}
+          </Col>
 
-        <button onClick={this.handleLogout}>Logout</button>
+          <Col sm="10">
+            <Row className="xbar">
+              {this.state.questions.map((question, key) => {
+                return (
+                  // create the question base
+                  <Col key={key} onClick={() => this.changeQuestion(key)} className={!question.flag ? (question.selected.length === 0 ? "bRed" : "bGreen") : "bYellow"}>
+                    Q {key + 1}
+                  </Col>
+                );
+              })}
+            </Row>
+          </Col>
+        </Row>
+        {this.state.submit ? (
+          <div>
+            Are you sure you want to submit? You can't change your answers once you submit click a question to
+            <button onClick={() => this.revise()}>Go back</button>
+            <button onClick={this.handleLogout}>Submit and Leave</button>
+          </div>
+        ) : (
+          <QuestionPage
+            question={this.state.question.id}
+            user={this.state.userid}
+            number={this.state.number}
+            changeQuestion={this.changeQuestion}
+            submitAll={this.submitAll}
+            lang={this.state.lang}
+          ></QuestionPage>
+        )}
+        {/* <button onClick={() => this.addUser()}>Add User</button> 
+        <button onClick={this.handleLogout}>Logout</button>*/}
         {isLoggingOut && <p>Logging Out....</p>}
         {logoutError && <p>Error logging out</p>}
-      </div>
+      </Container>
     );
         
   }

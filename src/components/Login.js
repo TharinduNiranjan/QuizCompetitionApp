@@ -3,17 +3,11 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { loginUser } from "../actions";
 import { withStyles } from "@material-ui/styles";
-import image from '../assets/cover.jpg'
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Container from "@material-ui/core/Container";
-import Select from 'react-select';
-import ls from 'local-storage';
-import './loginStyle.css';
-import Img from '../assets/png.png';
+import Select from "react-select";
+import ls from "local-storage";
+import "./loginStyle.css";
+import Img from "../assets/png.png";
 const styles = () => ({
   '@global': {
     body: {
@@ -48,7 +42,7 @@ const options = [
   { value: 'tamil', label: 'tamil' },
 ];
 class Login extends Component {
-  state = { email: "", password: "" ,selectedOption: {}};
+  state = { email: "", password: "", selectedOption: {} };
 
   handleEmailChange = ({ target }) => {
     this.setState({ email: target.value });
@@ -73,64 +67,63 @@ class Login extends Component {
 
   handleChange = selectedOption => {
     this.setState({ selectedOption });
+
     console.log(`Option selected:`, selectedOption);
-   
   };
 
   render() {
-    //set language object to local storage
-   
-    //
+    
     
     const { classes, loginError, isAuthenticated } = this.props;
-    if (isAuthenticated) {
-      return <Redirect to="/quizcompetition/dash" />;
+    
+    if (isAuthenticated && ls.get('UserId')!=null && ls.get('language').value!=null) {
+      return <Redirect to="/quizcompetition/quiz" />;
     } else {
       return (
       
-       <div>
-    <div class="row" id="navbar">
-        <div >μMora Mathematics Competition 2020</div>
-        <div id="logo">
-            <img src={Img} id="logoimg" />
-        </div>
-    </div>
-        <div class="row" id="loginbody">
-            <div class="container col-lg-6 col-md-6">
-                <div  id="loginbox">
-                    <div id="signinheader">Sign In</div>
-                    <span><label for="uname"><b>Username</b></label></span>
-                    <input onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required></input>
-
-                    <label for="psw"><b>Password</b></label>
-                    <input onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required></input>
-                   <p></p>
-                     <Select
-                        placeholder='select language'
-                          value={this.selectedOption}
-                          onChange={this.handleChange}
-                          options={options}
-                        /><br></br>
-
-                    <button onClick={this.handleSubmit} type="submit">Login</button>
-                    {loginError && (
-                  <Typography component="p" className={classes.errorText}>
-                    Incorrect email or password.
-                  </Typography>
-                )}
-                
-                </div>
-
-            </div>
-
-        </div>
-    
+        <div>
+     <div class="row" id="navbar">
+         <div >μMora Mathematics Competition 2020</div>
+         <div id="logo">
+             <img src={Img} id="logoimg" />
+         </div>
+     </div>
+         <div class="row" id="loginbody">
+             <div class="container col-lg-6 col-md-6">
+                 <div  id="loginbox">
+                     <div id="signinheader">Sign In</div>
+                     <span><label for="uname"><b>Username</b></label></span>
+                     <input onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required></input>
  
-        </div>
-
-      
+                     <label for="psw"><b>Password</b></label>
+                     <input onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required></input>
+                    <p></p>
+                      <Select
+                         placeholder='select language'
+                           value={this.selectedOption}
+                           onChange={this.handleChange}
+                           options={options}
+                         /><br></br>
+ 
+                     <button onClick={this.handleSubmit} type="submit">Login</button>
+                     {loginError && (
+                   <Typography component="p" className={classes.errorText}>
+                     Incorrect email or password.
+                   </Typography>
+                 )}
+                 
+                 </div>
+ 
+             </div>
+ 
+         </div>
+     
+  
+         </div>
+ 
        
-      );
+        
+       );
     }
   }
 }
