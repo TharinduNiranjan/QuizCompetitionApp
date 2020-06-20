@@ -24,9 +24,9 @@ class Home extends Component {
                   </Link>
                 </li>
                 <li>
-                <Link className="playbutton" to="/faq">
+                  <Link className="playbutton" to="/faq">
                     FAQ
-                 </Link>
+                  </Link>
                 </li>
               </ul>
             </div>

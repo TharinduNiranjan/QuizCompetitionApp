@@ -32,6 +32,7 @@ function App(props) {
       <Route path="/FAQ/Accordion" component={Accordion} />
       <Route path="/FAQ/AccordionItem" component={AccordionItem} />
       <Redirect from="*" to="" />
+      {/* <Route component={() => (<div>404 Not found</div>)} /> */}
     </Switch>
   );
 }

@@ -137,6 +137,7 @@ class QuestionPage extends Component {
   }
 
   render() {
+    
     let choices;
     if (this.state.question.choices) {
       choices = Object.keys(this.state.question.choices).map((key) => (

@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "reactauthtest-13cc8"
+    "default": "reactauthtest-13cc8",
+    "uMoraQuiz": "umoraquiz"
   }
 }
