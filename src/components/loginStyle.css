@@ -1,40 +1,17 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-body{
-  background-color: rgb(219, 232, 235);
-  background-image: linear-gradient(to left, rgb(219, 232, 235), rgb(163, 217, 230));
-
-}
-h1{
-    text-align: center;
-    font-family: Helvetica;
-    font-size: 175%;
-  }
-
-
-.container{
+/* .logincontainer {
   position: absolute;
   top: 50%;
   left: 60%;
   transform: translateX(-50%);
 }
 
-.row {
-  display: flex;
-  margin-top: 5%;
-  align-items: center;
-}
 #loginbody {
-
   position: relative;
-}
+} */
 
-#navbar{
+#navbar {
   position: relative;
-  padding:20px;
+  padding: 20px;
   padding-left: 20px;
   font-size: 2em;
   padding-right: 100px;
@@ -44,16 +21,16 @@ h1{
   box-shadow: 0px 1px 3px rgb(1, 20, 49);
 }
 
-input[type=text], input[type=password] {
-  width: 100%;
+.logininput {
   padding: 12px 20px;
   margin: 8px 0;
+  width: 100%;
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
 
-button {
+/* button {
   background-color: rgb(18, 18, 24);
   color: white;
   padding: 14px 20px;
@@ -64,24 +41,22 @@ button {
   width: 100%;
 }
 
-button:hover{
+button:hover {
   background-color: rgb(2, 48, 66);
-
 }
-button:focus{
+button:focus {
   outline: none;
   background-color: rgb(18, 18, 24);
-}
+} */
 
-#loginbox{
+#loginbox {
   position: relative;
   display: inline-block;
   border-radius: 15px;
   padding: 20px;
   background-color: white;
 }
-#signinheader{
-  
+#signinheader {
   height: 100px;
   padding-top: 30px;
   margin-bottom: 30px;
@@ -89,60 +64,35 @@ button:focus{
   font-weight: 900;
   border-radius: 10px 10px 30px 30px;
   color: white;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   text-align: center;
-  background-color:rgb(18, 18, 24);
+  background-color: rgb(18, 18, 24);
 }
 
-#logo{
+#logo {
   position: absolute;
   margin-top: 50px;
-
-  
 }
-#logoimg{
+#logoimg {
   float: right;
   padding: 5px;
   max-width: 20%;
-  border-radius:  500px  0px  0px 500px;
-  box-shadow: -2px 2px 5px rgb(3, 3, 53) ;
+  border-radius: 500px 0px 0px 500px;
+  box-shadow: -2px 2px 5px rgb(3, 3, 53);
   background-color: #adc8d1;
-  
 }
-  @media (min-width: 992px) {
 
-    .col-lg-4 {
-        float: left;
-        width: 33.33%;
-    }
-    .col-lg-6 {
-      width: 50%;
-    }
-
+@media (min-width: 768px) and (max-width: 991px) {
+  #loginbox {
+    margin-top: 15%;
   }
-  
-
-  @media (min-width: 768px) and (max-width: 991px) {
-    .col-md-6,.col-md-12 {
-      float: left;
-    }
-    .col-md-6 {
-      width: 50%;
-    }
-    .col-md-12 {
-      width: 100%;
-    }
-    #loginbox{
-      margin-top: 15%;
-    }
-    #logoimg{
-      margin-top: -5%;
-    }
-
+  #logoimg {
+    margin-top: -5%;
   }
+}
 
-  @media(max-width:767px){
-    #loginbox{
-      margin-top: 20%;
-    }
+@media (max-width: 767px) {
+  #loginbox {
+    margin-top: 20%;
   }
+}

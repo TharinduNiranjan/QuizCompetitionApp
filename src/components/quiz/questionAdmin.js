@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { Question, DBQuestion } from "./questionClasses";
 import { db, storage } from "../../firebase/firebase";
-import { Form } from "react-bootstrap";
+import { Form, Row, Col, Container } from "react-bootstrap";
+import QList from "./questionList";
 
 class QAdmin extends Component {
-  col = "questions";
   constructor(props) {
     super(props);
     this.state = new Question();
     // let db = new CRUD();
+    this.col = this.props.collection;
+    this.questionRef = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.handleArrayChange = this.handleArrayChange.bind(this);
     this.handleSinhalaChange = this.handleSinhalaChange.bind(this);
@@ -31,7 +33,6 @@ class QAdmin extends Component {
   }
   // update state on form value changes
   handleChange(e) {
-    console.log(e.target.name, e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   }
   handleArrayChange(e) {
@@ -107,6 +108,7 @@ class QAdmin extends Component {
         let question = new Question(snapshot.data(), snapshot.id);
         this.showImage(question.image);
         this.setState(question);
+        this.questionRef.current.scrollIntoView({ behavior: "smooth" });
       });
   }
 
@@ -172,73 +174,102 @@ class QAdmin extends Component {
     ));
   }
   render() {
-    let questions;
-    if (this.state.questions) {
-      questions = this.renderQuestions();
-    }
     return (
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-6">
-            <h2>{this.state.id ? "Edit Question" : "Add New Question"} </h2>
-            {/* Populate other fields like this */}
-            <input value={this.state.description} onChange={this.handleChange} name="description" placeholder="English"></input>
-            {Object.keys(this.state.choices)
-              .sort()
-              .map((key) => (
-                <div key={key}>
-                  <label>{key}</label>
-                  <input value={this.state.choices[key]} onChange={this.handleArrayChange} name={key} placeholder={"Answer " + key}></input>
-                </div>
-              ))}
-
-            {/* Sinhala Input */}
-            <input value={this.state.sinhalaDescription} onChange={this.handleChange} name="sinhalaDescription" placeholder="සිංහල​"></input>
-            {Object.keys(this.state.sinhalaChoices)
-              .sort()
-              .map((key) => (
-                <div key={key}>
-                  <label>{key}</label>
-                  <input value={this.state.sinhalaChoices[key]} onChange={this.handleSinhalaChange} name={key} placeholder={key + " උත්තරය​"}></input>
-                </div>
-              ))}
-            {/* Tamil Input */}
-            <input value={this.state.tamilDescription} onChange={this.handleChange} name="tamilDescription" placeholder="தமிழ்"></input>
-            {Object.keys(this.state.tamilChoices)
-              .sort()
-              .map((key) => (
-                <div key={key}>
-                  <label>{key}</label>
-                  <input value={this.state.tamilChoices[key]} onChange={this.handleTamilChange} name={key} placeholder={"பதில் " + key}></input>
-                </div>
-              ))}
-            {/* Image */}
-            <Form.File onChange={this.fileUpload} type="file" name="image" label="Question Image" />
-            <p>{this.state.uploading ? "Uploading" : ""}</p>
-            {this.state.img ? (
+        <Container ref={this.questionRef}>
+          <h2>{this.state.id ? "Edit Question" : "Add New Question"} </h2>
+          <Row>
+            <Col sm="6">
               <div>
-                <img alt="Question Figure" className="img-fluid" src={this.state.img}></img>
-                <button onClick={() => this.removeOption()}>Remove Image</button>
+                <Form.Control as="textarea" rows="3" value={this.state.description} onChange={this.handleChange} name="description" placeholder="English" />
+                {Object.keys(this.state.choices)
+                  .sort()
+                  .map((key) => (
+                    <Form.Group as={Row} key={key}>
+                      <Form.Label column sm="2">
+                        {key}
+                      </Form.Label>
+                      <Col sm="10">
+                        <Form.Control value={this.state.choices[key]} onChange={this.handleArrayChange} name={key} placeholder={"Answer " + key} />
+                      </Col>
+                    </Form.Group>
+                  ))}
               </div>
-            ) : (
-              ""
-            )}
-            <Form.Label>Correct Answer</Form.Label>
-            <Form.Control as="select" name="correct" onChange={this.handleChange}>
-              <option>A</option>
-              <option>B</option>
-              <option>C</option>
-              <option>D</option>
-              <option>E</option>
-            </Form.Control>
-            {/* <button onClick={() => this.addOption()}>Add Choices</button> */}
-            <button onClick={() => this.addQuestion()}>{this.state.id ? "Save Changes" : "Add"}</button>
-          </div>
-          <div className="col-6">
-            <h2>Exisiting Questions</h2>
-            {questions}
-          </div>
-        </div>
+            </Col>
+            {/* Correct Answer */}
+            <Col sm="6">
+              <div>
+                <Form.Label>Correct Answer</Form.Label>
+                <Form.Control as="select" name="correct" onChange={this.handleChange}>
+                  <option>A</option>
+                  <option>B</option>
+                  <option>C</option>
+                  <option>D</option>
+                  <option>E</option>
+                </Form.Control>
+                <Form.Label>Difficulty</Form.Label>
+                <Form.Control as="select" name="hardness" onChange={this.handleChange}>
+                  <option>Easy</option>
+                  <option>Hard</option>
+                  <option>Submit</option>
+                </Form.Control>
+              </div>
+              {/* Image */}
+              <div>
+                <Form.File onChange={this.fileUpload} type="file" name="image" label="Question Image" />
+                <p>{this.state.uploading ? "Uploading" : ""}</p>
+                {this.state.img ? (
+                  <div>
+                    <img alt="Question Figure" className="img-fluid" src={this.state.img}></img>
+                    <button onClick={() => this.removeOption()}>Remove Image</button>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            </Col>
+            <Col sm="6">
+              <div>
+                {/* Sinhala Input */}
+                <Form.Control as="textarea" rows="3" value={this.state.sinhalaDescription} onChange={this.handleChange} name="sinhalaDescription" placeholder="සිංහල​" />
+                {Object.keys(this.state.sinhalaChoices)
+                  .sort()
+                  .map((key) => (
+                    <Form.Group as={Row} key={key}>
+                      <Form.Label column sm="2">
+                        {key}
+                      </Form.Label>
+                      <Col sm="10">
+                        <Form.Control value={this.state.sinhalaChoices[key]} onChange={this.handleSinhalaChange} name={key} placeholder={key + " උත්තරය​"} />
+                      </Col>
+                    </Form.Group>
+                  ))}
+              </div>
+            </Col>{" "}
+            <Col sm="6">
+              <div>
+                {/* Tamil Input */}
+                <Form.Control as="textarea" rows="3" value={this.state.tamilDescription} onChange={this.handleChange} name="tamilDescription" placeholder="தமிழ்" />
+                {Object.keys(this.state.tamilChoices)
+                  .sort()
+                  .map((key) => (
+                    <Form.Group as={Row} key={key}>
+                      <Form.Label column sm="2">
+                        {key}
+                      </Form.Label>
+                      <Col sm="10">
+                        <Form.Control value={this.state.tamilChoices[key]} onChange={this.handleTamilChange} name={key} placeholder={"பதில் " + key} />
+                      </Col>
+                    </Form.Group>
+                  ))}
+              </div>
+            </Col>
+          </Row>
+          {/* <button onClick={() => this.addOption()}>Add Choices</button> */}
+          <button onClick={() => this.addQuestion()}>{this.state.id ? "Save Changes" : "Add Question"}</button>
+          <h1>Question List</h1>
+          <QList collection={this.props.collection} edit={this.editQuestion}></QList>
+        </Container>
       </div>
     );
   }

@@ -14,9 +14,9 @@ class Quiz extends Component {
         {/* <h1>This is your app's protected area.</h1>
         <p>Any routes here will also be protected</p> */}
         <Dashboard></Dashboard>
-        <button onClick={this.handleLogout}>Logout</button>
+        {/* <button onClick={this.handleLogout}>Logout</button>
         {isLoggingOut && <p>Logging Out....</p>}
-        {logoutError && <p>Error logging out</p>}
+        {logoutError && <p>Error logging out</p>} */}
       </div>
     );
   }
