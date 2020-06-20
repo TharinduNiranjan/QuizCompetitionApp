@@ -23,6 +23,11 @@ class Home extends Component {
                     Instructions
                   </Link>
                 </li>
+                <li>
+                <Link className="playbutton" to="/faq">
+                    FAQ
+                 </Link>
+                </li>
               </ul>
             </div>
 
