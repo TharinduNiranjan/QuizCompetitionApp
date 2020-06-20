@@ -16,6 +16,7 @@ class QuestionPage extends Component {
     };
     this.questioncol = "questions";
     this.usercol = "users";
+    this.disconnectUser = ""; // realtime connection to firebase
     this.getQuestion = this.getQuestion.bind(this); // get question from questions collection and create observable from user collection
     this.saveAnswer = this.saveAnswer.bind(this); // save answer on click
     this.changeQuestion = this.changeQuestion.bind(this); // next and previous buttons
@@ -29,7 +30,6 @@ class QuestionPage extends Component {
     if (oldProps.question !== id && id) {
       this.getQuestion(id);
       this.setState({ id: id, number: this.props.number });
-      console.log(this.state);
     }
   }
   getQuestion(id) {
@@ -63,12 +63,16 @@ class QuestionPage extends Component {
         }
       });
     // create an observer so that answers are saved in realtime
-    db.collection(this.usercol)
+    this.disconnectUser = db
+      .collection(this.usercol)
       .doc(this.props.user)
       .onSnapshot((questions) => {
         let q = questions.data().questions[this.props.number + 1]; //add one for zero indexing
         this.setState({ selected: q.selected, flag: q.flag });
       });
+  }
+  componentWillUnmount() {
+    this.disconnectUser();
   }
   resetState() {
     this.setState({

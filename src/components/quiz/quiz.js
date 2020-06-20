@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
 import Dashboard from "../quiz/dashboard";
@@ -8,23 +9,26 @@ class Quiz extends Component {
     dispatch(logoutUser());
   };
   render() {
-    const { isLoggingOut, logoutError } = this.props;
-    return (
-      <div>
-        {/* <h1>This is your app's protected area.</h1>
-        <p>Any routes here will also be protected</p> */}
-        <Dashboard></Dashboard>
-        {/* <button onClick={this.handleLogout}>Logout</button>
-        {isLoggingOut && <p>Logging Out....</p>}
-        {logoutError && <p>Error logging out</p>} */}
-      </div>
-    );
+    const { isLoggingOut, logoutError, isAuthenticated } = this.props;
+    if (!isAuthenticated) {
+      return <Redirect to="/" />;
+    } else {
+      return (
+        <div>
+          {/* <button onClick={this.handleLogout}>Logout</button> */}
+          {isLoggingOut && <p>Logging Out....</p>}
+          {logoutError && <p>Error logging out</p>}
+          <Dashboard></Dashboard>
+        </div>
+      );
+    }
   }
 }
 function mapStateToProps(state) {
   return {
     isLoggingOut: state.auth.isLoggingOut,
     logoutError: state.auth.logoutError,
+    isAuthenticated: state.auth.isAuthenticated,
   };
 }
 export default connect(mapStateToProps)(Quiz);

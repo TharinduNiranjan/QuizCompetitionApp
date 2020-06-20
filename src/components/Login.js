@@ -23,7 +23,6 @@ class Login extends Component {
   };
 
   handleSubmit = () => {
-    console.log(this.state.selectedOption.value);
     ls.set("language", this.state.selectedOption);
     if (this.state.selectedOption == null) {
       alert("please select language");
@@ -44,16 +43,10 @@ class Login extends Component {
   render() {
     const { classes, loginError, isAuthenticated } = this.props;
     if (isAuthenticated && ls.get("language") && ls.get("UserId")) {
-      return <Redirect to="/quizcompetition/dash" />;
+      return <Redirect to="/quiz" />;
     } else {
       return (
         <div>
-          <div className="row" id="navbar">
-            <div>μMora Mathematics Competition 2020</div>
-            <div id="logo">
-              <img alt="logo" src={Img} id="logoimg" />
-            </div>
-          </div>
           <div className="row" id="loginbody">
             <div className="logincontainer">
               <div id="loginbox">

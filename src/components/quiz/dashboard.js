@@ -19,6 +19,7 @@ import { Redirect } from "react-router-dom";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       userid: ls.get("UserId"), //auth().currentUser.uid, //
       lang: "english", //default
@@ -29,6 +30,8 @@ class Dashboard extends Component {
     };
     this.usercol = "users";
     this.questioncol = "questions";
+    this.disconnectUsers = "";
+    this.updateTimer = ""; // timer variable to clear on exit
     this.timer = this.timer.bind(this);
     this.addUser = this.addUser.bind(this); // testing fucntion to create a fake user
     this.changeQuestion = this.changeQuestion.bind(this); // change question prop of question page (passes question id)
@@ -45,7 +48,8 @@ class Dashboard extends Component {
     if (ls.get("language")) {
       this.setState({ lang: ls.get("language") });
     }
-    db.collection(this.usercol)
+    this.disconnectUsers = db
+      .collection(this.usercol)
       .doc(this.state.userid)
       .onSnapshot(
         (snapshot) => {
@@ -64,9 +68,12 @@ class Dashboard extends Component {
           console.log(error);
         }
       );
-    setInterval(this.timer, 1000);
+    this.updateTimer = setInterval(this.timer, 1000);
   }
-
+  componentWillUnmount() {
+    this.disconnectUsers();
+    clearInterval(this.updateTimer);
+  }
   // Other CRUD Operations
 
   // switch between questions
@@ -91,7 +98,6 @@ class Dashboard extends Component {
   handleLogout = () => {
     const { dispatch } = this.props;
     dispatch(logoutUser());
-    this.props.history.push("/quizcompetition/login");
   };
   timer() {
     let deadline = new Date(this.deadline).getTime();

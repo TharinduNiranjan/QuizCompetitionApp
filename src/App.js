@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -16,12 +16,13 @@ function App(props) {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
-      <ProtectedRoute path="/quizcompetition/quiz" component={Quiz} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
-      <Route path="/quizcompetition/login" component={Login} />
-      <Route path="/quizcompetition/dash" component={Dashboard} />
-      <Route path="/quizcompetition/students" component={StudentAdmin} />
-      <Route path="/quizcompetition/university" component={UniversityAdmin} />
-      <Route path="/quizcompetition/junior" component={JuniorAdmin} />
+      <ProtectedRoute path="/quiz" component={Quiz} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
+      <Route path="/login" component={Login} />
+      <Route path="/dash" component={Dashboard} />
+      <Route path="/admin/students" component={StudentAdmin} />
+      <Route path="/admin/university" component={UniversityAdmin} />
+      <Route path="/admin/junior" component={JuniorAdmin} />
+      <Redirect from="*" to="" />
     </Switch>
   );
 }
