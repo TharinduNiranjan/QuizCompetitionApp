@@ -20,7 +20,7 @@ class Timer extends Component {
 
   componentDidMount() {
     this.myInterval = setInterval(() => {
-      var deadline = new Date("june 20, 2020 15:54:25").getTime();
+      var deadline = new Date("june 28, 2020 15:54:25").getTime();
       var now = new Date().getTime();
       var t = deadline - now;
 
