@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import '../styles/instruction.scss';
-
+import Img from '../assets/png.png';
 
 class Instruction extends Component{
     state = {
