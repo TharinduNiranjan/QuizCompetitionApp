@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Question } from "./questionClasses";
 import { db } from "../../firebase/firebase";
-
+import { show_latex } from "./latex";
 class QList extends Component {
   constructor(props) {
     super(props);
@@ -25,8 +25,8 @@ class QList extends Component {
     return Object.keys(choices)
       .sort()
       .map((key) => (
-        <li key={key} className={correct === key ? "green" : "red"}>
-          {key} -->{choices[key]} {correct === key ? "Correct Answer" : ""}
+        <li key={key} className={correct === key ? "bGreen" : "red"}>
+          {show_latex(choices[key])} {correct === key ? "Correct Answer" : ""}
         </li>
       ));
   }
@@ -35,14 +35,14 @@ class QList extends Component {
     return this.state.questions.map((question, key) => (
       <div className="col-6" key={key}>
         <p>Difficulty: {question.hardness}</p>
-        <p>Text: {question.description}</p>
+        Text: {show_latex(question.description)}
         <p>Image URL: {question.image}</p>
         <ol>{this.renderChoices(question.choices, question.correct)}</ol>
         {/* sinhala */}
-        <p>Text: {question.sinhalaDescription}</p>
+        Text: {show_latex(question.sinhalaDescription)}
         <ol>{this.renderChoices(question.sinhalaChoices, question.correct)}</ol>
         {/* Tamil */}
-        <p>Text: {question.tamilDescription}</p>
+        Text: {show_latex(question.tamilDescription)}
         <ol>{this.renderChoices(question.tamilChoices, question.correct)}</ol>
         <button onClick={() => this.props.edit(question.id)}>Edit</button>
       </div>

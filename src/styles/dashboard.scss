@@ -1,10 +1,16 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+.parent {
+  width: 100%;
+  display: inline-block;
+}
+.child {
+  float: left;
+  // display: inline;
 }
 /*------------color change classes---------*/
-
+.bDefault {
+  background-color: white !important;
+  border: solid 2px black !important;
+}
 /*---Add this class to the IDs from 1 to 30 to make its background red and text white --- */
 .bRed {
   background-color: #cc3333 !important;
@@ -26,45 +32,24 @@
   color: white !important;
 }
 /*-----------------------------------------*/
-
-html,
-body {
-  height: 100vh;
-
-  /*overflow: hidden;*/
+.warning {
+  margin-top: 20%;
 }
-
-#navbar {
-  overflow: auto;
-  position: relative;
-  height: 10%;
-  padding: 15px;
-  padding-left: 20px;
-  font-size: 30px;
-  height: auto;
-  background-color: rgb(32, 32, 32);
-  color: white;
-  box-shadow: 0px 1px 2px rgb(0, 39, 61);
+.submit-warning {
+  text-align: center !important;
+  padding: 1em 1em;
+  margin: auto;
 }
-
-button.submit {
-  padding: 0.5%;
-  position: absolute;
-  width: 20%;
-  right: 10%;
-  top: 50%;
+.warning button {
+  margin: auto;
+  margin-bottom: 2em;
+}
+.submit {
   font-weight: 800;
-  font-size: 16px;
-  transform: translateY(-50%);
-  background-image: linear-gradient(rgb(207, 0, 0), rgb(238, 0, 0));
+  background-color: red;
 }
 /*---------------Question block-------------*/
-// div > span {
-//   position: absolute;
-//   left: 50%;
-//   top: 50%;
-//   transform: translate(-50%, -50%);
-// }
+
 .dashboard > div {
   top: 50%;
   transform: translateY(-50%);
@@ -72,11 +57,12 @@ button.submit {
 .small-text {
   font-size: 50%;
 }
+
 .timerprogress {
-  border: 2px solid black;
+  border-bottom: 2px solid black;
   border-top: 0px;
   background-color: #e1f8ff;
-  padding: 1em;
+  padding: 0.5em 0.2em;
 }
 #xtimer,
 #xprogress {
@@ -98,17 +84,12 @@ button.submit {
   transform: translateY(-50%);
 }
 .xbar {
-  padding-left: 1%;
-  padding-right: 1%;
-  width: 100%;
-  overflow: auto;
 }
-.xbar > div {
+.xbar .q {
   text-align: center;
   float: left;
   width: 3.33%;
-  background-color: rgb(127, 197, 202);
-  border: 0.5px solid rgb(117, 117, 117);
+  border: 1px solid rgb(117, 117, 117);
 }
 .xnumcategory {
   display: flex;
@@ -121,8 +102,8 @@ button.submit {
 .xqNum,
 .xqCategory {
   font-weight: 600;
-  min-width: 300px;
-  padding: 0.5em;
+  max-width: 450px;
+  padding: 0.2em 0.5em;
   color: white;
   background-color: rgb(0, 115, 168);
   margin: 0;
@@ -142,7 +123,6 @@ button.submit {
 
 .Qcontent {
   background-color: white;
-  height: 77%;
 }
 .questionContent {
   font-size: 1em;
@@ -163,14 +143,19 @@ label {
 }
 .dashboard-footer {
   position: fixed;
+  left: 0;
   bottom: 0;
   padding: 1em 0 0 0;
   border-top: solid 2px black;
   width: 100%;
-  height: 10vh;
+  min-height: 10vh;
   color: white;
   background-color: #c5f1ff;
   text-align: center;
+}
+.dashboard-footer .col {
+  margin: 0;
+  padding: 0;
 }
 #next,
 #previous,
@@ -188,11 +173,10 @@ label {
 
 button {
   padding: 0.2em 1em;
-  min-width: 150px;
   border: solid 1px;
-  background: transparent;
+  background: white;
   color: black;
-  // border-radius: 20px;
+  border-radius: 5px;
 }
 button:hover {
   opacity: 0.9;
@@ -201,54 +185,24 @@ button:hover {
 /********** Large devices only **********/
 
 /********** Medium devices only **********/
-@media (min-width: 768px) and (max-width: 1199px) {
-  #xbar p {
-    float: left;
-    width: 6.66%;
-    margin-bottom: 1%;
-  }
-  #timerprogress {
-    height: auto;
-    overflow: auto;
-  }
+@media (min-width: 768px) {
   .verticalCenter {
     transform: none;
   }
-  #reset {
-    width: 30%;
+  .timerprogress {
+    border: 2px solid black;
+    border-top: 0px;
+    padding: 1em;
   }
-}
-
-@media (max-width: 767px) {
-  #xbar p {
-    float: left;
-    width: 10%;
-    margin-bottom: 1%;
+  .xqNum,
+  .xqCategory {
+    padding: 0.5em 1em;
   }
-  .verticalCenter {
-    transform: none;
-  }
-  #timerprogress {
-    height: auto;
-    overflow: auto;
-  }
-  #Qimage {
-    width: 100%;
-  }
-  #reset {
-    width: 50%;
+  .dashboard-footer {
+    left: auto;
   }
   button {
-    width: 60%;
-  }
-  #flagbutton {
-    width: 100%;
-  }
-  .footer {
-    height: 11%;
-  }
-  #xqNum,
-  #xqCategory {
-    width: 95%;
+    padding: 0.2em 1em;
+    min-width: 150px;
   }
 }

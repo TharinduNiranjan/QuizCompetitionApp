@@ -177,9 +177,9 @@ class Dashboard extends Component {
                   <Col
                     key={key}
                     onClick={() => this.changeQuestion(key)}
-                    className={this.state.number === key ? "bDefault" : !question.flag ? (question.selected.length === 0 ? "bRed" : "bGreen") : "bYellow"}
+                    className={`q ${this.state.number === key ? "bDefault" : !question.flag ? (question.selected.length === 0 ? "bRed" : "bGreen") : "bYellow"} `}
                   >
-                    Q {key + 1}
+                    {key + 1}
                   </Col>
                 );
               })}
@@ -187,11 +187,15 @@ class Dashboard extends Component {
           </Col>
         </Row>
         {this.state.submit ? (
-          <div>
-            Are you sure you want to submit? You can't change your answers once you submit click a question to
+          <Row className="warning">
+            <div className="submit-warning">
+              <h1>Are you sure you want to submit?</h1> You can't change your answers once you submit
+            </div>
             <button onClick={() => this.revise()}>Go back</button>
-            <button onClick={this.handleLogout}>Submit and Leave</button>
-          </div>
+            <button className="submit" onClick={this.handleLogout}>
+              Submit and Leave
+            </button>
+          </Row>
         ) : (
           <QuestionPage
             question={this.state.question.id}

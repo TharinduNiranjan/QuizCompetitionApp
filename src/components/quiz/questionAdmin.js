@@ -3,7 +3,7 @@ import { Question, DBQuestion } from "./questionClasses";
 import { db, storage } from "../../firebase/firebase";
 import { Form, Row, Col, Container } from "react-bootstrap";
 import QList from "./questionList";
-
+import { show_latex } from "./latex";
 class QAdmin extends Component {
   constructor(props) {
     super(props);
@@ -34,6 +34,7 @@ class QAdmin extends Component {
   // update state on form value changes
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+    console.log(this.state);
   }
   handleArrayChange(e) {
     let choices = this.state.choices;
@@ -152,7 +153,7 @@ class QAdmin extends Component {
       .sort()
       .map((key) => (
         <li key={key} className={correct === key ? "green" : "red"}>
-          {key} -->{choices[key]} {correct === key ? "Correct Answer" : ""}
+          {choices[key]} {correct === key ? "Correct Answer" : ""}
         </li>
       ));
   }
@@ -162,13 +163,13 @@ class QAdmin extends Component {
       <div key={key}>
         <p>Text: {question.description}</p>
         <p>Image URL: {question.image}</p>
-        <ol>{this.renderChoices(question.choices, question.correct)}</ol>
+        <ol type="A">{this.renderChoices(question.choices, question.correct)}</ol>
         {/* sinhala */}
         <p>Text: {question.sinhalaDescription}</p>
-        <ol>{this.renderChoices(question.sinhalaChoices, question.correct)}</ol>
+        <ol type="A">{this.renderChoices(question.sinhalaChoices, question.correct)}</ol>
         {/* Tamil */}
         <p>Text: {question.tamilDescription}</p>
-        <ol>{this.renderChoices(question.tamilChoices, question.correct)}</ol>
+        <ol type="A">{this.renderChoices(question.tamilChoices, question.correct)}</ol>
         <button onClick={() => this.editQuestion(question.id)}>Edit</button>
       </div>
     ));
@@ -182,6 +183,7 @@ class QAdmin extends Component {
             <Col sm="6">
               <div>
                 <Form.Control as="textarea" rows="3" value={this.state.description} onChange={this.handleChange} name="description" placeholder="English" />
+                {show_latex(this.state.description)}
                 {Object.keys(this.state.choices)
                   .sort()
                   .map((key) => (
@@ -191,6 +193,7 @@ class QAdmin extends Component {
                       </Form.Label>
                       <Col sm="10">
                         <Form.Control value={this.state.choices[key]} onChange={this.handleArrayChange} name={key} placeholder={"Answer " + key} />
+                        {show_latex(this.state.choices[key])}
                       </Col>
                     </Form.Group>
                   ))}
@@ -200,7 +203,7 @@ class QAdmin extends Component {
             <Col sm="6">
               <div>
                 <Form.Label>Correct Answer</Form.Label>
-                <Form.Control as="select" name="correct" onChange={this.handleChange}>
+                <Form.Control as="select" name="correct" value={this.state.correct} onChange={this.handleChange}>
                   <option>A</option>
                   <option>B</option>
                   <option>C</option>
@@ -208,7 +211,7 @@ class QAdmin extends Component {
                   <option>E</option>
                 </Form.Control>
                 <Form.Label>Difficulty</Form.Label>
-                <Form.Control as="select" name="hardness" onChange={this.handleChange}>
+                <Form.Control as="select" name="hardness" value={this.state.hardness} onChange={this.handleChange}>
                   <option>Easy</option>
                   <option>Hard</option>
                   <option>Submit</option>
@@ -232,6 +235,7 @@ class QAdmin extends Component {
               <div>
                 {/* Sinhala Input */}
                 <Form.Control as="textarea" rows="3" value={this.state.sinhalaDescription} onChange={this.handleChange} name="sinhalaDescription" placeholder="සිංහල​" />
+                {show_latex(this.state.sinhalaDescription)}
                 {Object.keys(this.state.sinhalaChoices)
                   .sort()
                   .map((key) => (
@@ -241,6 +245,7 @@ class QAdmin extends Component {
                       </Form.Label>
                       <Col sm="10">
                         <Form.Control value={this.state.sinhalaChoices[key]} onChange={this.handleSinhalaChange} name={key} placeholder={key + " උත්තරය​"} />
+                        {show_latex(this.state.sinhalaChoices[key])}
                       </Col>
                     </Form.Group>
                   ))}
@@ -250,6 +255,7 @@ class QAdmin extends Component {
               <div>
                 {/* Tamil Input */}
                 <Form.Control as="textarea" rows="3" value={this.state.tamilDescription} onChange={this.handleChange} name="tamilDescription" placeholder="தமிழ்" />
+                {show_latex(this.state.tamilDescription)}
                 {Object.keys(this.state.tamilChoices)
                   .sort()
                   .map((key) => (
@@ -259,6 +265,7 @@ class QAdmin extends Component {
                       </Form.Label>
                       <Col sm="10">
                         <Form.Control value={this.state.tamilChoices[key]} onChange={this.handleTamilChange} name={key} placeholder={"பதில் " + key} />
+                        {show_latex(this.state.tamilChoices[key])}
                       </Col>
                     </Form.Group>
                   ))}

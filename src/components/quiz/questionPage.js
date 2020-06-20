@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { db, storage } from "../../firebase/firebase";
 import { Form, Row, Col, Container } from "react-bootstrap";
-// let admin = require("firebase-admin");
+import { show_latex } from "./latex";
 
 class QuestionPage extends Component {
   constructor(props) {
@@ -129,7 +129,7 @@ class QuestionPage extends Component {
         <Form.Check
           key={key}
           type="radio"
-          label={this.state.question.choices[key]}
+          label={show_latex(this.state.question.choices[key])}
           onClick={() => this.saveAnswer(key)}
           value={key}
           onChange={this.handleChange}
@@ -139,41 +139,43 @@ class QuestionPage extends Component {
     }
     return (
       // create the question base
-      <div className="Qcontent" key={this.props.id}>
-        <Row className="xnumcategory">
-          <div className="xqNum">
-            Question {this.props.number + 1} of {this.props.length}
-          </div>
-          <div className="xqCategory">Category : {this.state.question.hardness}</div>
-        </Row>
-        <Row>
-          {/* <Col sm="2">
+      <div>
+        <div className="Qcontent" key={this.props.id}>
+          <Row className="xnumcategory">
+            <div className="xqNum">
+              Question {this.props.number + 1} of {this.props.length}
+            </div>
+            <div className="xqCategory">Category : {this.state.question.hardness}</div>
+          </Row>
+          <Row>
+            {/* <Col sm="2">
             <p>Question {this.props.number + 1}</p>
             <p>Difficulty {this.state.question.hardness}</p>
           </Col> */}
-          <Col className="questionContent">
-            <p>{this.state.question.description}</p>
-            {this.state.question.image ? <img alt="question" className="img-fluid Qimage" src={this.state.question.image}></img> : ""}
-            <div className="choices">
-              {choices}
-              <button className="reset" onClick={() => this.unselect()}>
-                Remove Answer
-              </button>
-            </div>
-          </Col>
-        </Row>
+            <Col className="questionContent">
+              <div>{show_latex(this.state.question.description)}</div>
+              {this.state.question.image ? <img alt="question" className="img-fluid Qimage" src={this.state.question.image}></img> : ""}
+              <div className="choices">
+                {choices}
+                <button className="reset" onClick={() => this.unselect()}>
+                  Remove Answer
+                </button>
+              </div>
+            </Col>
+          </Row>
+        </div>
         <Container className="dashboard-footer">
           <Row>
-            <Col sm="4">
-              <button onClick={() => this.changeQuestion(this.props.number - 1)}> {"< Prev"}</button>
+            <Col>
+              <button onClick={() => this.changeQuestion(this.props.number - 1)}> {"<Prev"}</button>
             </Col>
-            <Col sm="4">
+            <Col>
               <button className={this.state.flag ? "flagbutton" : ""} onClick={() => this.setFlag(this.props.number)}>
-                <span>{`&#9873`}</span> {this.state.flag ? "Flagged" : "Flag Question"}
+                {this.state.flag ? "Flagged" : "Flag Question"}
               </button>
             </Col>
-            <Col sm="4">
-              <button onClick={() => this.changeQuestion(this.props.number + 1)}>{this.props.number >= this.props.length - 1 ? "Submit" : "Next >"}</button>
+            <Col>
+              <button onClick={() => this.changeQuestion(this.props.number + 1)}>{this.props.number >= this.props.length - 1 ? "Submit" : "Next>"}</button>
             </Col>
           </Row>
         </Container>
