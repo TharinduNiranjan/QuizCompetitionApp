@@ -6,20 +6,20 @@ service cloud.firestore {
       // restict read,write access to all the document paths for any user
     }
     
-  	match /users/{userId}{
+  	match /testUsers/{userId}{
     	allow read,write : if request.auth !=null && request.auth.uid==userId; 
       //	allows read,write access to documents in the users collection 
       //	if the user is authenticated and uid matches the document name
     }
-    match /juniorQuestions/{juniorQ}{
+    match /juniorquiztest/{juniorQ}{
     	allow read,write : if true;
       // allows read,write access to all documents in the juniorQuestions collection for any user 
     }
-    match /questions/{studentQ}{
+    match /seniorquiztest/{studentQ}{
     	allow read,write : if true;
       // allows read,write access to all documents in the questions collection for any user
     }
-    match /seniorQuestions/{universityQ}{
+    match /superseniorquiztest/{universityQ}{
     	allow read,write : if true;
       // allows read,write access to all documents in the seniorQuestions collection for any user
     }

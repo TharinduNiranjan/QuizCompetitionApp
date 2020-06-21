@@ -12,7 +12,6 @@ ul.topnav {
 
 ul.topnav li a,
 ul.topnav li p {
-  display: flex;
   color: black;
   align-items: center;
   padding: 0;
@@ -22,7 +21,7 @@ ul.topnav li p {
 }
 ul.topnav li {
   float: right;
-  /* width: 100%; */
+  width: 100%;
 }
 ul.topnav li.right {
   margin-top: 10px;
@@ -181,6 +180,7 @@ p#demo {
   font-size: 18px;
   font-weight: 500;
   margin-top: 1em;
+  width: 100%;
 }
 
 //dashboard page
@@ -400,6 +400,7 @@ button :active {
   }
   ul.topnav li {
     float: left;
+    width: unset;
   }
   ul.topnav li.right {
     float: right;
@@ -471,6 +472,7 @@ button :active {
   ul.topnav {
     min-height: 5vh;
   }
+
   .timercolumn,
   .tflex-container,
   .logincolumn {

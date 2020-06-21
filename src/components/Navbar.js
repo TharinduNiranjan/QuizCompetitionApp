@@ -5,7 +5,7 @@ class Navbar extends Component {
   render() {
     return (
       <ul className="topnav">
-        <li>
+        <li className="text-center">
           <Link to="/">μMora 2020</Link>
         </li>
         <div>
