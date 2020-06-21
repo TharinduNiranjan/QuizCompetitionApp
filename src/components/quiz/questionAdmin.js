@@ -210,10 +210,10 @@ class QAdmin extends Component {
                   .sort()
                   .map((key) => (
                     <Form.Group as={Row} key={key}>
-                      <Form.Label column sm="1">
+                      <Form.Label column xs="1">
                         {key}
                       </Form.Label>
-                      <Col sm="11">
+                      <Col xs="11">
                         <Form.Control value={this.state.choices[key]} onChange={this.handleArrayChange} name={key} placeholder={"Answer " + key} />
                         {show_latex(this.state.choices[key])}
                       </Col>
@@ -262,10 +262,10 @@ class QAdmin extends Component {
                   .sort()
                   .map((key) => (
                     <Form.Group as={Row} key={key}>
-                      <Form.Label column sm="1">
+                      <Form.Label column xs="1">
                         {key}
                       </Form.Label>
-                      <Col sm="11">
+                      <Col xs="11">
                         <Form.Control value={this.state.sinhalaChoices[key]} onChange={this.handleSinhalaChange} name={key} placeholder={key + " උත්තරය​"} />
                         {show_latex(this.state.sinhalaChoices[key])}
                       </Col>
@@ -282,10 +282,10 @@ class QAdmin extends Component {
                   .sort()
                   .map((key) => (
                     <Form.Group as={Row} key={key}>
-                      <Form.Label column sm="1">
+                      <Form.Label column xs="1">
                         {key}
                       </Form.Label>
-                      <Col sm="11">
+                      <Col xs="11">
                         <Form.Control value={this.state.tamilChoices[key]} onChange={this.handleTamilChange} name={key} placeholder={"பதில் " + key} />
                         {show_latex(this.state.tamilChoices[key])}
                       </Col>

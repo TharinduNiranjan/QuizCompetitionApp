@@ -27,8 +27,8 @@ class QList extends Component {
       .sort()
       .map((key) => (
         <Row key={key} className={correct === key ? "bGreen" : ""}>
-          <Col sm="1">{key}</Col>
-          <Col sm="11">{show_latex(choices[key])}</Col>
+          <Col xs="1">{key}</Col>
+          <Col xs="11">{show_latex(choices[key])}</Col>
         </Row>
       ));
   }
@@ -50,13 +50,13 @@ class QList extends Component {
         </Row>
         <h4>English</h4>
         {show_latex(question.description)}
-        <ol>{this.renderChoices(question.choices, question.correct)}</ol>
+        <div>{this.renderChoices(question.choices, question.correct)}</div>
         {/* sinhala */}
         <h4>Sinhala</h4> {show_latex(question.sinhalaDescription)}
-        <ol>{this.renderChoices(question.sinhalaChoices, question.correct)}</ol>
+        <div>{this.renderChoices(question.sinhalaChoices, question.correct)}</div>
         {/* Tamil */}
         <h4>Tamil</h4> {show_latex(question.tamilDescription)}
-        <ol>{this.renderChoices(question.tamilChoices, question.correct)}</ol>
+        <div>{this.renderChoices(question.tamilChoices, question.correct)}</div>
       </div>
     ));
   }
