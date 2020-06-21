@@ -234,13 +234,13 @@ class Dashboard extends Component {
                 {this.state.questions.map((question, key) => {
                   return (
                     // create the question base
-                    <Col
+                    <div
                       key={key}
                       onClick={() => this.changeQuestion(key)}
                       className={`q ${this.state.number === key ? "bDefault" : !question.flag ? (question.selected == "" ? "bRed" : "bGreen") : "bYellow"} `}
                     >
                       {key + 1}
-                    </Col>
+                    </div>
                   );
                 })}
               </Row>

@@ -23,8 +23,11 @@ class About extends Component {
               <p className="text-justify">
                 The Department of Electronics and Telecommunication Engineering of University of Moratuwa proudly presents, <strong>μMora 2020</strong>, the first-ever island wide online mathematics
                 competition to be held in Sri Lanka. 6000+ likeminded individuals from all around the island will compete under three categories: Junior, Intermediate and Senior, to become the best
-                brainiac among all! The competition features namouras mathematical problems from some of the most fascinating areas in mathematics. Encouraging young mathematics enthusiast around the
-                globe, The Department of Electronics and Telecommunication Engineering will be taking the competition to the international level in the coming years.
+                brainiac among all!
+              </p>
+              <p className="text-justify">
+                The competition features numerous mathematical problems from some of the most fascinating areas in mathematics. Encouraging young mathematics enthusiasts around the globe, The
+                Department of Electronics and Telecommunication Engineering will be taking the competition to the international level in the coming years.
               </p>
               <p className="text-justify">
                 μMora 2020 will consist of 2 rounds under each category, and the first round will be held online on the 28th of June 2020. You will be using this platform to enter the competition.
