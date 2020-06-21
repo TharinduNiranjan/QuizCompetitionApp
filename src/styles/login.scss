@@ -22,7 +22,7 @@
 
   .timercolumn,
   .tflex-container {
-    height: 82vh;
+    height: 100vh;
   }
   #demo {
     font-size: 3em;
@@ -48,10 +48,26 @@
     padding: 0.5em 1em;
   }
   .dashboard-footer {
-    left: auto;
+    left: auto !important;
   }
   button {
     padding: 0.2em 1em;
     min-width: 150px;
+  }
+
+  //about page
+  .organizinglogos {
+    padding-left: 1%;
+    padding-right: 1%;
+    max-height: 100px;
+  }
+  .nbparas p {
+    margin-bottom: 0.5em;
+    text-align: center;
+    float: none !important;
+    padding: 0;
+  }
+  .aboutcontact {
+    margin-top: 1.5em;
   }
 }

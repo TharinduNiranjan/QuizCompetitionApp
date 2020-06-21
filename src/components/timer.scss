@@ -37,14 +37,14 @@ ul.topnav li.right :hover {
 }
 
 .tflex-container {
-  height: 40vh;
+  height: 50vh;
   background-image: url("../assets/CountdownBG.png");
   background-size: cover;
 }
 
 .timercolumn {
   display: flex;
-  height: 40vh;
+  height: 50vh;
   justify-content: center;
   align-items: center;
 }
@@ -101,11 +101,4 @@ p#demo {
 #logoimg {
   display: none;
   width: 75%;
-}
-
-@media (max-width: 767px) {
-  .timercolumn,
-  .tflex-container {
-    height: 40vh;
-  }
 }

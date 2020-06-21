@@ -10,10 +10,10 @@ class LoginPage extends Component {
         <Navbar></Navbar>
         <Container fluid>
           <Row>
-            <Col sm="6" className="vertical-align order-sm-2">
+            <Col sm="6" className="vertical-align order-sm-1">
               <Login></Login>
             </Col>
-            <Col sm="6" className="lflex-container order-sm-1"></Col>
+            <Col sm="6" className="lflex-container order-sm-2"></Col>
           </Row>
         </Container>
         <Footer></Footer>
