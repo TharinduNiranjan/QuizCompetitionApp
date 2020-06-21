@@ -15,8 +15,8 @@ class QuestionPage extends Component {
         hardness: "",
       },
     };
-    this.questioncol = "questions";
-    this.usercol = "testUsers";
+    this.questioncol = process.env.REACT_APP_SENIOR_DB;
+    this.usercol = process.env.REACT_APP_USER_DB;
     this.disconnectUser = function () {}; // realtime connection to firebase
     this.getQuestion = this.getQuestion.bind(this); // get question from questions collection and create observable from user collection
     this.saveAnswer = this.saveAnswer.bind(this); // save answer on click

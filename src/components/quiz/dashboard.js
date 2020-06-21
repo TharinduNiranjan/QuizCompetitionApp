@@ -30,8 +30,8 @@ class Dashboard extends Component {
       timeup: true,
       early: true,
     };
-    this.usercol = "testUsers";
-    this.questioncol = "questions";
+    this.usercol = process.env.REACT_APP_USER_DB;
+    this.questioncol = process.env.REACT_APP_SENIOR_DB;
     this.disconnectUsers = "";
     this.updateTimer = ""; // timer variable to clear on exit
     this.timer = this.timer.bind(this);

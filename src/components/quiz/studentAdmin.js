@@ -5,7 +5,7 @@ class StudentAdmin extends Component {
   render() {
     return (
       <div>
-        <QAdmin collection="questions"></QAdmin>
+        <QAdmin collection={process.env.REACT_APP_SENIOR_DB}></QAdmin>
       </div>
     );
   }

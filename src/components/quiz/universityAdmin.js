@@ -5,7 +5,7 @@ class UniversityAdmin extends Component {
   render() {
     return (
       <div>
-        <QAdmin collection="seniorQuestions"></QAdmin>
+        <QAdmin collection={process.env.REACT_APP_SUPERSENIOR_DB}></QAdmin>
       </div>
     );
   }

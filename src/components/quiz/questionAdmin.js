@@ -297,7 +297,7 @@ class QAdmin extends Component {
           {/* <button onClick={() => this.addOption()}>Add Choices</button> */}
           <button onClick={() => this.addQuestion()}>{this.state.id ? "Save Changes" : "Add Question"}</button>
           <h1>Question List</h1>
-          <QList collection={this.props.collection} edit={this.editQuestion}></QList>
+          <QList collection={this.col} edit={this.editQuestion}></QList>
         </Container>
       </div>
     );
