@@ -18,6 +18,9 @@ class Navbar extends Component {
           <li className="right">
             <Link to="/instructions">Instructions</Link>
           </li>
+          <li className="right">
+            <Link to="/">Home</Link>
+          </li>
         </div>
       </ul>
     );
