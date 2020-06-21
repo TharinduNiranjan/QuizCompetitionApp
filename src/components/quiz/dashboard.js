@@ -237,7 +237,7 @@ class Dashboard extends Component {
                     <div
                       key={key}
                       onClick={() => this.changeQuestion(key)}
-                      className={`q ${this.state.number === key ? "bDefault" : !question.flag ? (question.selected === "" ? "bRed" : "bGreen") : "bYellow"} `}
+                      className={`q ${this.state.number === key ? "bDefault" : !question.flag ? (question.selected == "" ? "bRed" : "bGreen") : "bYellow"} `}
                     >
                       {key + 1}
                     </div>
