@@ -16,7 +16,7 @@ class LoginPage extends Component {
             <Col sm="6" className="lflex-container order-sm-2"></Col>
           </Row>
         </Container>
-        <Footer></Footer>
+        {/* <Footer></Footer> */}
       </Fragment>
     );
   }

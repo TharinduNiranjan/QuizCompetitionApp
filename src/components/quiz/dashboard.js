@@ -108,6 +108,7 @@ class Dashboard extends Component {
   };
   waitingTimer() {
     let deadline = new Date(this.startTime).getTime();
+    let display = "a litte time...";
     let now = new Date().getTime();
     if (deadline > now) {
       this.setState({ timeup: true, early: true });
@@ -120,16 +121,19 @@ class Dashboard extends Component {
       clearInterval(this.waitingTime);
       // logout and submit
     }
-    // let days = Math.floor(t / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((t % (1000 * 60)) / 1000);
-    let display = (
-      <div className="inline-block">
-        {hours}:{minutes}
-        <span className="small-text">:{seconds}</span>
-      </div>
-    );
+    if (t) {
+      // let days = Math.floor(t / (1000 * 60 * 60 * 24));
+      let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+      let seconds = Math.floor((t % (1000 * 60)) / 1000);
+      display = (
+        <div className="inline-block">
+          {hours}:{minutes}
+          <span className="small-text">:{seconds}</span>
+        </div>
+      );
+    }
+
     this.setState({ wait: display });
   }
   timer() {

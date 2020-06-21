@@ -70,4 +70,15 @@
   .aboutcontact {
     margin-top: 1.5em;
   }
+  .logincolumn {
+    height: 90vh;
+    align-items: center;
+    padding-top: 0;
+  }
+}
+@media screen and (min-width: 767px) and (max-width: 940px) {
+  .lflex-container {
+    background-size: cover;
+    background-position: 20% !important;
+  }
 }

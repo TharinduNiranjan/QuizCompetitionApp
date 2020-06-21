@@ -1,11 +1,12 @@
 @import "../styles/login.scss";
 ul.topnav {
   font-size: 30px;
+  font-weight: 500;
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  /* background-color: rgb(32, 32, 32); */
+  // background-color: #9cc;
   border-bottom: solid 1px black;
 }
 
@@ -37,20 +38,21 @@ ul.topnav li.right :hover {
 }
 
 .tflex-container {
-  height: 50vh;
+  height: 40vh;
   background-image: url("../assets/CountdownBG.png");
   background-size: cover;
 }
 
 .timercolumn {
   display: flex;
-  height: 50vh;
+  height: 60vh;
   justify-content: center;
   align-items: center;
 }
 #timerbox {
   padding: 2%;
   text-align: center;
+  max-width: 350px;
 }
 p#demo {
   font-size: 2em;
@@ -101,4 +103,17 @@ p#demo {
 #logoimg {
   display: none;
   width: 75%;
+}
+
+.minifooter {
+  position: absolute;
+  bottom: 0;
+  padding: 1em;
+}
+.minifooter > a {
+  color: black !important;
+}
+.minifooter > a :hover {
+  text-decoration: underline;
+  color: black !important;
 }

@@ -17,8 +17,11 @@
   margin: 8px 0;
   width: 100%;
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 1px solid #fff;
   box-sizing: border-box;
+  background: #eee;
+  color: black;
+  border-bottom: solid 1px black;
 }
 
 /* button {
@@ -59,9 +62,16 @@ button:focus {
 
 .lflex-container {
   display: none;
-  height: 80vh;
+  height: 90vh;
   background-image: url("../assets/MainImage.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+.logincolumn {
+  display: flex;
+  height: 80vh;
+  justify-content: space-around;
+  align-items: self-start;
+  padding-top: 2em;
 }

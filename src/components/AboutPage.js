@@ -17,18 +17,24 @@ class About extends Component {
             <Col sm="6" className="text-center vertical-align">
               <img className="img-fluid logoImage" src={logo} alt="" />
             </Col>
-            <Col sm="6">
-              <h2>μMora 2020</h2>
-              <p>
-                Electronics Club, now affectionately known as the Electronic Club is the official student association of the Department of Electronic and Telecommunication Engineering, University of
-                Moratuwa. Established over two decades ago, Electronic Club has grown from strength to strength over the years. Many activities are carried out by the students of the club focusing on
-                community service as well as professional development. Electronics Club, now affectionately known as the Electronic Club is the official student association of the Department of
-                Electronic and Telecommunication Engineering, University of Moratuwa.
+            <Col sm="6" className="pt-sm-5">
+              <h2 className="text-center">μMora 2020</h2>
+              <p className="text-center">Are you ready to wrack your brains?</p>
+              <p className="text-justify">
+                The Department of Electronics and Telecommunication Engineering of University of Moratuwa proudly presents, <strong>μMora 2020</strong>, the first-ever island wide online mathematics
+                competition to be held in Sri Lanka. 6000+ likeminded individuals from all around the island will compete under three categories: Junior, Intermediate and Senior, to become the best
+                brainiac among all! The competition features namouras mathematical problems from some of the most fascinating areas in mathematics. Encouraging young mathematics enthusiast around the
+                globe, The Department of Electronics and Telecommunication Engineering will be taking the competition to the international level in the coming years.
               </p>
+              <p className="text-justify">
+                μMora 2020 will consist of 2 rounds under each category, and the first round will be held online on the 28th of June 2020. You will be using this platform to enter the competition.
+                Please go through the rules and regulations thoroughly before participating.{" "}
+              </p>
+              <p>Wish you all the best for an experience of a lifetime!</p>
             </Col>
             <Col sm="6">
-              <h2>Electronic Club</h2>
-              <p>
+              <h2 className="text-center">Electronic Club</h2>
+              <p className="text-justify">
                 Electronics Club, now affectionately known as the Electronic Club is the official student association of the Department of Electronic and Telecommunication Engineering, University of
                 Moratuwa. Established over two decades ago, Electronic Club has grown from strength to strength over the years. Many activities are carried out by the students of the club focusing on
                 community service as well as professional development.

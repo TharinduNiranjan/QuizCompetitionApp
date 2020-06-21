@@ -8,15 +8,17 @@ class Navbar extends Component {
         <li>
           <Link to="/">μMora Mathematics Competition 2020</Link>
         </li>
-        <li className="right">
-          <Link to="/about">About</Link>
-        </li>
-        <li className="right">
-          <Link to="/faq">F.A.Q</Link>
-        </li>
-        <li className="right">
-          <Link to="/instructions">Instructions</Link>
-        </li>
+        <div>
+          <li className="right">
+            <Link to="/about">About</Link>
+          </li>
+          <li className="right">
+            <Link to="/faq">F.A.Q</Link>
+          </li>
+          <li className="right">
+            <Link to="/instructions">Instructions</Link>
+          </li>
+        </div>
       </ul>
     );
   }
@@ -33,4 +35,16 @@ class Footer extends Component {
     );
   }
 }
-export { Navbar, Footer };
+
+class MiniFooter extends Component {
+  render() {
+    return (
+      <div className="minifooter">
+        <a href="https://www.facebook.com/UOM.ECLUB" target="_blank">
+          μMora | EClub | University of Moratuwa
+        </a>
+      </div>
+    );
+  }
+}
+export { Navbar, Footer, MiniFooter };

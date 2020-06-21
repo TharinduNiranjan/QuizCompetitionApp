@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import "./timer.scss";
 
@@ -36,16 +36,23 @@ class Timer extends Component {
   render() {
     const { count } = this.state;
     return (
-      <div className="timercolumn">
-        <div id="timerbox">
-          <p id="caption">Competition begins in</p>
-          <p id="demo">{count}</p>
-          <p> Days : Hours : Minutes : Seconds </p>
-          <a className="link" href="/login">
-            Test Round
+      <Fragment>
+        <div className="timercolumn">
+          <div id="timerbox">
+            <p id="caption">Competition begins in</p>
+            <p id="demo">{count}</p>
+            <p> Days : Hours : Minutes : Seconds </p>
+            <a className="link" href="/login">
+              Test Round
+            </a>
+          </div>
+        </div>
+        <div className="minifooter">
+          <a href="https://www.facebook.com/UOM.ECLUB" target="_blank">
+            μMora | EClub | University of Moratuwa
           </a>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
