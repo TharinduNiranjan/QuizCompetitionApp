@@ -5,11 +5,11 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
 import ls from "local-storage";
 import { Container, Row, Col } from "react-bootstrap";
-import "../../styles/dashboard.scss";
 import { Redirect } from "react-router-dom";
 // const schema = {
 //   name : "",
-//   email: "",
+// startTime:"",
+// deadline:"",
 //   questions : {1:{
 //     id:"",
 //     selected:[],
@@ -237,7 +237,7 @@ class Dashboard extends Component {
                     <div
                       key={key}
                       onClick={() => this.changeQuestion(key)}
-                      className={`q ${this.state.number === key ? "bDefault" : !question.flag ? (question.selected == "" ? "bRed" : "bGreen") : "bYellow"} `}
+                      className={`q ${this.state.number === key ? "bDefault" : !question.flag ? (question.selected === "" ? "bRed" : "bGreen") : "bYellow"} `}
                     >
                       {key + 1}
                     </div>

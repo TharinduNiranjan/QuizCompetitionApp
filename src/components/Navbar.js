@@ -6,7 +6,7 @@ class Navbar extends Component {
     return (
       <ul className="topnav">
         <li>
-          <Link to="/">μMora Mathematics Competition 2020</Link>
+          <Link to="/">μMora 2020</Link>
         </li>
         <div>
           <li className="right">
@@ -28,7 +28,7 @@ class Footer extends Component {
   render() {
     return (
       <div className="footer">
-        <a href="https://www.facebook.com/UOM.ECLUB" target="_blank">
+        <a href="https://www.facebook.com/UOM.ECLUB" target="_blank" rel="noopener noreferrer">
           μMora | EClub | University of Moratuwa
         </a>
       </div>
@@ -40,7 +40,7 @@ class MiniFooter extends Component {
   render() {
     return (
       <div className="minifooter">
-        <a href="https://www.facebook.com/UOM.ECLUB" target="_blank">
+        <a href="https://www.facebook.com/UOM.ECLUB" target="_blank" rel="noopener noreferrer">
           μMora | EClub | University of Moratuwa
         </a>
       </div>

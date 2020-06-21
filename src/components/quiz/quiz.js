@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
 import Dashboard from "../quiz/dashboard";
-import { Navbar, Footer } from "../Navbar";
+import { Navbar } from "../Navbar";
 class Quiz extends Component {
   handleLogout = () => {
     const { dispatch } = this.props;

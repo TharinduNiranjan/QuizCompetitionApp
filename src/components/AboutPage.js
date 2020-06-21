@@ -6,7 +6,6 @@ import logo from "../assets/png.png";
 import UniLogo from "../assets/mora.png";
 import eclub from "../assets/eclub.png";
 import entc from "../assets/entc.png";
-import "./about.css";
 class About extends Component {
   render() {
     return (

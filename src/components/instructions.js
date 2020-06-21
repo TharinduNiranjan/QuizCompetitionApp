@@ -1,5 +1,4 @@
 import React, { Fragment, Component } from "react";
-import "../styles/instruction.scss";
 import { Navbar, Footer } from "./Navbar";
 import { Row, Container, Col } from "react-bootstrap";
 

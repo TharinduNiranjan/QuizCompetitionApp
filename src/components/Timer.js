@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
-import "./timer.scss";
+import { MiniFooter } from "./Navbar";
 
 class Timer extends Component {
   constructor(props) {
@@ -39,18 +38,14 @@ class Timer extends Component {
       <Fragment>
         <div className="timercolumn">
           <div id="timerbox">
-            <p id="caption">Competition begins in</p>
+            <p id="caption">μMora Mathematics Competition starts in</p>
             <p id="demo">{count}</p>
             <p> Days : Hours : Minutes : Seconds </p>
             <a className="link" href="/login">
               Test Round
             </a>
           </div>
-        </div>
-        <div className="minifooter">
-          <a href="https://www.facebook.com/UOM.ECLUB" target="_blank">
-            μMora | EClub | University of Moratuwa
-          </a>
+          <MiniFooter></MiniFooter>
         </div>
       </Fragment>
     );

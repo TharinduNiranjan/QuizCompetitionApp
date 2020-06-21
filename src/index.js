@@ -5,8 +5,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./styles.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-// import "../node_modules/materialize-css/dist/css/materialize.min.css";
-// import "../node_modules/materialize-css/dist/js/materialize.min.js";
 import configureStore from "./configureStore";
 const store = configureStore();
 
