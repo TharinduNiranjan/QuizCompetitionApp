@@ -84,7 +84,7 @@ class Faq extends Component {
     return (
       <Fragment>
         <Navbar></Navbar>
-        <Container className="mt-3">
+        <Container className="min80">
           <Accordion atomic={true}>
             <AccordionItem title="How do I know that I have successfully registered ?">
               <Content />

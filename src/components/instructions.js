@@ -28,7 +28,7 @@ class Instruction extends Component {
     return (
       <Fragment>
         <Navbar></Navbar>
-        <Container fluid className="instructions">
+        <Container fluid className="instructions min80">
           <Row>
             <Col className="all-center">
               <button onClick={this.Scllevel}>Instructions for School</button>
