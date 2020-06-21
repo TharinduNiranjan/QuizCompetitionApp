@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { loginUser } from "../actions";
 import { Form } from "react-bootstrap";
 import ls from "local-storage";
 import "./loginStyle.css";
+import logo from "../assets/png.png";
 
 class Login extends Component {
   constructor(props) {
@@ -45,31 +46,27 @@ class Login extends Component {
       return <Redirect to="/quiz" />;
     } else {
       return (
-        <div>
-          <div className="row" id="loginbody">
-            <div className="logincontainer">
-              <div id="loginbox">
-                <div id="signinheader">Sign In</div>
-                <input className="logininput" onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required></input>
-                <input className="logininput" onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required></input>
-                {/* 
+        <Fragment>
+          <div id="loginbox">
+            <img alt="logo" className="img-fluid logoImage" src={logo}></img>
+            <Form.Control className="logininput" onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required />
+            <Form.Control className="logininput" onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required />
+            {/* 
                 <input onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required></input>
                 <p></p> */}
-                <Form.Control as="select" defaultValue="english" value={this.selectedOption} onChange={this.handleChange}>
-                  <option value="english">English</option>
-                  <option value="sinhala">සිංහල</option>
-                  <option value="tamil">தமிழ்</option>
-                </Form.Control>
-                <br></br>
+            <Form.Control as="select" defaultValue="english" value={this.selectedOption} onChange={this.handleChange}>
+              <option value="english">English</option>
+              <option value="sinhala">සිංහල</option>
+              <option value="tamil">தமிழ்</option>
+            </Form.Control>
+            <br></br>
 
-                <button onClick={this.handleSubmit} type="submit">
-                  Login
-                </button>
-                {loginError && <div className="errorText">Incorrect email or password.</div>}
-              </div>
-            </div>
+            <button onClick={this.handleSubmit} type="submit">
+              Login
+            </button>
+            {loginError && <div className="errorText">Incorrect email or password.</div>}
           </div>
-        </div>
+        </Fragment>
       );
     }
   }
