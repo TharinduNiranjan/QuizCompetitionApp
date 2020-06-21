@@ -31,10 +31,10 @@ class Instruction extends Component {
         <Container fluid className="instructions min80">
           <Row>
             <Col className="all-center">
-              <button onClick={this.Scllevel}>Instructions for School</button>
+              <button onClick={this.Scllevel}>Platform Guidelines</button>
             </Col>
             <Col className="all-center">
-              <button onClick={this.Unilevel}>Instructions for University</button>
+              <button onClick={this.Unilevel}>Competition Rules</button>
             </Col>
           </Row>
           <div id="left">
