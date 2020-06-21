@@ -44,6 +44,7 @@ ul.topnav li.right :hover {
 
 .timercolumn {
   display: flex;
+  flex-direction: column;
   height: 60vh;
   justify-content: center;
   align-items: center;
@@ -155,9 +156,11 @@ p#demo {
   background-position: center;
 }
 .logincolumn {
+  display: flex;
+  flex-direction: column;
   height: 80vh;
   justify-content: space-around;
-  align-items: self-start;
+  align-items: center;
   padding-top: 2em;
 }
 
