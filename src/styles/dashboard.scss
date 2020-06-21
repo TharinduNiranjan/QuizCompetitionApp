@@ -182,8 +182,11 @@ button {
   color: black;
   border-radius: 5px;
 }
-button:hover {
-  opacity: 0.9;
+button :hover,
+button :focus {
+  text-decoration: none;
+  color: white;
+  background-color: black;
 }
 
 /********** Large devices only **********/

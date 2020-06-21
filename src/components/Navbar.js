@@ -9,7 +9,7 @@ class Navbar extends Component {
           <p>μMora Mathematics Competition 2020</p>
         </li>
         <li className="right">
-          <Link to="/About">About</Link>
+          <Link to="/about">About</Link>
         </li>
         <li className="right">
           <Link to="/faq">F.A.Q</Link>
