@@ -56,34 +56,35 @@ class About extends Component {
               <p className="aboutcontact">
                 <Call></Call> About Competition
               </p>
+              <p> Kavindu Nadeeshana</p>
               <p>
                 <a href="tel:+94712026460">+94 71 202 6460</a>
               </p>
-              <p> Kavindu Nadeeshana</p>
 
               <p className="aboutcontact">
                 <Functions></Functions> About Questions
               </p>
+              <p> Mevan Wijewardena</p>
               <p>
                 <a href="tel:+94702361378">+94 70 236 1378</a>
               </p>
-              <p> Mevan Wijewardena</p>
             </Col>
             <Col sm="6" md="4">
               <p className="aboutcontact">
                 <Help></Help> Technical Support
               </p>
+              <p> Pulasthi Ekanayake</p>
               <p>
                 <a href="tel:+94723715922">+94 72 371 5922</a>
               </p>
-              <p> Pulasthi Ekanayake</p>
+
               <p className="aboutcontact">
                 <CodeSharp></CodeSharp> Platform Support
               </p>
+              <p> Tharindu Niranjan</p>
               <p>
                 <a href="tel:+94712400147">+94 71 240 014</a>
               </p>
-              <p> Tharindu Niranjan</p>
             </Col>
             <Col sm="6" md="4">
               <p className="aboutcontact">
