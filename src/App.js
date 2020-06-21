@@ -12,9 +12,7 @@ import StudentAdmin from "./components/quiz/studentAdmin";
 import UniversityAdmin from "./components/quiz/universityAdmin";
 import JuniorAdmin from "./components/quiz/juniorAdmin";
 import Faq from "./components/faq";
-import Accordion from "./components/FAQ/Accordion";
-import AccordionItem from "./components/FAQ/AccordionItem";
-import Instruction from "./components/instructions";
+import Instruction from "./components/Instructions";
 
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
@@ -29,8 +27,6 @@ function App(props) {
       <Route path="/admin/junior" component={JuniorAdmin} />
       <Route path="/instructions" component={Instruction} />
       <Route path="/faq" component={Faq} />
-      <Route path="/FAQ/Accordion" component={Accordion} />
-      <Route path="/FAQ/AccordionItem" component={AccordionItem} />
       <Redirect from="*" to="" />
       {/* <Route component={() => (<div>404 Not found</div>)} /> */}
     </Switch>

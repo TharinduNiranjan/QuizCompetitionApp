@@ -6,6 +6,10 @@
   float: left;
   // display: inline;
 }
+.question {
+  border-bottom: solid 1px black;
+  margin-top: 2em;
+}
 /*------------color change classes---------*/
 .bDefault {
   background-color: white !important;
@@ -45,7 +49,7 @@
   margin-bottom: 2em;
 }
 .submit {
-  font-weight: 800;
+  font-weight: 600;
   background-color: red;
 }
 /*---------------Question block-------------*/

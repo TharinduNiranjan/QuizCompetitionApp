@@ -147,7 +147,7 @@ class QAdmin extends Component {
   }
   resetState() {
     this.setState(new Question());
-    this.setState({ img: null });
+    this.setState({ img: null, id: null });
   }
   addOption() {
     let choices = this.state.choices;
@@ -210,10 +210,10 @@ class QAdmin extends Component {
                   .sort()
                   .map((key) => (
                     <Form.Group as={Row} key={key}>
-                      <Form.Label column sm="2">
+                      <Form.Label column sm="1">
                         {key}
                       </Form.Label>
-                      <Col sm="10">
+                      <Col sm="11">
                         <Form.Control value={this.state.choices[key]} onChange={this.handleArrayChange} name={key} placeholder={"Answer " + key} />
                         {show_latex(this.state.choices[key])}
                       </Col>
@@ -262,10 +262,10 @@ class QAdmin extends Component {
                   .sort()
                   .map((key) => (
                     <Form.Group as={Row} key={key}>
-                      <Form.Label column sm="2">
+                      <Form.Label column sm="1">
                         {key}
                       </Form.Label>
-                      <Col sm="10">
+                      <Col sm="11">
                         <Form.Control value={this.state.sinhalaChoices[key]} onChange={this.handleSinhalaChange} name={key} placeholder={key + " උත්තරය​"} />
                         {show_latex(this.state.sinhalaChoices[key])}
                       </Col>
@@ -282,10 +282,10 @@ class QAdmin extends Component {
                   .sort()
                   .map((key) => (
                     <Form.Group as={Row} key={key}>
-                      <Form.Label column sm="2">
+                      <Form.Label column sm="1">
                         {key}
                       </Form.Label>
-                      <Col sm="10">
+                      <Col sm="11">
                         <Form.Control value={this.state.tamilChoices[key]} onChange={this.handleTamilChange} name={key} placeholder={"பதில் " + key} />
                         {show_latex(this.state.tamilChoices[key])}
                       </Col>
@@ -295,7 +295,7 @@ class QAdmin extends Component {
             </Col>
           </Row>
           {/* <button onClick={() => this.addOption()}>Add Choices</button> */}
-          <button onClick={() => this.addQuestion()}>{this.state.id !== "" ? "Save Changes" : "Add Question"}</button>
+          <button onClick={() => this.addQuestion()}>{this.state.id ? "Save Changes" : "Add Question"}</button>
           <h1>Question List</h1>
           <QList collection={this.props.collection} edit={this.editQuestion}></QList>
         </Container>

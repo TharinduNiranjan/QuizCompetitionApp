@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Question } from "./questionClasses";
 import { db } from "../../firebase/firebase";
 import { show_latex } from "./latex";
+import { Col, Row } from "react-bootstrap";
 class QList extends Component {
   constructor(props) {
     super(props);
@@ -25,26 +26,37 @@ class QList extends Component {
     return Object.keys(choices)
       .sort()
       .map((key) => (
-        <li key={key} className={correct === key ? "bGreen" : "red"}>
-          {show_latex(choices[key])} {correct === key ? "Correct Answer" : ""}
-        </li>
+        <Row key={key} className={correct === key ? "bGreen" : ""}>
+          <Col sm="1">{key}</Col>
+          <Col sm="11">{show_latex(choices[key])}</Col>
+        </Row>
       ));
   }
 
   renderQuestions() {
     return this.state.questions.map((question, key) => (
-      <div className="col-6" key={key}>
-        <p>Difficulty: {question.hardness}</p>
-        Text: {show_latex(question.description)}
-        <p>Image URL: {question.image}</p>
+      <div className="container question" key={key}>
+        <Row>
+          <Col sm="10">
+            <h2>Question {question.id} </h2>
+          </Col>
+          <Col sm="2">
+            <button onClick={() => this.props.edit(question.id)}>Edit</button>
+          </Col>
+        </Row>
+        <Row>
+          <Col>Difficulty: {question.hardness}</Col>
+          <Col>Image URL: {question.image}</Col>
+        </Row>
+        <h4>English</h4>
+        {show_latex(question.description)}
         <ol>{this.renderChoices(question.choices, question.correct)}</ol>
         {/* sinhala */}
-        Text: {show_latex(question.sinhalaDescription)}
+        <h4>Sinhala</h4> {show_latex(question.sinhalaDescription)}
         <ol>{this.renderChoices(question.sinhalaChoices, question.correct)}</ol>
         {/* Tamil */}
-        Text: {show_latex(question.tamilDescription)}
+        <h4>Tamil</h4> {show_latex(question.tamilDescription)}
         <ol>{this.renderChoices(question.tamilChoices, question.correct)}</ol>
-        <button onClick={() => this.props.edit(question.id)}>Edit</button>
       </div>
     ));
   }

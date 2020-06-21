@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
 import Dashboard from "../quiz/dashboard";
+import { Navbar, Footer } from "../Navbar";
 class Quiz extends Component {
   handleLogout = () => {
     const { dispatch } = this.props;
@@ -14,12 +15,14 @@ class Quiz extends Component {
       return <Redirect to="/" />;
     } else {
       return (
-        <div>
+        <Fragment>
+          <Navbar></Navbar>
           {/* <button onClick={this.handleLogout}>Logout</button> */}
           {isLoggingOut && <p>Logging Out....</p>}
           {logoutError && <p>Error logging out</p>}
           <Dashboard></Dashboard>
-        </div>
+          {/* <Footer></Footer> */}
+        </Fragment>
       );
     }
   }

@@ -20,7 +20,7 @@ class Timer extends Component {
       var minutes = ("0" + Math.floor((t % (1000 * 60 * 60)) / (1000 * 60))).slice(-2);
       var seconds = ("0" + Math.floor((t % (1000 * 60)) / 1000)).slice(-2);
 
-      var display = days + " : " + hours + " : " + minutes + "  : " + seconds + "  ";
+      var display = days + " : " + hours + " : " + minutes + "  : " + seconds;
       if (t < 0) {
         display = "Competition has started";
       }
@@ -39,9 +39,9 @@ class Timer extends Component {
           <p id="caption">Competition begins in</p>
           <p id="demo">{count}</p>
           <p> Days : Hours : Minutes : Seconds </p>
-          <button>
-            <a href="/login">Test Round</a>
-          </button>
+          <a className="link" href="/login">
+            Test Round
+          </a>
         </div>
       </div>
     );
