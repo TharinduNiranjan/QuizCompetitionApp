@@ -43,3 +43,7 @@ For production
 2. Open `build/index.html` in your browser
 
 For deployment run `firebase deploy` (requires firebase cli)
+
+## Manipulating the Firestore
+
+Use the functions in `scripts\` folder to manipulate the firestore database to create users and assign questions.
