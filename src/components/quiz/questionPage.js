@@ -16,7 +16,7 @@ class QuestionPage extends Component {
       },
     };
     this.questioncol = "questions";
-    this.usercol = "users";
+    this.usercol = "testUsers";
     this.disconnectUser = function () {}; // realtime connection to firebase
     this.getQuestion = this.getQuestion.bind(this); // get question from questions collection and create observable from user collection
     this.saveAnswer = this.saveAnswer.bind(this); // save answer on click
@@ -27,6 +27,9 @@ class QuestionPage extends Component {
   }
   componentDidMount() {
     this._isMounted = true;
+    this.questioncol = this.props.questioncol;
+    this.usercol = this.props.usercol;
+    this.getQuestion(this.props.question);
   }
   componentDidUpdate(oldProps) {
     // this function updates the question page when dashboard buttons changes prop.question
@@ -137,7 +140,6 @@ class QuestionPage extends Component {
   }
 
   render() {
-    
     let choices;
     if (this.state.question.choices) {
       choices = Object.keys(this.state.question.choices).map((key) => (
@@ -186,7 +188,7 @@ class QuestionPage extends Component {
             </Col>
             <Col>
               <button className={this.state.flag ? "flagbutton" : ""} onClick={() => this.setFlag(this.props.number)}>
-                {this.state.flag ? "Flagged" : "Flag Question"}
+                {this.state.flag ? "Flagged" : "Flag"}
               </button>
             </Col>
             <Col>

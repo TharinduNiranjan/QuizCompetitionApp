@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./timer.css";
+import "./timer.scss";
 
 class Timer extends Component {
   constructor(props) {
@@ -30,7 +30,9 @@ class Timer extends Component {
       }));
     }, 1000);
   }
-
+  componentWillUnmount() {
+    clearInterval(this.myInterval);
+  }
   render() {
     const { count } = this.state;
     return (

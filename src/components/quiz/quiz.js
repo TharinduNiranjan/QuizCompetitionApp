@@ -16,7 +16,9 @@ class Quiz extends Component {
     } else {
       return (
         <Fragment>
-          <Navbar></Navbar>
+          <div className="desktop-only">
+            <Navbar></Navbar>
+          </div>
           {/* <button onClick={this.handleLogout}>Logout</button> */}
           {isLoggingOut && <p>Logging Out....</p>}
           {logoutError && <p>Error logging out</p>}

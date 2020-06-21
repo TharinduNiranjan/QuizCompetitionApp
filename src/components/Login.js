@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import { loginUser } from "../actions";
 import { Form } from "react-bootstrap";
 import ls from "local-storage";
-import "./loginStyle.css";
+import "./loginStyle.scss";
 import logo from "../assets/png.png";
 
 class Login extends Component {

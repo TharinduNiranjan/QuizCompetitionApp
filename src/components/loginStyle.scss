@@ -1,3 +1,4 @@
+@import "../styles/login.scss";
 #navbar {
   display: flex;
   align-items: center;
@@ -44,7 +45,7 @@ button:focus {
   justify-content: center;
 }
 .logoImage {
-  max-width: 300px;
+  max-width: 200px;
 }
 #loginbox {
   position: relative;
@@ -52,7 +53,7 @@ button:focus {
   max-width: 400px;
   margin: auto;
   border-radius: 15px;
-  padding: 20px;
+  padding-bottom: 2em;
   background-color: white;
 }
 
@@ -63,10 +64,4 @@ button:focus {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-}
-
-@media screen and (min-width: 767px) {
-  .lflex-container {
-    display: inline-block;
-  }
 }

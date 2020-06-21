@@ -30,7 +30,7 @@ class Dashboard extends Component {
       timeup: true,
       early: true,
     };
-    this.usercol = "users";
+    this.usercol = "testUsers";
     this.questioncol = "questions";
     this.disconnectUsers = "";
     this.updateTimer = ""; // timer variable to clear on exit
@@ -256,6 +256,8 @@ class Dashboard extends Component {
             <QuestionPage
               question={this.state.question.id}
               user={this.state.userid}
+              usercol={this.usercol}
+              questioncol={this.questioncol}
               number={this.state.number}
               changeQuestion={this.changeQuestion}
               submitAll={this.submitAll}

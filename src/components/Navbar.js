@@ -6,7 +6,7 @@ class Navbar extends Component {
     return (
       <ul className="topnav">
         <li>
-          <p>μMora Mathematics Competition 2020</p>
+          <Link to="/">μMora Mathematics Competition 2020</Link>
         </li>
         <li className="right">
           <Link to="/about">About</Link>
