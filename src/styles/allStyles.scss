@@ -1,3 +1,10 @@
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+html {
+  height: -webkit-fill-available;
+}
 a {
   color: #00a4b9;
 }
@@ -5,6 +12,9 @@ a:hover {
   color: #00a4b9;
 }
 // Navbar and timer page
+.navimage {
+  max-height: 50px;
+}
 ul.topnav {
   font-size: 30px;
   font-weight: 400;
@@ -167,7 +177,7 @@ p#demo {
 .logincolumn {
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  height: 80%;
   justify-content: space-around;
   align-items: center;
   padding-top: 2em;
@@ -227,14 +237,14 @@ p#demo {
 
 /*---Add this class to the IDs from 1 to 30 to make its background green and text white --- */
 .bGreen {
-  background-image: linear-gradient(#00a4b9,#00b7cf);
+  background-image: linear-gradient(#00a4b9, #00b7cf);
   background-color: #00a4b9 !important;
   color: white;
 }
 .bYellow {
-  background-image: linear-gradient(#ff0033,#e6002e);
+  background-image: linear-gradient(#ff0033, #e6002e);
   background-color: #ff0033 !important;
-  color: white ;
+  color: white;
 }
 /* -----------------------------category classes ----------------*/
 .easy {
@@ -333,8 +343,8 @@ p#demo {
   text-align: center;
   border-top-left-radius: 1.5em;
   border-bottom-left-radius: 1.5em;
-  background-image: linear-gradient(#292929,#000000);
-  color:  #ffffff;
+  background-image: linear-gradient(#292929, #000000);
+  color: #ffffff;
 }
 .xqCategory {
   border-top-right-radius: 1.5em;
@@ -423,6 +433,7 @@ button :active {
 }
 
 // changes when coming to desktop
+// @media screen and (min-width: 480px) {
 @media screen and (min-width: 767px) {
   ul.topnav {
     padding: 0.3em 1em;
@@ -522,5 +533,11 @@ button :active {
   .tflex-container,
   .logincolumn {
     height: 95vh;
+  }
+}
+@media screen and (min-width: 480px) and (max-width: 767px) {
+  minifooter {
+    position: relative !important;
+    padding: 1em;
   }
 }

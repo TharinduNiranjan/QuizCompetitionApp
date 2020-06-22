@@ -62,11 +62,12 @@ class Dashboard extends Component {
           this.questioncol = snapshot.data().collection;
           this.deadline = snapshot.data().deadline;
           let qRef = snapshot.data().questions;
+          let submit = snapshot.data().submit;
           // console.log(snapshot.data());
           Object.keys(qRef).forEach((snap) => {
             allquestions[snap - 1] = qRef[snap];
           });
-          this.setState({ questions: allquestions });
+          this.setState({ questions: allquestions, done: submit });
           this.changeQuestion(this.state.number);
         },
         (error) => {
@@ -104,7 +105,12 @@ class Dashboard extends Component {
   //logout user
   handleLogout = () => {
     const { dispatch } = this.props;
+    db.collection(this.usercol).doc(this.state.userid).update({ submit: true });
     dispatch(logoutUser());
+  };
+  unSubmit = () => {
+    db.collection(this.usercol).doc(this.state.userid).update({ submit: false });
+    this.setState({ done: false });
   };
   waitingTimer() {
     let deadline = new Date(this.startTime).getTime();
@@ -202,6 +208,17 @@ class Dashboard extends Component {
   }
   render() {
     const { isLoggingOut, logoutError } = this.props;
+    if (this.state.done) {
+      return (
+        <Row className="warning">
+          <div className="submit-warning">
+            <h1>Your answers have been saved</h1>
+            <button onClick={this.unSubmit}>Do again</button>
+            <p>This button will not be present on competition day</p>
+          </div>
+        </Row>
+      );
+    }
     if (this.state.timeup) {
       // console.log(this.state);
       return (

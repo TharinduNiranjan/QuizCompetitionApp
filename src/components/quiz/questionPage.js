@@ -124,20 +124,24 @@ class QuestionPage extends Component {
   }
   saveAnswer(choice) {
     console.log("saved");
-    let field = "questions." + (this.state.number + 1) + ".selected"; //add one for zero indexing
+    let field = "questions." + (this.props.number + 1) + ".selected"; //add one for zero indexing
     db.collection(this.usercol)
       .doc(this.props.user)
       .update({ [field]: choice });
   }
   unselect() {
     console.log("unsaved");
-    let field = "questions." + (this.state.number + 1) + ".selected"; //add one for zero indexing
+    let field = "questions." + (this.props.number + 1) + ".selected"; //add one for zero indexing
     db.collection(this.usercol)
       .doc(this.props.user)
       .update({ [field]: "" });
   }
   handleChange(e) {
-    this.setState({ selected: e.target.value });
+    let ans = e.target.value;
+    if (ans !== this.state.selected) {
+      this.saveAnswer(ans);
+      // this.setState({ selected: ans });
+    }
   }
 
   render() {
@@ -148,7 +152,7 @@ class QuestionPage extends Component {
           key={key}
           type="radio"
           label={show_latex(this.state.question.choices[key])}
-          onClick={() => this.saveAnswer(key)}
+          // onClick={() => this.saveAnswer(key)}
           value={key}
           onChange={this.handleChange}
           checked={key === this.state.selected ? true : false}

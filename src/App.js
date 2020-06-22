@@ -13,14 +13,13 @@ import UniversityAdmin from "./components/quiz/universityAdmin";
 import JuniorAdmin from "./components/quiz/juniorAdmin";
 import About from "./components/AboutPage";
 import Faq from "./components/faq";
-import Instruction from "./components/Instructions";
+import Instruction from "./components/instructions";
 
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
   let started = false;
   let stDate = new Date("june 28, 2020 12:00:00").getTime();
   let now = new Date().getTime();
-  console.log(now, stDate);
   if (now > stDate) {
     started = true;
   }

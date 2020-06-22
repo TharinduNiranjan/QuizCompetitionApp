@@ -235,8 +235,8 @@ class QAdmin extends Component {
                 <Form.Label>Difficulty</Form.Label>
                 <Form.Control as="select" name="hardness" value={this.state.hardness} onChange={this.handleChange}>
                   <option>Easy</option>
+                  <option>Medium</option>
                   <option>Hard</option>
-                  <option>Submit</option>
                 </Form.Control>
               </div>
               {/* Image */}

@@ -23,8 +23,8 @@ class Question {
         E: "",
       };
       this.image = "";
-      this.correct = "";
-      this.hardness = "";
+      this.correct = "A";
+      this.hardness = "Easy";
       this.sinhalaDescription = "";
       this.sinhalaChoices = {
         A: "",
