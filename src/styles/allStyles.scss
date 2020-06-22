@@ -1,8 +1,8 @@
 a {
-  color: #00bfa5;
+  color: #00a4b9;
 }
 a:hover {
-  color: #00bfa5;
+  color: #00a4b9;
 }
 // Navbar and timer page
 ul.topnav {
@@ -14,7 +14,7 @@ ul.topnav {
   padding-bottom: 0.2em;
   overflow: hidden;
   background-color: #212121;
-  border-bottom: solid 2px#00BFA5;
+  border-bottom: solid 2px#00a4b9;
 }
 
 ul.topnav li a,
@@ -175,7 +175,7 @@ p#demo {
 
 //about page
 .min80 {
-  min-height: 80vh;
+  min-height: 82vh;
 }
 #clublogos {
   display: flex;
@@ -227,12 +227,14 @@ p#demo {
 
 /*---Add this class to the IDs from 1 to 30 to make its background green and text white --- */
 .bGreen {
-  background-color: #1de9b6 !important;
+  background-image: linear-gradient(#00a4b9,#00b7cf);
+  background-color: #00a4b9 !important;
   color: white;
 }
 .bYellow {
-  background-color: #ff1744 !important;
-  color: white;
+  background-image: linear-gradient(#ff0033,#e6002e);
+  background-color: #ff0033 !important;
+  color: white ;
 }
 /* -----------------------------category classes ----------------*/
 .easy {
@@ -273,7 +275,7 @@ p#demo {
 }
 
 .timerprogress {
-  border-bottom: solid 2px #1de9b6;
+  border-bottom: solid 2px #000000;
   border-top: 0px;
   // background-color: #1de9b6;
   padding: 0.5em 0.2em;
@@ -331,7 +333,8 @@ p#demo {
   text-align: center;
   border-top-left-radius: 1.5em;
   border-bottom-left-radius: 1.5em;
-  background-color: #00bfa5;
+  background-image: linear-gradient(#292929,#000000);
+  color:  #ffffff;
 }
 .xqCategory {
   border-top-right-radius: 1.5em;
@@ -425,7 +428,7 @@ button :active {
     padding: 0 1em;
     min-height: 10%;
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
     justify-content: space-between;
   }
   ul.topnav li a {
@@ -467,7 +470,7 @@ button :active {
     display: initial !important;
   }
   .timerprogress {
-    border: 2px solid #00bfa5;
+    border: 2px solid #000000;
     border-top: 0px;
     padding: 1em;
   }
