@@ -194,7 +194,7 @@ class QuestionPage extends Component {
               <button onClick={() => this.changeQuestion(this.props.number - 1)}> {"<Prev"}</button>
             </Col>
             <Col>
-              <button className="flagbutton" onClick={() => this.setFlag(this.props.number)}>
+              <button className={`flagbutton ${this.state.flag ? "sel" : ""}`} onClick={() => this.setFlag(this.props.number)}>
                 {this.state.flag ? (
                   <div>
                     <Flag></Flag> Flagged
