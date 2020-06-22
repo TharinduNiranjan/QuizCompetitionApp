@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from "react";
 import "../styles/faq.scss";
-import { Navbar, Footer } from "./Navbar";
+import Navbar, { Footer } from "./Navbar";
 import { Container } from "react-bootstrap";
 import Accordion from "./FAQ/Accordion";
 import AccordionItem from "./FAQ/AccordionItem";

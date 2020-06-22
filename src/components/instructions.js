@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from "react";
-import { Navbar, Footer } from "./Navbar";
+import Navbar, { Footer } from "./Navbar";
 import { Row, Container, Col } from "react-bootstrap";
 
 class Instruction extends Component {

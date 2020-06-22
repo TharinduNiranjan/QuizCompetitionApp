@@ -17,9 +17,16 @@ import Instruction from "./components/Instructions";
 
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
+  let started = false;
+  let stDate = new Date("june 28, 2020 12:00:00").getTime();
+  let now = new Date().getTime();
+  console.log(now, stDate);
+  if (now > stDate) {
+    started = true;
+  }
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
+      <Route exact path="/" component={started ? LoginPage : Home} />
       <ProtectedRoute path="/quiz" component={Quiz} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
       <Route path="/login" component={LoginPage} />
       {/* <Route path="/dash" component={Dashboard} /> */}

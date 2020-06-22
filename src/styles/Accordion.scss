@@ -1,31 +1,31 @@
 .accordion {
-  border-radius: 5px;
-  border: 1px solid #d9d9d9;
+  // border-radius: 5px;
+  // border: 1px solid #d9d9d9;
 }
 .accordion .accordion-item:first-child .title {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  // border-top-left-radius: 5px;
+  // border-top-right-radius: 5px;
 }
 .accordion .accordion-item:last-child .title {
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  // border-bottom-left-radius: 5px;
+  // border-bottom-right-radius: 5px;
 }
 .accordion .accordion-item .title {
   font-weight: 500;
   background-color: #f6f6f6;
-  color: #444;
   cursor: pointer;
-  padding: 18px;
+  padding: 1em;
   width: 100%;
   text-align: left;
   border: none;
+  border-bottom: solid 1px #00bfa5;
   outline: none;
+  border-radius: 0;
   transition: 0.4s;
 }
 .accordion .accordion-item .title:after {
-  content: "\02630";
-  /* Unicode character for "plus" sign (+) */
-  font-size: 13px;
+  content: "\002B";
+  font-size: 18px;
   color: #777;
   float: right;
   margin-left: 5px;
@@ -36,14 +36,18 @@
   overflow: hidden;
 }
 .accordion .accordion-item.active .title {
-  background-color: #eeeeee;
+  background-color: #1de9b6;
 }
 .accordion .accordion-item.active .title:after {
-  content: "\02637";
+  content: "\002D";
   /* Unicode character for "minus" sign (-) */
 }
 .accordion .accordion-item.active .panel {
   padding: 0.5em 1em 0;
   max-height: 500px;
   transition: max-height 0.25s ease-in;
+}
+.accordion .accordion-item .title:hover {
+  color: black;
+  background-color: #1de9b6;
 }

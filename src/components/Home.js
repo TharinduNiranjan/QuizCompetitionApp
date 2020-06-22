@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 // import Login from "./Login";
 import Timer from "./Timer";
-import { Navbar } from "./Navbar";
+import Navbar from "./Navbar";
 // import {Footer} from "./Navbar"
 import { Row, Container, Col } from "react-bootstrap";
 

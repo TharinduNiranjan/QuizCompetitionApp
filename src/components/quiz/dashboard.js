@@ -123,9 +123,9 @@ class Dashboard extends Component {
     }
     if (t) {
       // let days = Math.floor(t / (1000 * 60 * 60 * 24));
-      let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-      let seconds = Math.floor((t % (1000 * 60)) / 1000);
+      let hours = ("0" + Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).slice(-2);
+      let minutes = ("0" + Math.floor((t % (1000 * 60 * 60)) / (1000 * 60))).slice(-2);
+      let seconds = ("0" + Math.floor((t % (1000 * 60)) / 1000)).slice(-2);
       display = (
         <div className="inline-block">
           {hours}:{minutes}
@@ -147,9 +147,9 @@ class Dashboard extends Component {
       // logout and submit
     }
     // let days = Math.floor(t / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((t % (1000 * 60)) / 1000);
+    let hours = ("0" + Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).slice(-2);
+    let minutes = ("0" + Math.floor((t % (1000 * 60 * 60)) / (1000 * 60))).slice(-2);
+    let seconds = ("0" + Math.floor((t % (1000 * 60)) / 1000)).slice(-2);
     let display = (
       <div className="xtimervalue">
         {hours}:{minutes}

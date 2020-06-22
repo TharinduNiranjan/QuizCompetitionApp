@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Login from "./Login";
-import { Navbar } from "./Navbar";
+import Navbar from "./Navbar";
 import { Row, Container, Col } from "react-bootstrap";
 
 class LoginPage extends Component {

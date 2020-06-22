@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { db, storage } from "../../firebase/firebase";
 import { Form, Row, Col, Container } from "react-bootstrap";
+import { FlagOutlined, Flag } from "@material-ui/icons";
 import { show_latex } from "./latex";
 
 class QuestionPage extends Component {
@@ -162,7 +163,9 @@ class QuestionPage extends Component {
             <div className="xqNum">
               Question {this.props.number + 1} of {this.props.length}
             </div>
-            <div className="xqCategory">Category : {this.state.question.hardness}</div>
+            <div className={`xqCategory ${this.state.question.hardness === "Easy" ? "easy" : this.state.question.hardness === "Hard" ? "hard" : "medium"}`}>
+              Category : {this.state.question.hardness}
+            </div>
           </Row>
           <Row>
             {/* <Col sm="2">
@@ -187,8 +190,16 @@ class QuestionPage extends Component {
               <button onClick={() => this.changeQuestion(this.props.number - 1)}> {"<Prev"}</button>
             </Col>
             <Col>
-              <button className={this.state.flag ? "flagbutton" : ""} onClick={() => this.setFlag(this.props.number)}>
-                {this.state.flag ? "Flagged" : "Flag"}
+              <button className="flagbutton" onClick={() => this.setFlag(this.props.number)}>
+                {this.state.flag ? (
+                  <div>
+                    <Flag></Flag> Flagged
+                  </div>
+                ) : (
+                  <div>
+                    <FlagOutlined></FlagOutlined> Flag
+                  </div>
+                )}
               </button>
             </Col>
             <Col>

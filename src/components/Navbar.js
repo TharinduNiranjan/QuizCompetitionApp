@@ -1,14 +1,32 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
+import { logoutUser } from "../actions/";
+import { connect } from "react-redux";
 class Navbar extends Component {
+  handleLogout = () => {
+    const { dispatch } = this.props;
+
+    dispatch(logoutUser());
+  };
   render() {
+    const { isAuthenticated } = this.props;
     return (
       <ul className="topnav">
         <li className="text-center">
           <Link to="/">μMora 2020</Link>
         </li>
         <div>
+          {isAuthenticated ? (
+            <li className="right">
+              <Link to="/" onClick={this.handleLogout}>
+                Logout
+              </Link>
+            </li>
+          ) : (
+            <li className="right">
+              <Link to="/login">Login</Link>
+            </li>
+          )}
           <li className="right">
             <Link to="/about">About</Link>
           </li>
@@ -18,7 +36,7 @@ class Navbar extends Component {
           <li className="right">
             <Link to="/instructions">Instructions</Link>
           </li>
-          <li className="right">
+          <li className="right desktop-only">
             <Link to="/">Home</Link>
           </li>
         </div>
@@ -50,4 +68,11 @@ class MiniFooter extends Component {
     );
   }
 }
-export { Navbar, Footer, MiniFooter };
+
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+  };
+}
+export default connect(mapStateToProps)(Navbar);
+export { Footer, MiniFooter };
