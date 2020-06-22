@@ -39,7 +39,7 @@ ul.topnav li.right {
 }
 
 ul.topnav li.right :hover {
-  border-bottom: solid 2px #1de9b6;
+  border-bottom: solid 2px #00b0c7;
   padding-bottom: 0.2em;
 }
 
@@ -88,7 +88,7 @@ p#demo {
   // border-top: 1px solid black;
   background-color: white;
   // background-color: #1de9b6;
-  border-top: solid 2px#00BFA5;
+  border-top: solid 2px#00d2ee;
   margin-top: 2em;
   /* position: fixed;
   left: 0;
@@ -425,7 +425,7 @@ button :active {
 // changes when coming to desktop
 @media screen and (min-width: 767px) {
   ul.topnav {
-    padding: 0 1em;
+    padding: 0.3em 1em;
     min-height: 10%;
     display: flex;
     /*align-items: center;*/
@@ -455,7 +455,7 @@ button :active {
   .tflex-container {
     height: 90vh;
   }
-  #demo {
+  p#demo {
     font-size: 3em;
   }
   // login page

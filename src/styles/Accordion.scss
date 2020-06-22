@@ -18,7 +18,7 @@
   width: 100%;
   text-align: left;
   border: none;
-  border-bottom: solid 1px #00bfa5;
+  border-bottom: solid 1px #00a4b9;
   outline: none;
   border-radius: 0;
   transition: 0.4s;
@@ -37,7 +37,7 @@
   overflow: hidden;
 }
 .accordion .accordion-item.active .title {
-  background-color: #1de9b6;
+  background-color: #00d2ee;
 }
 .accordion .accordion-item.active .title:after {
   content: "\02227";
@@ -50,5 +50,5 @@
 }
 .accordion .accordion-item .title:hover {
   color: black;
-  background-color: #1de9b6;
+  background-color: #00d2ee;
 }
