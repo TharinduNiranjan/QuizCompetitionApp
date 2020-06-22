@@ -23,7 +23,7 @@
   transition: 0.4s;
 }
 .accordion .accordion-item .title:after {
-  content: "\02630";
+  content: "\02228";
   /* Unicode character for "plus" sign (+) */
   font-size: 13px;
   color: #777;
@@ -39,7 +39,7 @@
   background-color: #eeeeee;
 }
 .accordion .accordion-item.active .title:after {
-  content: "\02637";
+  content: "\02227";
   /* Unicode character for "minus" sign (-) */
 }
 .accordion .accordion-item.active .panel {
