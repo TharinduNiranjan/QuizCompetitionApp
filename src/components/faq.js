@@ -64,7 +64,7 @@ class Faq extends Component {
         </p>
         <p style={{ paddingLeft: "2%" }}>
           {" "}
-          &#9824; For the <b>first round </b>contestants will be given <b>30 Multiple Choice Questions. </b>
+          &#9824; For both <b>first round </b> and <b>second round </b>contestants will be given <b>30 Multiple Choice Questions. </b>
         </p>
         <p style={{ paddingLeft: "2%" }}>
           {" "}
@@ -76,7 +76,7 @@ class Faq extends Component {
         </p>
         <p style={{ paddingLeft: "2%" }}>
           {" "}
-          &#9824; Both <b>second and third</b> rounds will contain essay type questions.
+          &#9824; <b> Third</b> round will contain essay type questions.
         </p>
       </div>
     );
@@ -111,7 +111,7 @@ class Faq extends Component {
             <AccordionItem title="How many rounds will there be for uMora 2020 ?">
               <Content8 />
             </AccordionItem>
-            <AccordionItem title="Who will get participation E-certificates ?">
+            <AccordionItem title="Who will get Participation Certificates ?">
               <Content9 />
             </AccordionItem>
           </Accordion>
