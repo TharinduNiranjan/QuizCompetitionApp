@@ -23,10 +23,19 @@ class Login extends Component {
   };
 
   handleSubmit = () => {
+    var str = this.state.email;
+    var Senior = str.includes("sr");
     ls.set("language", this.state.selectedOption);
     if (this.state.selectedOption == null) {
       alert("please select language");
-    } else if (this.state.selectedOption != null) {
+    } else if (this.state.selectedOption != "english" && Senior) {
+      alert("University students can only use english language");
+    } else if ((this.state.selectedOption == "english") & Senior) {
+      const { dispatch } = this.props;
+      const { email, password } = this.state;
+
+      dispatch(loginUser(email, password));
+    } else if ((this.state.selectedOption != null) & (Senior === false)) {
       const { dispatch } = this.props;
       const { email, password } = this.state;
 
@@ -50,24 +59,24 @@ class Login extends Component {
           <div className="logincolumn">
             <div id="timerbox">
               <img alt="logo" className="img-fluid logoImage" src={logo}></img>
-              <Form>
-                <Form.Control className="logininput" onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required />
-                <Form.Control className="logininput" onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required />
-                {/* 
+              {/* <Form> */}
+              <Form.Control className="logininput" onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required />
+              <Form.Control className="logininput" onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required />
+              {/* 
                 <input onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required></input>
                 <p></p> */}
-                <Form.Control as="select" defaultValue="english" value={this.selectedOption} onChange={this.handleChange}>
-                  <option value="english">English</option>
-                  <option value="sinhala">සිංහල</option>
-                  <option value="tamil">தமிழ்</option>
-                </Form.Control>
-                <br></br>
+              <Form.Control as="select" defaultValue="english" value={this.selectedOption} onChange={this.handleChange}>
+                <option value="english">English</option>
+                <option value="sinhala">සිංහල</option>
+                <option value="tamil">தமிழ்</option>
+              </Form.Control>
+              <br></br>
 
-                <button onClick={this.handleSubmit} type="submit">
-                  Login
-                </button>
-                {loginError && <div className="errorText">Incorrect email or password.</div>}
-              </Form>
+              <button onClick={this.handleSubmit} type="submit">
+                Login
+              </button>
+              {loginError && <div className="errorText">Incorrect email or password.</div>}
+              {/* </Form> */}
             </div>
             <MiniFooter></MiniFooter>
           </div>
