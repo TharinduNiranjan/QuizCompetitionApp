@@ -50,22 +50,24 @@ class Login extends Component {
           <div className="logincolumn">
             <div id="timerbox">
               <img alt="logo" className="img-fluid logoImage" src={logo}></img>
-              <Form.Control className="logininput" onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required />
-              <Form.Control className="logininput" onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required />
-              {/* 
+              <Form>
+                <Form.Control className="logininput" onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required />
+                <Form.Control className="logininput" onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required />
+                {/* 
                 <input onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required></input>
                 <p></p> */}
-              <Form.Control as="select" defaultValue="english" value={this.selectedOption} onChange={this.handleChange}>
-                <option value="english">English</option>
-                <option value="sinhala">සිංහල</option>
-                <option value="tamil">தமிழ்</option>
-              </Form.Control>
-              <br></br>
+                <Form.Control as="select" defaultValue="english" value={this.selectedOption} onChange={this.handleChange}>
+                  <option value="english">English</option>
+                  <option value="sinhala">සිංහල</option>
+                  <option value="tamil">தமிழ்</option>
+                </Form.Control>
+                <br></br>
 
-              <button onClick={this.handleSubmit} type="submit">
-                Login
-              </button>
-              {loginError && <div className="errorText">Incorrect email or password.</div>}
+                <button onClick={this.handleSubmit} type="submit">
+                  Login
+                </button>
+                {loginError && <div className="errorText">Incorrect email or password.</div>}
+              </Form>
             </div>
             <MiniFooter></MiniFooter>
           </div>

@@ -33,7 +33,8 @@ class Instruction extends Component {
             <em>
               <strong>Test Round</strong>
             </em>{" "}
-            button below the countdown timer. You will be redirected to a login page.
+            button below the countdown timer. You will be redirected to a login page.<br></br>
+            <strong> On the day of the competition the home page will be the login page</strong>
           </p>
           <p>
             2. Enter the given username <em>(eg: jr0001@umora.lk)</em> with the relevant password to enter the competition.
@@ -89,7 +90,7 @@ class Instruction extends Component {
             </em>{" "}
             button. When you click the <em>Submit</em> button you will be asked to confirm the submission. You may{" "}
             <em>
-              <strong>Submit and Leave</strong>
+              <strong>Submit and Leave </strong>
             </em>
             if you are confident with your answers. Otherwise click on{" "}
             <em>
@@ -97,7 +98,7 @@ class Instruction extends Component {
             </em>{" "}
             button and re-check before submission. You will not be given any change to log back in once you click{" "}
             <em>
-              <strong>Submit and Leave</strong>
+              <strong>Submit and Leave </strong>
             </em>{" "}
             button.
           </p>
