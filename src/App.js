@@ -3,10 +3,10 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-// import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
 import LoginPage from "./components/LoginPage";
-// import Quiz from "./components/quiz/quiz";
+import Quiz from "./components/quiz/quiz";
 // // import Dashboard from "./components/quiz/dashboard";
 // import StudentAdmin from "./components/quiz/studentAdmin";
 // import UniversityAdmin from "./components/quiz/universityAdmin";
@@ -26,7 +26,7 @@ function App(props) {
   return (
     <Switch>
       <Route exact path="/" component={started ? LoginPage : Home} />
-      {/* <ProtectedRoute path="/quiz" component={Quiz} isAuthenticated={isAuthenticated} isVerifying={isVerifying} /> */}
+      <ProtectedRoute path="/quiz" component={Quiz} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
       <Route path="/login" component={LoginPage} />
       {/* <Route path="/dash" component={Dashboard} /> */}
       <Route path="/about" component={About} />
