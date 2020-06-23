@@ -37,7 +37,7 @@ class About extends Component {
             <Col sm="6">
               <h2 className="text-center">Electronic Club</h2>
               <p className="text-justify">
-                Electronics Club, now affectionately known as the Electronic Club is the official student association of the Department of Electronic and Telecommunication Engineering, University of
+                Electronics Club, now affectionately known as the E- Club is the official student association of the Department of Electronic and Telecommunication Engineering, University of
                 Moratuwa. Established over two decades ago, Electronic Club has grown from strength to strength over the years. Many activities are carried out by the students of the club focusing on
                 community service as well as professional development.
               </p>
@@ -83,7 +83,7 @@ class About extends Component {
               </p>
               <p> Tharindu Niranjan</p>
               <p>
-                <a href="tel:+94712400147">+94 71 240 014</a>
+                <a href="tel:+94712400147">+94 71 240 0147</a>
               </p>
             </Col>
             <Col sm="6" md="4">

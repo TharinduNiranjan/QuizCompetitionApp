@@ -38,10 +38,10 @@ class Instruction extends Component {
           </p>
           <p>
             2. Enter the given username <em>(eg: jr0001@umora.lk)</em> with the relevant password and select your medium for the competition as English, Sinhala or Tamil from the dropdown menu. This
-            option is not available for the Senior Category. Then click login to enter the competition
+            option is not available for the Senior Category. Then click login to enter the competition.
           </p>
           <p>
-            3. if you have logged early, you will be redirected to a page that says you to wait until the competition begins. Otherwise, you will be directly sent to the Questions dashboard. Your
+            3. If you have logged early, you will be redirected to a page that tells you to wait until the competition begins. Otherwise, you will be directly sent to the Questions dashboard. Your
             timer will start from the quiz time informed to you.
           </p>
           <p>
@@ -117,11 +117,12 @@ class Instruction extends Component {
       content: (
         <div>
           <br></br>
-          <h4>Competition Rules</h4>
+          <h4>Competition Rules</h4><p></p>
+          <h6>Note: All the times stated below are in +5.30 GMT</h6>
           <br></br>
           <h5>Junior / Intermediate Categories</h5>
           <p>&#9679; The first round will be held on 28th of June from 1900h to 2030h.</p>
-          <p>&#9679; You can login to the online platform between 1830h to 1900h</p>
+          <p>&#9679; You can login to the online platform between 1830h to 1900h.</p>
           <p>&#9679; You will be given 90 minutes to complete the round.</p>
           <p>&#9679; Any participant who joins in the middle of the competition will only receive the time remaining until 2030h.</p>
           <p>&#9679; You can select the preferred medium as Sinhala, Tamil or English.</p>
@@ -147,7 +148,7 @@ class Instruction extends Component {
             {" "}
             &#9676; <b>Logic problems</b>
           </p>
-          <p>&#9679; The scoring system for the first round will be as follows</p>
+          <p>&#9679; The scoring system for the first round will be as follows.</p>
           <table className="instructTable">
             <thead>
               <tr>
@@ -181,7 +182,7 @@ class Instruction extends Component {
           <br></br>
           <p>
             &#9679; 10 percent of the total number of participants selected based on a cutoff mark will advance to the second round. The list of selected participants will be displayed exclusively on
-            the official Facebook page of Electronic Club of the Department of Electronic and Telecommunication Engineering of University of Moratuwa<a href="https://www.facebook.com/uom.eclub"></a>
+            the official Facebook page of Electronic Club of the Department of Electronic and Telecommunication Engineering of University of Moratuwa.<a href="https://www.facebook.com/uom.eclub"></a>
           </p>
           <p>&#9679; Finalists will receive certificates, medals and valuable prizes.</p>
           <p>&#9679; A practice round will be held to help you to get familiarized with the system and the question types.</p>
@@ -193,7 +194,7 @@ class Instruction extends Component {
           <br></br>
           <h5>Senior Category</h5>
           <p>&#9679; The first round will be held on 28th of June from 1330h to 1500h.</p>
-          <p>&#9679; You can login to the online platform between 1300h to 1330h</p>
+          <p>&#9679; You can login to the online platform between 1300h to 1330h.</p>
           <p>&#9679; You will be given 90 minutes to complete the round.</p>
           <p>&#9679; Any participant who joins in the middle of the competition will only receive the time remaining until 1500h.</p>
           <p>&#9679; Competition will be held in English.</p>
@@ -227,7 +228,7 @@ class Instruction extends Component {
             {" "}
             &#9676; <b>Logic problems</b>
           </p>
-          <p>&#9679; The scoring system for the first round will be as follows</p>
+          <p>&#9679; The scoring system for the first round will be as follows.</p>
           <table className="instructTable">
             <thead>
               <tr>
@@ -261,7 +262,7 @@ class Instruction extends Component {
           <br></br>
           <p>
             &#9679; 10 percent of the total number of participants selected based on a cutoff mark will advance to the second round. The list of selected participants will be displayed exclusively on
-            the official Facebook page of Electronic Club of the Department of Electronic and Telecommunication Engineering of University of Moratuwa<a href="https://www.facebook.com/uom.eclub"></a>
+            the official Facebook page of Electronic Club of the Department of Electronic and Telecommunication Engineering of University of Moratuwa.<a href="https://www.facebook.com/uom.eclub"></a>
           </p>
           <p>&#9679; Finalists will receive certificates, medals and valuable prizes.</p>
           <p>&#9679; A practice round will be held to help you to get familiarized with the system and the question types.</p>
