@@ -1,27 +1,32 @@
-.insDashClrs{
-    width: 40vw;
+.insDashClrs {
+  width: 40vw;
 }
-.instructImages{
-    width: 50vw;
+.instructImages {
+  width: 50vw;
 }
-.insbottom{
-    width: 50vw;
+.insbottom {
+  width: 50vw;
 }
-.insTimeup{
-    width: 50vw;
+.insTimeup {
+  width: 50vw;
 }
-p{
-    text-align: justify;
+.instructions p {
+  text-align: justify;
 }
-  .instructTable,.instructTable th,.instructTable td{
-    border: 1px solid black !important;
-    padding: 2px;
+.instructTable,
+.instructTable th,
+.instructTable td {
+  border: 1px solid black !important;
+  padding: 2px;
+}
+.instructTable td {
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .insDashClrs,
+  .instructImages,
+  .insbottom,
+  .insTimeup {
+    width: 90vw;
   }
-  .instructTable td{
-      text-align: center;
-  }
- @media (max-width:767px){
-     .insDashClrs,.instructImages,.insbottom,.insTimeup{
-         width: 90vW;
-     }
- }
+}
