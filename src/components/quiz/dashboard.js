@@ -60,7 +60,7 @@ class Dashboard extends Component {
           let allquestions = [];
           this.startTime = snapshot.data().startTime;
           this.questioncol = snapshot.data().collection;
-          this.deadline = snapshot.data().deadline;
+          // this.deadline = snapshot.data().deadline;
           let qRef = snapshot.data().questions;
           let submit = snapshot.data().submit;
           // console.log(snapshot.data());
@@ -74,6 +74,9 @@ class Dashboard extends Component {
           console.log(error);
         }
       );
+    let dt = new Date();
+    dt.setHours(dt.getHours() + 1);
+    this.deadline = dt.getTime();
     this.updateTimer = setInterval(this.timer, 1000);
     this.waitingTime = setInterval(this.waitingTimer, 1000);
   }
@@ -110,6 +113,9 @@ class Dashboard extends Component {
   };
   unSubmit = () => {
     db.collection(this.usercol).doc(this.state.userid).update({ submit: false });
+    let dt = new Date();
+    dt.setHours(dt.getHours() + 1);
+    this.deadline = dt.getTime();
     this.setState({ done: false });
   };
   waitingTimer() {
@@ -143,9 +149,9 @@ class Dashboard extends Component {
     this.setState({ wait: display });
   }
   timer() {
-    let deadline = new Date(this.deadline).getTime();
     let now = new Date().getTime();
-    // console.log(deadline, this.deadline);
+    let deadline = this.deadline;
+    // let deadline = new Date(this.deadline).getTime();
     let t = deadline - now;
     if (deadline <= now) {
       this.setState({ submit: true, timeup: true, questions: [] });
