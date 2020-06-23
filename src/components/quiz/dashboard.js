@@ -201,6 +201,7 @@ class Dashboard extends Component {
         collection: "questions",
         deadline: "june 20, 2020 15:54:25",
         startTime: "june 20, 2020 15:54:25",
+        submit: "false",
       })
       .then((id) => {
         this.setState({ userid: id });

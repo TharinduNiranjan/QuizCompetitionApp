@@ -33,10 +33,12 @@ class Instruction extends Component {
             <em>
               <strong>Test Round</strong>
             </em>{" "}
-            button below the countdown timer. You will be redirected to a login page.
+            button below the countdown timer. You will be redirected to a login page.<br></br>
+            <strong> On the day of the competition the home page will be the login page</strong>
           </p>
           <p>
-            2. Enter the given username <em>(eg: jr0001@umora.lk)</em> with the relevant password to enter the competition.
+            2. Enter the given username <em>(eg: jr0001@umora.lk)</em> with the relevant password and select your medium for the competition as English, Sinhala or Tamil from the dropdown menu. This
+            option is not available for the Senior Category. Then click login to enter the competition
           </p>
           <p>
             3. if you have logged early, you will be redirected to a page that says you to wait until the competition begins. Otherwise, you will be directly sent to the Questions dashboard. Your
@@ -89,7 +91,7 @@ class Instruction extends Component {
             </em>{" "}
             button. When you click the <em>Submit</em> button you will be asked to confirm the submission. You may{" "}
             <em>
-              <strong>Submit and Leave</strong>
+              <strong>Submit and Leave </strong>
             </em>
             if you are confident with your answers. Otherwise click on{" "}
             <em>
@@ -97,7 +99,7 @@ class Instruction extends Component {
             </em>{" "}
             button and re-check before submission. You will not be given any change to log back in once you click{" "}
             <em>
-              <strong>Submit and Leave</strong>
+              <strong>Submit and Leave </strong>
             </em>{" "}
             button.
           </p>
@@ -283,7 +285,7 @@ class Instruction extends Component {
                 <Col>
                   <button className="button" onClick={this.platlevel}>
                     {" "}
-                    Platform Guidelines
+                    Platform Usage Guidelines
                   </button>
                 </Col>
                 <Col>

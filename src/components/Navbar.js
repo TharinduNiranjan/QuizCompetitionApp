@@ -34,7 +34,7 @@ class Navbar extends Component {
             <Link to="/about">About</Link>
           </li>
           <li className="right">
-            <Link to="/faq">F.A.Q</Link>
+            <Link to="/faq">FAQ</Link>
           </li>
           <li className="right">
             <Link to="/instructions">Instructions</Link>

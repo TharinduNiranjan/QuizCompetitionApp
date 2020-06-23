@@ -32,7 +32,7 @@ function App(props) {
       <Route path="/about" component={About} />
       <Route path="/admin/students" component={StudentAdmin} />
       <Route path="/admin/university" component={UniversityAdmin} />
-      <Route path="/admin/junior" component={JuniorAdmin} />
+      <Route path="/admin/test" component={JuniorAdmin} />
       <Route path="/instructions" component={Instruction} />
       <Route path="/faq" component={Faq} />
       <Redirect from="*" to="" />

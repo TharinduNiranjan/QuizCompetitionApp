@@ -258,7 +258,7 @@ p#demo {
 }
 /*-----------------------------------------*/
 .warning {
-  margin-top: 20%;
+  margin-top: 20vh;
 }
 .submit-warning {
   text-align: center !important;
@@ -533,10 +533,12 @@ button :active {
     min-height: 5vh;
   }
 
-  .timercolumn,
-  .tflex-container,
   .logincolumn {
     height: 95vh;
+  }
+  .tflex-container,
+  .timercolumn {
+    height: 90vh;
   }
 }
 @media screen and (min-width: 480px) and (max-width: 767px) {
