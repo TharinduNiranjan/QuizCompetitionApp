@@ -468,7 +468,7 @@ button :active {
 
   .timercolumn,
   .tflex-container {
-    height: 90vh;
+    height: 100vh;
   }
   p#demo {
     font-size: 3em;
@@ -533,10 +533,12 @@ button :active {
     min-height: 5vh;
   }
 
-  .timercolumn,
-  .tflex-container,
   .logincolumn {
     height: 95vh;
+  }
+  .tflex-container,
+  .timercolumn {
+    height: 100vh;
   }
 }
 @media screen and (min-width: 480px) and (max-width: 767px) {
