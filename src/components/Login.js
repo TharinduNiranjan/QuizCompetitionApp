@@ -49,6 +49,16 @@ class Login extends Component {
     // ls.set("language", this.state.selectedOption);
   }
 
+  showHidePw=()=>{
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+
+
   render() {
     const { loginError, isAuthenticated } = this.props;
     if (isAuthenticated && ls.get("language") && ls.get("UserId")) {
@@ -60,8 +70,9 @@ class Login extends Component {
             <div id="timerbox">
               <img alt="logo" className="img-fluid logoImage" src={logo}></img>
               {/* <Form> */}
-              <Form.Control className="logininput" onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required />
-              <Form.Control className="logininput" onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required />
+              <Form.Control  className="logininput" onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required />
+              <Form.Control id="password" className="logininput" onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required />
+              <input  type="checkbox" onChange={this.showHidePw}/>Show Password
               {/* 
                 <input onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required></input>
                 <p></p> */}
