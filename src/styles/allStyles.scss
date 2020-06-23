@@ -5,6 +5,14 @@ body {
 html {
   height: -webkit-fill-available;
 }
+#react-mathjax-preview {
+  padding-right: 4px;
+  display: inline-block;
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Likely future */
+}
 a {
   color: #00a4b9;
 }
@@ -211,6 +219,7 @@ p#demo {
 .parent {
   width: 100%;
   display: inline-block;
+  white-space: pre-line;
 }
 .child {
   float: left;

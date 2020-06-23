@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import MathJax from "react-mathjax-preview";
 export function show_latex(text) {
   let str = " " + text;
@@ -7,15 +7,15 @@ export function show_latex(text) {
   for (let i = 0; i < subStrs.length; i++) {
     if (i % 2 === 1) {
       subStrs[i] = <MathJax math={`$\\ ${subStrs[i]}$`} />;
+    } else {
+      subStrs[i] = <span key={i}>{subStrs[i]}</span>;
     }
   }
 
   return (
     <div className="parent">
       {subStrs.map((str, key) => (
-        <div className="child" key={key}>
-          {str}
-        </div>
+        <Fragment key={key}>{str}</Fragment>
       ))}
     </div>
   );
