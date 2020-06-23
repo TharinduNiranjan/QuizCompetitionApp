@@ -37,7 +37,8 @@ class Instruction extends Component {
             <strong> On the day of the competition the home page will be the login page</strong>
           </p>
           <p>
-            2. Enter the given username <em>(eg: jr0001@umora.lk)</em> with the relevant password to enter the competition.
+            2. Enter the given username <em>(eg: jr0001@umora.lk)</em> with the relevant password and select your medium for the competition as English, Sinhala or Tamil from the dropdown menu. This
+            option is not available for the Senior Category. Then click login to enter the competition
           </p>
           <p>
             3. if you have logged early, you will be redirected to a page that says you to wait until the competition begins. Otherwise, you will be directly sent to the Questions dashboard. Your
@@ -284,7 +285,7 @@ class Instruction extends Component {
                 <Col>
                   <button className="button" onClick={this.platlevel}>
                     {" "}
-                    Platform Guidelines
+                    Platform Usage Guidelines
                   </button>
                 </Col>
                 <Col>
