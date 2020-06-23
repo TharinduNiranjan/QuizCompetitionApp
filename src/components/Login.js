@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { loginUser } from "../actions";
 import { Form } from "react-bootstrap";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 import ls from "local-storage";
 import logo from "../assets/horizontalLogo.png";
 import { MiniFooter } from "./Navbar";
@@ -10,6 +11,7 @@ import { MiniFooter } from "./Navbar";
 class Login extends Component {
   constructor(props) {
     super(props);
+    this.pswshow = false;
     this.state = { email: "", password: "", selectedOption: "english" };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -49,15 +51,16 @@ class Login extends Component {
     // ls.set("language", this.state.selectedOption);
   }
 
-  showHidePw=()=>{
+  showHidePw = () => {
     var x = document.getElementById("password");
     if (x.type === "password") {
       x.type = "text";
+      this.pswshow = true;
     } else {
       x.type = "password";
+      this.pswshow = false;
     }
-  }
-
+  };
 
   render() {
     const { loginError, isAuthenticated } = this.props;
@@ -70,9 +73,14 @@ class Login extends Component {
             <div id="timerbox">
               <img alt="logo" className="img-fluid logoImage" src={logo}></img>
               {/* <Form> */}
-              <Form.Control  className="logininput" onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required />
-              <Form.Control id="password" className="logininput" onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required />
-              <input  type="checkbox" onChange={this.showHidePw}/>Show Password
+              <Form.Control className="logininput" onChange={this.handleEmailChange} type="text" placeholder="Enter Username" name="uname" required />
+              <div className="password-field">
+                <Form.Control id="password" className="logininput" onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required />
+                <span className="password-icon" onClick={this.showHidePw}>
+                  {this.pswshow ? <VisibilityOff /> : <Visibility />}
+                </span>
+              </div>
+              {/* <input  type="checkbox" onChange={this.showHidePw}/>Show Password */}
               {/* 
                 <input onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required></input>
                 <p></p> */}

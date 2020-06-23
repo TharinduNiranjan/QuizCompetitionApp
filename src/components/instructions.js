@@ -117,7 +117,8 @@ class Instruction extends Component {
       content: (
         <div>
           <br></br>
-          <h4>Competition Rules</h4><p></p>
+          <h4>Competition Rules</h4>
+          <p></p>
           <h6>Note: All the times stated below are in +5.30 GMT</h6>
           <br></br>
           <h5>Junior / Intermediate Categories</h5>
@@ -182,7 +183,7 @@ class Instruction extends Component {
           <br></br>
           <p>
             &#9679; 10 percent of the total number of participants selected based on a cutoff mark will advance to the second round. The list of selected participants will be displayed exclusively on
-            the official Facebook page of Electronic Club of the Department of Electronic and Telecommunication Engineering of University of Moratuwa.<a href="https://www.facebook.com/uom.eclub"></a>
+            the <a href="https://www.facebook.com/uom.eclub">official Facebook page</a> of Electronic Club of the Department of Electronic and Telecommunication Engineering of University of Moratuwa.
           </p>
           <p>&#9679; Finalists will receive certificates, medals and valuable prizes.</p>
           <p>&#9679; A practice round will be held to help you to get familiarized with the system and the question types.</p>
@@ -262,7 +263,7 @@ class Instruction extends Component {
           <br></br>
           <p>
             &#9679; 10 percent of the total number of participants selected based on a cutoff mark will advance to the second round. The list of selected participants will be displayed exclusively on
-            the official Facebook page of Electronic Club of the Department of Electronic and Telecommunication Engineering of University of Moratuwa.<a href="https://www.facebook.com/uom.eclub"></a>
+            the <a href="https://www.facebook.com/uom.eclub">official Facebook page</a> of Electronic Club of the Department of Electronic and Telecommunication Engineering of University of Moratuwa.
           </p>
           <p>&#9679; Finalists will receive certificates, medals and valuable prizes.</p>
           <p>&#9679; A practice round will be held to help you to get familiarized with the system and the question types.</p>

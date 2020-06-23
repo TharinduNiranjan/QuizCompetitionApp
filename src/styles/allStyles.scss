@@ -5,6 +5,10 @@ body {
 html {
   height: -webkit-fill-available;
 }
+.container,
+.container-fluid {
+  overflow: hidden;
+}
 #react-mathjax-preview {
   padding-right: 4px;
   display: inline-block;
@@ -156,6 +160,15 @@ p#demo {
   color: black;
   border-bottom: solid 1px black;
 }
+.password-field {
+  position: relative;
+}
+.password-icon {
+  position: absolute;
+  top: 15px;
+  right: 7px;
+  font-size: 15px;
+}
 .vertical-align {
   display: flex;
   align-items: center;
@@ -220,6 +233,8 @@ p#demo {
   width: 100%;
   display: inline-block;
   white-space: pre-line;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 .child {
   float: left;
