@@ -157,6 +157,7 @@ class QuestionPage extends Component {
           onChange={this.handleChange}
           checked={key === this.state.selected ? true : false}
         />
+       
       ));
     }
     return (

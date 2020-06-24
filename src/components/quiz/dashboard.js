@@ -47,7 +47,7 @@ class Dashboard extends Component {
     if (ls.get("UserId")) {
       this.setState({ userid: ls.get("UserId") });
     } else {
-      return <Redirect to="/quizcompetition/login" />;
+      return <Redirect to="/login" />;
     }
     if (ls.get("language")) {
       this.setState({ lang: ls.get("language") });
@@ -74,9 +74,7 @@ class Dashboard extends Component {
           console.log(error);
         }
       );
-    let dt = new Date();
-    dt.setHours(dt.getHours() + 1);
-    this.deadline = dt.getTime();
+    this.deadline = ls.get('logTime')
     this.updateTimer = setInterval(this.timer, 1000);
     this.waitingTime = setInterval(this.waitingTimer, 1000);
   }
