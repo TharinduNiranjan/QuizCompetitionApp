@@ -92,7 +92,7 @@ class Login extends Component {
               <br></br>
 
               <button onClick={this.handleSubmit} type="submit">
-                Login
+                 Start Quiz
               </button>
               {loginError && <div className="errorText">Incorrect email or password.</div>}
               {/* </Form> */}

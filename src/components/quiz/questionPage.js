@@ -148,6 +148,7 @@ class QuestionPage extends Component {
     let choices;
     if (this.state.question.choices) {
       choices = Object.keys(this.state.question.choices).map((key) => (
+        <div class="custom-control custom-radio"  onClick={() => this.saveAnswer(key)}>
         <Form.Check
           key={key}
           type="radio"
@@ -157,7 +158,7 @@ class QuestionPage extends Component {
           onChange={this.handleChange}
           checked={key === this.state.selected ? true : false}
         />
-       
+       </div>
       ));
     }
     return (

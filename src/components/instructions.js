@@ -97,7 +97,7 @@ class Instruction extends Component {
             <em>
               <strong>Go Back</strong>
             </em>{" "}
-            button and re-check before submission. You will not be given any change to log back in once you click{" "}
+            button and re-check before submission. You will not be given any chance to log back in once you click{" "}
             <em>
               <strong>Submit and Leave </strong>
             </em>{" "}
