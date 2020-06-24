@@ -12,15 +12,18 @@ service cloud.firestore {
       //	if the user is authenticated and uid matches the document name
     }
     match /juniorquiz/{juniorQ}{
-    	allow read,write : if true;
+      allow read : if request.auth !=null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.collection == "juniorquiz";
+    	allow read,write : if request.auth !=null && request.auth.uid=="iqhNwxuQblMt6ekpda9CaoQuyBi2";
       // allows read,write access to all documents in the juniorQuestions collection for any user 
     }
     match /seniorquiz/{studentQ}{
-    	allow read,write : if true;
+      allow read : if request.auth !=null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.collection == "seniorquiz";
+    	allow read,write :if request.auth !=null && request.auth.uid=="iqhNwxuQblMt6ekpda9CaoQuyBi2";
       // allows read,write access to all documents in the questions collection for any user
     }
     match /testquiz/{universityQ}{
-    	allow read,write : if true;
+    	allow read : if  request.auth !=null;
+      allow read,write :if request.auth !=null && request.auth.uid=="iqhNwxuQblMt6ekpda9CaoQuyBi2";
       // allows read,write access to all documents in the seniorQuestions collection for any user
     }
 }

@@ -129,7 +129,7 @@ class Dashboard extends Component {
     let t = deadline - now;
     if (deadline <= now) {
       this.setState({ timeup: false, early: false, submit: false });
-      console.log(this.state);
+      // console.log(this.state);
       clearInterval(this.waitingTime);
       // logout and submit
     }

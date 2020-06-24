@@ -37,9 +37,9 @@ class About extends Component {
             <Col sm="6">
               <h2 className="text-center">Electronic Club</h2>
               <p className="text-justify">
-                Electronics Club, now affectionately known as the E- Club is the official student association of the Department of Electronic and Telecommunication Engineering, University of
-                Moratuwa. Established over two decades ago, Electronic Club has grown from strength to strength over the years. Many activities are carried out by the students of the club focusing on
-                community service as well as professional development.
+                Electronics Club, now affectionately known as the E- Club is the official student association of the Department of Electronic and Telecommunication Engineering, University of Moratuwa.
+                Established over two decades ago, Electronic Club has grown from strength to strength over the years. Many activities are carried out by the students of the club focusing on community
+                service as well as professional development.
               </p>
             </Col>
             <Col sm="6" className="vertical-align">
@@ -71,19 +71,19 @@ class About extends Component {
             </Col>
             <Col sm="6" md="4">
               <p className="aboutcontact">
-                <Help></Help> Technical Support
-              </p>
-              <p> Pulasthi Ekanayake</p>
-              <p>
-                <a href="tel:+94723715922">+94 72 371 5922</a>
-              </p>
-
-              <p className="aboutcontact">
-                <CodeSharp></CodeSharp> Platform Support
+                <Help></Help> Platform Support
               </p>
               <p> Tharindu Niranjan</p>
               <p>
                 <a href="tel:+94712400147">+94 71 240 0147</a>
+              </p>
+
+              <p className="aboutcontact">
+                <CodeSharp></CodeSharp> Technical Support
+              </p>
+              <p> Pulasthi Ekanayake</p>
+              <p>
+                <a href="tel:+94723715922">+94 72 371 5922</a>
               </p>
             </Col>
             <Col sm="6" md="4">
