@@ -17,19 +17,19 @@ Web application for μMora Mathematics competition 2020 created by Tharindu Nira
 Here is a sample firebase details set
 
 ```
-REACT_APP_API_KEY= AIzaSyCFPtR8KRSpFBSjXxLcKOmjh00Psmalg90
-REACT_APP_AUTH_DOMAIN =  reactauthtest-13cc8.firebaseapp.com
-REACT_APP_DB_URL= https://reactauthtest-13cc8.firebaseio.com
-REACT_APP_PROJECT_ID= reactauthtest-13cc8
-REACT_APP_STORAGE_BUCKET= reactauthtest-13cc8.appspot.com
-REACT_APP_MESSENGER_ID= 879127747925
-REACT_APP_APP_ID = 1:879127747925:web:5cb852c6f26cf93f3123dc
-REACT_APP_MEASUREMENT_ID = G-50TZD5275Z
+REACT_APP_API_KEY=  -- get from firebase config---
+REACT_APP_AUTH_DOMAIN = -- get from firebase config---
+REACT_APP_DB_URL=  -- get from firebase config---
+REACT_APP_PROJECT_ID=  -- get from firebase config---
+REACT_APP_STORAGE_BUCKET= -- get from firebase config---
+REACT_APP_MESSENGER_ID=  -- get from firebase config---
+REACT_APP_APP_ID =  -- get from firebase config---
+REACT_APP_MEASUREMENT_ID =  -- get from firebase config---
 
-REACT_APP_USER_DB = testUsers
-REACT_APP_JUNIOR_DB = juniorquiztest
-REACT_APP_SENIOR_DB = seniorquiztest
-REACT_APP_SUPERSENIOR_DB = superseniorquiztest
+REACT_APP_USER_DB = --set user database name--
+REACT_APP_JUNIOR_DB = --set database name--
+REACT_APP_SENIOR_DB = --set database name--
+REACT_APP_SUPERSENIOR_DB = --set database name--
 
 ```
 
