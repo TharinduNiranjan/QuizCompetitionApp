@@ -147,19 +147,21 @@ class QuestionPage extends Component {
   render() {
     let choices;
     if (this.state.question.choices) {
-      choices = Object.keys(this.state.question.choices).map((key) => (
-        <div class="custom-control custom-radio"  onClick={() => this.saveAnswer(key)}>
-        <Form.Check
-          key={key}
-          type="radio"
-          label={show_latex(this.state.question.choices[key])}
-          // onClick={() => this.saveAnswer(key)}
-          value={key}
-          onChange={this.handleChange}
-          checked={key === this.state.selected ? true : false}
-        />
-       </div>
-      ));
+      choices = Object.keys(this.state.question.choices)
+        .sort()
+        .map((key) => (
+          <div key={key} className="custom-control custom-radio" onClick={() => this.saveAnswer(key)}>
+            <Form.Check
+              key={key}
+              type="radio"
+              label={show_latex(this.state.question.choices[key])}
+              // onClick={() => this.saveAnswer(key)}
+              value={key}
+              onChange={this.handleChange}
+              checked={key === this.state.selected ? true : false}
+            />
+          </div>
+        ));
     }
     return (
       // create the question base

@@ -92,9 +92,12 @@ class Login extends Component {
               <br></br>
 
               <button onClick={this.handleSubmit} type="submit">
-                 Start Quiz
+                Start Quiz
               </button>
               {loginError && <div className="errorText">Incorrect email or password.</div>}
+              <p>
+                If you have trouble logging in, please contact Nisal Kariyawasam - <a href="tel:075 781 1429">075 781 1429</a>
+              </p>
               {/* </Form> */}
             </div>
             <MiniFooter></MiniFooter>
