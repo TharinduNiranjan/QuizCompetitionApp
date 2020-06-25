@@ -66,10 +66,10 @@ export const loginUser = (email, password) => (dispatch) => {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((user) => {
-      var logTime=new Date();
+      var logTime = new Date();
       //logTime=logTime.getHours()
-      logTime.setHours(logTime.getHours()+1)
-      ls.set('logTime',logTime.getTime());
+      logTime.setHours(logTime.getHours() + 1);
+      ls.set("logTime", logTime.getTime());
       ls.set("UserId", user.user.uid);
       dispatch(receiveLogin(user));
     })
@@ -77,7 +77,7 @@ export const loginUser = (email, password) => (dispatch) => {
       //Do something with the error if you want!
       dispatch(loginError());
     });
-     //var now = new Date().getTime();
+  //var now = new Date().getTime();
   // var minutes = now / 60000;
   // ls.set('timeloggedin',minutes)
   // console.log(minutes)
@@ -89,6 +89,7 @@ export const logoutUser = () => (dispatch) => {
     .auth()
     .signOut()
     .then(() => {
+      ls.clear();
       dispatch(receiveLogout());
     })
     .catch((error) => {
