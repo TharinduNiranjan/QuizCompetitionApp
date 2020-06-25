@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { db } from "../../firebase/firebase";
+import { db, analytics } from "../../firebase/firebase";
 import QuestionPage from "./questionPage";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
@@ -74,12 +74,15 @@ class Dashboard extends Component {
           console.log(error);
         }
       );
-    this.deadline = ls.get('logTime')
+    this.deadline = ls.get("logTime");
     this.updateTimer = setInterval(this.timer, 1000);
     this.waitingTime = setInterval(this.waitingTimer, 1000);
   }
   componentWillUnmount() {
-    this.disconnectUsers();
+    if (this.disconnectUsers) {
+      this.disconnectUsers();
+    }
+
     clearInterval(this.updateTimer);
     clearInterval(this.waitingTime);
   }
@@ -107,6 +110,7 @@ class Dashboard extends Component {
   handleLogout = () => {
     const { dispatch } = this.props;
     db.collection(this.usercol).doc(this.state.userid).update({ submit: true });
+    analytics.logEvent("submit");
     dispatch(logoutUser());
   };
   unSubmit = () => {

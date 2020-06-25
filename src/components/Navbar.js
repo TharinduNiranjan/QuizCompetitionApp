@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { logoutUser } from "../actions/";
 import { connect } from "react-redux";
 import NavLogo from "../assets/navBrand.png";
+import { analytics } from "../firebase/firebase";
 class Navbar extends Component {
   handleLogout = () => {
     const { dispatch } = this.props;
-
+    analytics.logEvent("force_logout");
     dispatch(logoutUser());
   };
   render() {
