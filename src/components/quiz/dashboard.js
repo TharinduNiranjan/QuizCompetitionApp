@@ -56,7 +56,7 @@ class Dashboard extends Component {
     }
     let now = new Date();
     this.offset = now - new Date(srvTime());
-    console.log(this.offset);
+    //console.log(this.offset);
     this.deadline = new Date(ls.get("logTime")).toString();
     this.disconnectUsers = db
       .collection(this.usercol)
@@ -70,14 +70,14 @@ class Dashboard extends Component {
           let qRef = snapshot.data().questions;
           let submit = snapshot.data().submit;
           // console.log(snapshot.data());
-          console.log("DBTIme", this.startTime, deadline);
+          //console.log("DBTIme", this.startTime, deadline);
           Object.keys(qRef).forEach((snap) => {
             allquestions[snap - 1] = qRef[snap];
           });
           this.setState({ questions: allquestions, done: submit });
           this.changeQuestion(this.state.number);
           if (new Date(deadline) - new Date() + this.offset < 0) {
-            console.log("EndQuiz", deadline);
+            //console.log("EndQuiz", deadline);
             this.startTime = "june 25, 2030 14:00:00";
             this.setState({ submit: true, early: false, timeup: true, questions: [] });
           }
@@ -87,7 +87,7 @@ class Dashboard extends Component {
         }
       );
 
-    console.log(this.deadline);
+    //console.log(this.deadline);
     this.updateTimer = setInterval(this.timer, 1000);
     this.waitingTime = setInterval(this.waitingTimer, 1000);
   }
@@ -133,14 +133,14 @@ class Dashboard extends Component {
     this.setState({ done: false, timeup: true, early: true });
   };
   waitingTimer() {
-    console.log(new Date(this.startTime).toString());
+    //console.log(new Date(this.startTime).toString());
     let deadline = new Date(this.startTime);
     let display = "a litte time...";
     let now = new Date(new Date() - this.offset);
     // console.log(deadline, this.deadline);
     let t = deadline - now;
     if (deadline <= now) {
-      console.log("StartQuiz", deadline, now, t);
+      //console.log("StartQuiz", deadline, now, t);
       this.setState({ timeup: false, early: false, submit: false });
       // console.log(this.state);
       clearInterval(this.waitingTime);
@@ -165,7 +165,7 @@ class Dashboard extends Component {
     let deadline = new Date(this.deadline);
     let t = deadline - now;
     if (deadline <= now) {
-      console.log("EndQuiz", deadline, now, t);
+      //consoleconsole.log("EndQuiz", deadline, now, t);
       this.setState({ submit: true, timeup: true, questions: [] });
       this.disconnectUsers();
       // logout and submit
