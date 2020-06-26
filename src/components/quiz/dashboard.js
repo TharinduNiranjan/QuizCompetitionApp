@@ -3,6 +3,7 @@ import { db, analytics } from "../../firebase/firebase";
 import QuestionPage from "./questionPage";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/";
+import { srvTime } from "../servertime";
 import ls from "local-storage";
 import { Container, Row, Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
@@ -32,6 +33,7 @@ class Dashboard extends Component {
     };
     this.usercol = process.env.REACT_APP_USER_DB;
     this.questioncol = process.env.REACT_APP_SENIOR_DB;
+    this.offset = null;
     this.disconnectUsers = "";
     this.updateTimer = ""; // timer variable to clear on exit
     this.timer = this.timer.bind(this);
@@ -52,6 +54,10 @@ class Dashboard extends Component {
     if (ls.get("language")) {
       this.setState({ lang: ls.get("language") });
     }
+    let now = new Date();
+    this.offset = now - new Date(srvTime());
+    console.log(this.offset);
+    this.deadline = new Date(ls.get("logTime")).toString();
     this.disconnectUsers = db
       .collection(this.usercol)
       .doc(this.state.userid)
@@ -60,21 +66,28 @@ class Dashboard extends Component {
           let allquestions = [];
           this.startTime = snapshot.data().startTime;
           this.questioncol = snapshot.data().collection;
-          // this.deadline = snapshot.data().deadline;
+          let deadline = snapshot.data().deadline;
           let qRef = snapshot.data().questions;
           let submit = snapshot.data().submit;
           // console.log(snapshot.data());
+          console.log("DBTIme", this.startTime, deadline);
           Object.keys(qRef).forEach((snap) => {
             allquestions[snap - 1] = qRef[snap];
           });
           this.setState({ questions: allquestions, done: submit });
           this.changeQuestion(this.state.number);
+          if (new Date(deadline) - new Date() + this.offset < 0) {
+            console.log("EndQuiz", deadline);
+            this.startTime = "june 25, 2030 14:00:00";
+            this.setState({ submit: true, early: false, timeup: true, questions: [] });
+          }
         },
         (error) => {
           console.log(error);
         }
       );
-    this.deadline = ls.get("logTime");
+
+    console.log(this.deadline);
     this.updateTimer = setInterval(this.timer, 1000);
     this.waitingTime = setInterval(this.waitingTimer, 1000);
   }
@@ -82,7 +95,6 @@ class Dashboard extends Component {
     if (this.disconnectUsers) {
       this.disconnectUsers();
     }
-
     clearInterval(this.updateTimer);
     clearInterval(this.waitingTime);
   }
@@ -97,7 +109,6 @@ class Dashboard extends Component {
     this.setState({ question: newq, number: n });
     // console.log(n, newq, this.state);
   }
-
   // submit answers and log out
   submitAll() {
     this.setState({ submit: true });
@@ -116,20 +127,20 @@ class Dashboard extends Component {
   unSubmit = () => {
     db.collection(this.usercol).doc(this.state.userid).update({ submit: false });
     let dt = new Date();
+    analytics.logEvent("redo_quiz");
     dt.setHours(dt.getHours() + 1);
     this.deadline = dt.getTime();
-    this.setState({ done: false });
+    this.setState({ done: false, timeup: true, early: true });
   };
   waitingTimer() {
-    let deadline = new Date(this.startTime).getTime();
+    console.log(new Date(this.startTime).toString());
+    let deadline = new Date(this.startTime);
     let display = "a litte time...";
-    let now = new Date().getTime();
-    if (deadline > now) {
-      this.setState({ timeup: true, early: true });
-    }
+    let now = new Date(new Date() - this.offset);
     // console.log(deadline, this.deadline);
     let t = deadline - now;
     if (deadline <= now) {
+      console.log("StartQuiz", deadline, now, t);
       this.setState({ timeup: false, early: false, submit: false });
       // console.log(this.state);
       clearInterval(this.waitingTime);
@@ -147,15 +158,14 @@ class Dashboard extends Component {
         </div>
       );
     }
-
     this.setState({ wait: display });
   }
   timer() {
-    let now = new Date().getTime();
-    let deadline = this.deadline;
-    // let deadline = new Date(this.deadline).getTime();
+    let now = new Date(new Date() - this.offset);
+    let deadline = new Date(this.deadline);
     let t = deadline - now;
     if (deadline <= now) {
+      console.log("EndQuiz", deadline, now, t);
       this.setState({ submit: true, timeup: true, questions: [] });
       this.disconnectUsers();
       // logout and submit

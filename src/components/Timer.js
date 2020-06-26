@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { MiniFooter } from "./Navbar";
-
+import { srvTime } from "./servertime";
 class Timer extends Component {
   constructor(props) {
     super(props);
@@ -9,9 +9,10 @@ class Timer extends Component {
     };
   }
   componentDidMount() {
+    let offset = new Date() - new Date(srvTime());
     this.myInterval = setInterval(() => {
-      var deadline = new Date("june 28, 2020 13:00:00").getTime();
-      var now = new Date().getTime();
+      var deadline = new Date("june 28, 2020 13:00:00 GMT+0530").getTime();
+      var now = new Date() - offset;
       var t = deadline - now;
 
       var days = ("0" + Math.floor(t / (1000 * 60 * 60 * 24))).slice(-2);
