@@ -55,32 +55,34 @@ class Dashboard extends Component {
       this.setState({ lang: ls.get("language") });
     }
     let now = new Date();
-    this.offset = now - new Date(srvTime());
-    //console.log(this.offset);
-    this.deadline = new Date(ls.get("logTime")).toString();
+    let serverTime = new Date(srvTime());
+    this.offset = new Date(now.getTime() - serverTime.getTime());
+    // console.log(this.offset, now, serverTime);
+    // this.deadline = new Date(ls.get("logTime")).toString();
     this.disconnectUsers = db
       .collection(this.usercol)
       .doc(this.state.userid)
       .onSnapshot(
         (snapshot) => {
           let allquestions = [];
+          // console.log(snapshot.data(), snapshot.exists, this.state);
           this.startTime = snapshot.data().startTime;
           this.questioncol = snapshot.data().collection;
-          let deadline = snapshot.data().deadline;
+          this.deadline = snapshot.data().deadline;
           let qRef = snapshot.data().questions;
           let submit = snapshot.data().submit;
           // console.log(snapshot.data());
-          //console.log("DBTIme", this.startTime, deadline);
+          // console.log("DBTIme", this.startTime, this.deadline);
           Object.keys(qRef).forEach((snap) => {
             allquestions[snap - 1] = qRef[snap];
           });
           this.setState({ questions: allquestions, done: submit });
           this.changeQuestion(this.state.number);
-          if (new Date(deadline) - new Date() + this.offset < 0) {
-            //console.log("EndQuiz", deadline);
-            this.startTime = "june 25, 2030 14:00:00";
-            this.setState({ submit: true, early: false, timeup: true, questions: [] });
-          }
+          // if (new Date(deadline) - new Date() + this.offset < 0) {
+          //   //console.log("EndQuiz", deadline);
+          //   this.startTime = "june 25, 2030 14:00:00";
+          //   this.setState({ submit: true, early: false, timeup: true, questions: [] });
+          // }
         },
         (error) => {
           console.log(error);
@@ -107,7 +109,6 @@ class Dashboard extends Component {
       return;
     }
     this.setState({ question: newq, number: n });
-    // console.log(n, newq, this.state);
   }
   // submit answers and log out
   submitAll() {
@@ -120,33 +121,32 @@ class Dashboard extends Component {
   //logout user
   handleLogout = () => {
     const { dispatch } = this.props;
-    db.collection(this.usercol).doc(this.state.userid).update({ submit: true });
+    db.collection(this.usercol).doc(this.state.userid).update({ submit: true }).then(dispatch(logoutUser()));
     analytics.logEvent("submit");
-    dispatch(logoutUser());
   };
   unSubmit = () => {
     db.collection(this.usercol).doc(this.state.userid).update({ submit: false });
     let dt = new Date();
     analytics.logEvent("redo_quiz");
-    dt.setHours(dt.getHours() + 1);
-    this.deadline = dt.getTime();
-    this.setState({ done: false, timeup: true, early: true });
+    // dt.setHours(dt.getHours() + 1);
+    // this.deadline = dt.getTime();
+    // this.setState({ done: false, timeup: true, early: true });
   };
   waitingTimer() {
     //console.log(new Date(this.startTime).toString());
-    let deadline = new Date(this.startTime);
+    // let startTime = new Date(this.startTime);
     let display = "a litte time...";
-    let now = new Date(new Date() - this.offset);
+    let now = new Date(new Date().getTime() - this.offset.getTime());
     // console.log(deadline, this.deadline);
-    let t = deadline - now;
-    if (deadline <= now) {
-      //console.log("StartQuiz", deadline, now, t);
+    let t = new Date(this.startTime).getTime() - now.getTime();
+    if (t <= 0) {
+      // console.log("StartQuiz", this.startTime, now, t);
       this.setState({ timeup: false, early: false, submit: false });
       // console.log(this.state);
       clearInterval(this.waitingTime);
       // logout and submit
     }
-    if (t) {
+    if (t > 0) {
       // let days = Math.floor(t / (1000 * 60 * 60 * 24));
       let hours = ("0" + Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).slice(-2);
       let minutes = ("0" + Math.floor((t % (1000 * 60 * 60)) / (1000 * 60))).slice(-2);
@@ -161,16 +161,18 @@ class Dashboard extends Component {
     this.setState({ wait: display });
   }
   timer() {
-    let now = new Date(new Date() - this.offset);
+    let now = new Date(new Date().getTime() - this.offset.getTime());
     let deadline = new Date(this.deadline);
-    let t = deadline - now;
-    if (deadline <= now) {
-      //consoleconsole.log("EndQuiz", deadline, now, t);
+    let t = new Date(deadline.getTime() - now.getTime()).getTime();
+    // console.log("quiz", deadline, now, deadline - new Date());
+    if (t <= 0) {
+      // console.log("EndQuiz", deadline, now, t);
       this.setState({ submit: true, timeup: true, questions: [] });
       this.disconnectUsers();
       // logout and submit
     }
     // let days = Math.floor(t / (1000 * 60 * 60 * 24));
+
     let hours = ("0" + Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).slice(-2);
     let minutes = ("0" + Math.floor((t % (1000 * 60 * 60)) / (1000 * 60))).slice(-2);
     let seconds = ("0" + Math.floor((t % (1000 * 60)) / 1000)).slice(-2);
