@@ -66,10 +66,10 @@ export const loginUser = (email, password) => (dispatch) => {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((user) => {
-      var logTime = new Date();
+      let t = new Date(user.user.metadata.lastSignInTime).getTime();
+      var logTime = new Date(new Date().getTime() - t);
       //logTime=logTime.getHours()
-      logTime.setHours(logTime.getHours() + 1);
-      ls.set("logTime", logTime.getTime());
+      ls.set("offset", logTime);
       ls.set("UserId", user.user.uid);
       dispatch(receiveLogin(user));
     })

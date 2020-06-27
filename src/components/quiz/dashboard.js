@@ -32,9 +32,12 @@ class Dashboard extends Component {
       early: true,
     };
     this.usercol = process.env.REACT_APP_USER_DB;
-    this.questioncol = process.env.REACT_APP_SENIOR_DB;
-    this.offset = null;
+    this.questioncol = process.env.REACT_APP_JUNIOR_DB;
+    this.offset = 0;
+    this.startTime = 0;
+    this.deadline = 0;
     this.disconnectUsers = "";
+    // this.updateTime = this.updateTime.bind(this);
     this.updateTimer = ""; // timer variable to clear on exit
     this.timer = this.timer.bind(this);
     this.waitingTimer = this.waitingTimer.bind(this);
@@ -54,10 +57,17 @@ class Dashboard extends Component {
     if (ls.get("language")) {
       this.setState({ lang: ls.get("language") });
     }
-    let now = new Date();
-    let serverTime = new Date(srvTime());
-    this.offset = new Date(now.getTime() - serverTime.getTime());
-    // console.log(this.offset, now, serverTime);
+    // this.updateTime();
+
+    if (!ls.get("offset")) {
+      let serverTime = new Date(srvTime());
+      this.offset = new Date(new Date().getTime() - serverTime.getTime());
+      // console.log(this.offset, serverTime, "serverTime");
+      ls.set("offset", this.offset);
+    } else {
+      this.offset = new Date(ls.get("offset"));
+    }
+
     // this.deadline = new Date(ls.get("logTime")).toString();
     this.disconnectUsers = db
       .collection(this.usercol)
@@ -90,6 +100,7 @@ class Dashboard extends Component {
       );
 
     //console.log(this.deadline);
+
     this.updateTimer = setInterval(this.timer, 1000);
     this.waitingTime = setInterval(this.waitingTimer, 1000);
   }
@@ -101,7 +112,19 @@ class Dashboard extends Component {
     clearInterval(this.waitingTime);
   }
   // Other CRUD Operations
-
+  // updateTime() {
+  //   var self = this;
+  //   fetch(window.location.href.toString()).then((res) => {
+  //     res.headers.forEach(function (val, key) {
+  //       if (key == "date") {
+  //         console.log(val);
+  //         let serverTime = new Date(val);
+  //         self.offset = new Date(new Date().getTime() - serverTime.getTime());
+  //         console.log(this.offset, serverTime, "serverTime");
+  //       }
+  //     });
+  //   });
+  // }
   // switch between questions
   changeQuestion(n) {
     let newq = this.state.questions[n];
@@ -121,8 +144,8 @@ class Dashboard extends Component {
   //logout user
   handleLogout = () => {
     const { dispatch } = this.props;
-    db.collection(this.usercol).doc(this.state.userid).update({ submit: true }).then(dispatch(logoutUser()));
     analytics.logEvent("submit");
+    db.collection(this.usercol).doc(this.state.userid).update({ submit: true }).then(dispatch(logoutUser()));
   };
   unSubmit = () => {
     db.collection(this.usercol).doc(this.state.userid).update({ submit: false });
@@ -133,7 +156,7 @@ class Dashboard extends Component {
     // this.setState({ done: false, timeup: true, early: true });
   };
   waitingTimer() {
-    //console.log(new Date(this.startTime).toString());
+    // console.log(this.offset, "rrr");
     // let startTime = new Date(this.startTime);
     let display = "a litte time...";
     let now = new Date(new Date().getTime() - this.offset.getTime());

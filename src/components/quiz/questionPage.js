@@ -47,46 +47,56 @@ class QuestionPage extends Component {
     db.collection(this.questioncol)
       .doc(id)
       .get()
-      .then((question) => {
-        if (!this._isMounted) {
-          return;
+      .then(
+        (question) => {
+          if (!this._isMounted) {
+            return;
+          }
+          if (question.data().image) {
+            storage
+              .ref(question.data().image)
+              .getDownloadURL()
+              .then((url) => {
+                if (!this._isMounted) {
+                  return;
+                }
+                let data = question.data();
+                let q = {
+                  description: data[this.props.lang].description,
+                  choices: data[this.props.lang].choices,
+                  hardness: data.hardness,
+                  image: url,
+                };
+                this.setState({ question: q });
+              });
+          } else {
+            let data = question.data();
+            let q = {
+              description: data[this.props.lang].description,
+              choices: data[this.props.lang].choices,
+              hardness: data.hardness,
+              image: "",
+            };
+            this.setState({ question: q });
+          }
+        },
+        (error) => {
+          console.error(error);
         }
-        if (question.data().image) {
-          storage
-            .ref(question.data().image)
-            .getDownloadURL()
-            .then((url) => {
-              if (!this._isMounted) {
-                return;
-              }
-              let data = question.data();
-              let q = {
-                description: data[this.props.lang].description,
-                choices: data[this.props.lang].choices,
-                hardness: data.hardness,
-                image: url,
-              };
-              this.setState({ question: q });
-            });
-        } else {
-          let data = question.data();
-          let q = {
-            description: data[this.props.lang].description,
-            choices: data[this.props.lang].choices,
-            hardness: data.hardness,
-            image: "",
-          };
-          this.setState({ question: q });
-        }
-      });
+      );
     // create an observer so that answers are saved in realtime
     this.disconnectUser = db
       .collection(this.usercol)
       .doc(this.props.user)
-      .onSnapshot((questions) => {
-        let q = questions.data().questions[this.props.number + 1]; //add one for zero indexing
-        this.setState({ selected: q.selected, flag: q.flag });
-      });
+      .onSnapshot(
+        (questions) => {
+          let q = questions.data().questions[this.props.number + 1]; //add one for zero indexing
+          this.setState({ selected: q.selected, flag: q.flag });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
   componentWillUnmount() {
     this.disconnectUser();

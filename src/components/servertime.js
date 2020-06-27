@@ -10,5 +10,6 @@ export function srvTime() {
   xmlHttp.open("HEAD", window.location.href.toString(), false);
   xmlHttp.setRequestHeader("Content-Type", "text/html");
   xmlHttp.send("");
+  console.log(xmlHttp.getResponseHeader("Date"), " severTimeDate");
   return xmlHttp.getResponseHeader("Date");
 }

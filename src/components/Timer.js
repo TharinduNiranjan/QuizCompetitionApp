@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { MiniFooter } from "./Navbar";
 import { srvTime } from "./servertime";
+import ls from "local-storage";
 class Timer extends Component {
   constructor(props) {
     super(props);
@@ -9,7 +10,17 @@ class Timer extends Component {
     };
   }
   componentDidMount() {
-    let offset = new Date() - new Date(srvTime());
+    // let offset = new Date() - new Date(srvTime());
+    let offset;
+    if (!ls.get("offset")) {
+      let serverTime = new Date(srvTime());
+      offset = new Date(new Date().getTime() - serverTime.getTime());
+      // console.log(offset, serverTime, "serverTime");
+      ls.set("offset", offset);
+    } else {
+      offset = new Date(ls.get("offset"));
+    }
+
     this.myInterval = setInterval(() => {
       var deadline = new Date("june 28, 2020 13:00:00 GMT+0530").getTime();
       var now = new Date() - offset;
