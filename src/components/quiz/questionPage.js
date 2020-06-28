@@ -17,6 +17,7 @@ class QuestionPage extends Component {
       },
     };
     this.questioncol = process.env.REACT_APP_SENIOR_DB;
+    // this.questioncol = "testquiz";
     this.usercol = process.env.REACT_APP_USER_DB;
     this.disconnectUser = function () {}; // realtime connection to firebase
     this.getQuestion = this.getQuestion.bind(this); // get question from questions collection and create observable from user collection
@@ -29,7 +30,7 @@ class QuestionPage extends Component {
   componentDidMount() {
     this._isMounted = true;
     this.questioncol = this.props.questioncol;
-    this.usercol = this.props.usercol;
+    this.usercol = "competition";
     this.getQuestion(this.props.question);
   }
   componentDidUpdate(oldProps) {
@@ -83,7 +84,10 @@ class QuestionPage extends Component {
         (error) => {
           console.error(error);
         }
-      );
+      )
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
     // create an observer so that answers are saved in realtime
     this.disconnectUser = db
       .collection(this.usercol)

@@ -30,9 +30,10 @@ class Dashboard extends Component {
       selected: "",
       timeup: true,
       early: true,
+      questioncol: "testing",
     };
     this.usercol = process.env.REACT_APP_USER_DB;
-    this.questioncol = process.env.REACT_APP_JUNIOR_DB;
+    // this.questioncol = process.env.REACT_APP_JUNIOR_DB;
     this.offset = 0;
     this.startTime = 0;
     this.deadline = 0;
@@ -75,18 +76,19 @@ class Dashboard extends Component {
       .onSnapshot(
         (snapshot) => {
           let allquestions = [];
+          let datafromUser = snapshot.data();
           // console.log(snapshot.data(), snapshot.exists, this.state);
-          this.startTime = snapshot.data().startTime;
-          this.questioncol = snapshot.data().collection;
-          this.deadline = snapshot.data().deadline;
-          let qRef = snapshot.data().questions;
-          let submit = snapshot.data().submit;
+          this.startTime = datafromUser.startTime;
+          let questioncol = datafromUser.collection;
+          this.deadline = datafromUser.deadline;
+          let qRef = datafromUser.questions;
+          let submit = datafromUser.submit;
           // console.log(snapshot.data());
           // console.log("DBTIme", this.startTime, this.deadline);
           Object.keys(qRef).forEach((snap) => {
             allquestions[snap - 1] = qRef[snap];
           });
-          this.setState({ questions: allquestions, done: submit });
+          this.setState({ questions: allquestions, done: submit, questioncol: questioncol });
           this.changeQuestion(this.state.number);
           // if (new Date(deadline) - new Date() + this.offset < 0) {
           //   //console.log("EndQuiz", deadline);
@@ -145,12 +147,22 @@ class Dashboard extends Component {
   handleLogout = () => {
     const { dispatch } = this.props;
     analytics.logEvent("submit");
-    db.collection(this.usercol).doc(this.state.userid).update({ submit: true }).then(dispatch(logoutUser()));
+    db.collection(this.usercol)
+      .doc(this.state.userid)
+      .update({ submit: true })
+      .then(
+        (val) => {
+          dispatch(logoutUser());
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   };
   unSubmit = () => {
     db.collection(this.usercol).doc(this.state.userid).update({ submit: false });
-    let dt = new Date();
     analytics.logEvent("redo_quiz");
+    let dt = new Date();
     // dt.setHours(dt.getHours() + 1);
     // this.deadline = dt.getTime();
     // this.setState({ done: false, timeup: true, early: true });
@@ -257,8 +269,11 @@ class Dashboard extends Component {
         <Row className="warning">
           <div className="submit-warning">
             <h1>Your answers have been saved</h1>
-            <button onClick={this.unSubmit}>Do again</button>
-            <p>This button will not be present on competition day</p>
+            <p>Thank you for participating</p>
+            <button className="submit" onClick={this.handleLogout}>
+              Logout
+            </button>
+            {/* <p>This button will not be present on competition day</p> */}
           </div>
         </Row>
       );
@@ -322,7 +337,7 @@ class Dashboard extends Component {
               question={this.state.question.id}
               user={this.state.userid}
               usercol={this.usercol}
-              questioncol={this.questioncol}
+              questioncol={this.state.questioncol}
               number={this.state.number}
               changeQuestion={this.changeQuestion}
               submitAll={this.submitAll}

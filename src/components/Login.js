@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { loginUser } from "../actions";
 import { Form } from "react-bootstrap";
+import { db } from "../firebase/firebase";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import ls from "local-storage";
 import logo from "../assets/horizontalLogo.png";
@@ -11,9 +12,31 @@ import { MiniFooter } from "./Navbar";
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.pswshow = false;
-    this.state = { email: "", password: "", selectedOption: "english" };
+    this.state = {
+      email: "",
+      password: "",
+      selectedOption: "english",
+      pswshow: false,
+      contact: { name: "Nisal", tel: "075 781 1429" },
+      tamilContact: { name: "Afham", tel: "0768663823" },
+    };
     this.handleChange = this.handleChange.bind(this);
+  }
+  componentDidMount() {
+    db.collection("contacts")
+      .doc("vjahCXN49QS51BpMNctw")
+      .get()
+      .then(
+        (contact) => {
+          var arr = contact.data().english;
+          var tamil = contact.data().tamil;
+          this.setState({ contact: arr[Math.floor(Math.random() * arr.length)] });
+          this.setState({ tamilContact: tamil[Math.floor(Math.random() * arr.length)] });
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 
   handleEmailChange = ({ target }) => {
@@ -55,10 +78,10 @@ class Login extends Component {
     var x = document.getElementById("password");
     if (x.type === "password") {
       x.type = "text";
-      this.pswshow = true;
+      this.setState({ pswshow: true });
     } else {
       x.type = "password";
-      this.pswshow = false;
+      this.setState({ pswshow: false });
     }
   };
 
@@ -77,7 +100,7 @@ class Login extends Component {
               <div className="password-field">
                 <Form.Control id="password" className="logininput" onChange={this.handlePasswordChange} type="password" placeholder="Enter Password" name="psw" required />
                 <span className="password-icon" onClick={this.showHidePw}>
-                  {this.pswshow ? <VisibilityOff /> : <Visibility />}
+                  {this.state.pswshow ? <VisibilityOff /> : <Visibility />}
                 </span>
               </div>
               {/* <input  type="checkbox" onChange={this.showHidePw}/>Show Password */}
@@ -96,7 +119,8 @@ class Login extends Component {
               </button>
               {loginError && <div className="errorText">Incorrect email or password.</div>}
               <p>
-                If you have trouble logging in, please contact Nisal Kariyawasam - <a href="tel:075 781 1429">075 781 1429</a>
+                If you have trouble logging in, please contact {this.state.contact.name} - <a href={`tel:${this.state.contact.tel}`}>{this.state.contact.tel}</a>
+                <br></br>Tamil: {this.state.tamilContact.name} - <a href={`tel:${this.state.tamilContact.tel}`}>{this.state.tamilContact.tel}</a>
               </p>
               {/* </Form> */}
             </div>
