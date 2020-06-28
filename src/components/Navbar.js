@@ -19,7 +19,7 @@ class Navbar extends Component {
             <img alt="umoraLogo" className="navimage" src={NavLogo}></img>
           </Link>
         </li>
-        <div>
+        <div className="linksbar">
           {isAuthenticated ? (
             <li className="right">
               <Link to="/login" onClick={this.handleLogout}>
@@ -31,6 +31,9 @@ class Navbar extends Component {
               <Link to="/login">Login</Link>
             </li>
           )}
+          <li className="right">
+            <Link to="/quiz">Quiz</Link>
+          </li>
           <li className="right">
             <Link to="/about">About</Link>
           </li>

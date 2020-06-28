@@ -50,12 +50,13 @@ class Timer extends Component {
       <Fragment>
         <div className="timercolumn">
           <div id="timerbox">
-            <p id="caption">μMora Mathematics Competition starts in</p>
-            <p id="demo">{count}</p>
-            <p> Days : Hours : Minutes : Seconds </p>
-            <a className="link" href="/login">
+            <p id="caption">μMora Mathematics Competition is</p>
+            <h1 className="heartbeat">Today!</h1>
+            {/* <p id="demo">{count}</p>
+            <p> Days : Hours : Minutes : Seconds </p> */}
+            {/* <a className="link" href="/login">
               Test Round
-            </a>
+            </a> */}
           </div>
           <MiniFooter></MiniFooter>
         </div>

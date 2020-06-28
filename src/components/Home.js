@@ -16,7 +16,7 @@ class Home extends Component {
               {/* <Login></Login> */}
               <Timer></Timer>
             </Col>
-            <Col sm="6" className="tflex-container order-sm-2"></Col>
+            <Col sm="6" className="tflex-container color-change-5x order-sm-2"></Col>
           </Row>
         </Container>
         {/* <Footer></Footer> */}

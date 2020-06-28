@@ -4,6 +4,7 @@ body {
 }
 html {
   height: -webkit-fill-available;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 .container,
 .container-fluid {
@@ -49,17 +50,21 @@ ul.topnav li p {
   text-decoration: none;
 }
 ul.topnav li {
-  float: right;
+  // float: right;
   width: 100%;
 }
 ul.topnav li.right {
+  float: right;
   margin-top: 10px;
   font-size: 16px;
-  width: 25%;
+  width: unset;
   justify-content: center;
   display: flex;
 }
-
+.linksbar {
+  display: flex;
+  justify-content: space-evenly;
+}
 ul.topnav li.right :hover {
   border-bottom: solid 2px #00b0c7;
   padding-bottom: 0.2em;
@@ -69,6 +74,7 @@ ul.topnav li.right :hover {
   height: 40vh;
   background-image: url("../assets/CountdownBG.png");
   background-size: cover;
+  background-blend-mode: hard-light;
 }
 
 .timercolumn {

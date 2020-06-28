@@ -12,7 +12,7 @@ class Quiz extends Component {
   render() {
     const { isLoggingOut, logoutError, isAuthenticated } = this.props;
     if (!isAuthenticated) {
-      return <Redirect to="/" />;
+      return <Redirect to="/login" />;
     } else {
       return (
         <Fragment>
