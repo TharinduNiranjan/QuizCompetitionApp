@@ -5,26 +5,38 @@ service cloud.firestore {
       allow read, write: if false; 
       // restict read,write access to all the document paths for any user
     }
-    
+    match /results/{userId}{
+    	allow read : if request.auth !=null && request.auth.uid==userId; 
+      //	allows read,write access to documents in the users collection 
+      //	if the user is authenticated and uid matches the document name
+    }
   	match /competition/{userId}{
     	allow read,write : if request.auth !=null && request.auth.uid==userId; 
       //	allows read,write access to documents in the users collection 
       //	if the user is authenticated and uid matches the document name
     }
-    match /juniorquiz/{juniorQ}{
-      allow read : if request.auth !=null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.collection == "juniorquiz";
-    	allow read,write : if request.auth !=null && request.auth.uid=="fCySoMeQquQDMuIgb3PwQaKHzP83";
+    match /juniorquiz2/{juniorQ}{
+      allow read : if request.auth !=null && get(/databases/$(database)/documents/competition/$(request.auth.uid)).data.collection == "juniorquiz2";
+    	allow read,write : if request.auth !=null && request.auth.uid=="8VQakISKvNXIsV1K1ITHB61FMG72";
       // allows read,write access to all documents in the juniorQuestions collection for any user 
     }
-    match /seniorquiz/{studentQ}{
-      allow read : if request.auth !=null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.collection == "seniorquiz";
-    	allow read,write :if request.auth !=null && request.auth.uid=="fCySoMeQquQDMuIgb3PwQaKHzP83";
+    match /seniorquiz2/{studentQ}{
+      allow read : if request.auth !=null && get(/databases/$(database)/documents/competition/$(request.auth.uid)).data.collection == "seniorquiz2";
+    	allow read,write :if request.auth !=null && request.auth.uid=="8VQakISKvNXIsV1K1ITHB61FMG72";
       // allows read,write access to all documents in the questions collection for any user
     }
-    match /testquiz/{universityQ}{
-    	allow read : if  request.auth !=null;
-      allow read,write :if request.auth !=null && request.auth.uid=="fCySoMeQquQDMuIgb3PwQaKHzP83";
+    match /testquiz2/{universityQ}{
+    	allow read : if request.auth !=null && get(/databases/$(database)/documents/competition/$(request.auth.uid)).data.collection == "testquiz2";
+      allow read,write :if request.auth !=null && request.auth.uid=="8VQakISKvNXIsV1K1ITHB61FMG72";
       // allows read,write access to all documents in the seniorQuestions collection for any user
+    }
+    match /contacts/{userId}{
+    	allow read : if true; 
+      //	allows reads
+    }
+    match /downloads/{userId}{
+    	allow read : if true; 
+      //	allows reads
     }
 }
 }

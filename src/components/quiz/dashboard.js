@@ -28,15 +28,18 @@ class Dashboard extends Component {
       question: "",
       number: 0,
       selected: "",
-      timeup: true,
+      timeup: false,
       early: true,
       questioncol: "testing",
+      startTime : 0,
+      deadline : 0,
     };
-    this.usercol = process.env.REACT_APP_USER_DB;
+    // this.usercol = process.env.REACT_APP_USER_DB;
     // this.questioncol = process.env.REACT_APP_JUNIOR_DB;
+    this.usercol = "competition";
     this.offset = 0;
-    this.startTime = 0;
-    this.deadline = 0;
+    // this.startTime = 0;
+    // this.deadline = 0;
     this.disconnectUsers = "";
     // this.updateTime = this.updateTime.bind(this);
     this.updateTimer = ""; // timer variable to clear on exit
@@ -78,9 +81,9 @@ class Dashboard extends Component {
           let allquestions = [];
           let datafromUser = snapshot.data();
           // console.log(snapshot.data(), snapshot.exists, this.state);
-          this.startTime = datafromUser.startTime;
+          let startTime = datafromUser.startTime;
           let questioncol = datafromUser.collection;
-          this.deadline = datafromUser.deadline;
+          let deadline = datafromUser.deadline;
           let qRef = datafromUser.questions;
           let submit = datafromUser.submit;
           // console.log(snapshot.data());
@@ -88,7 +91,7 @@ class Dashboard extends Component {
           Object.keys(qRef).forEach((snap) => {
             allquestions[snap - 1] = qRef[snap];
           });
-          this.setState({ questions: allquestions, done: submit, questioncol: questioncol });
+          this.setState({ questions: allquestions, done: submit, questioncol: questioncol, startTime:startTime, deadline:deadline});
           this.changeQuestion(this.state.number);
           // if (new Date(deadline) - new Date() + this.offset < 0) {
           //   //console.log("EndQuiz", deadline);
@@ -102,7 +105,7 @@ class Dashboard extends Component {
       );
 
     //console.log(this.deadline);
-
+    // console.log(this.offset,this.state.deadline,this.state.startTime)
     this.updateTimer = setInterval(this.timer, 1000);
     this.waitingTime = setInterval(this.waitingTimer, 1000);
   }
@@ -144,20 +147,37 @@ class Dashboard extends Component {
     this.changeQuestion(this.state.number);
   }
   //logout user
-  handleLogout = () => {
+  handleSubmit = () =>{
     const { dispatch } = this.props;
     analytics.logEvent("submit");
+    dispatch(logoutUser());
     db.collection(this.usercol)
       .doc(this.state.userid)
       .update({ submit: true })
       .then(
         (val) => {
-          dispatch(logoutUser());
+
         },
         (err) => {
           console.log(err);
         }
       );
+  }
+  handleLogout = () => {
+    const { dispatch } = this.props;
+    analytics.logEvent("submit");
+    dispatch(logoutUser());
+    // db.collection(this.usercol)
+    //   .doc(this.state.userid)
+    //   .update({ submit: true })
+    //   .then(
+    //     (val) => {
+
+    //     },
+    //     (err) => {
+    //       console.log(err);
+    //     }
+    //   );
   };
   unSubmit = () => {
     db.collection(this.usercol).doc(this.state.userid).update({ submit: false });
@@ -173,10 +193,10 @@ class Dashboard extends Component {
     let display = "a litte time...";
     let now = new Date(new Date().getTime() - this.offset.getTime());
     // console.log(deadline, this.deadline);
-    let t = new Date(this.startTime).getTime() - now.getTime();
+    let t = new Date(this.state.startTime).getTime() - now.getTime();
     if (t <= 0) {
       // console.log("StartQuiz", this.startTime, now, t);
-      this.setState({ timeup: false, early: false, submit: false });
+      this.setState({ early: false, submit: false });
       // console.log(this.state);
       clearInterval(this.waitingTime);
       // logout and submit
@@ -197,7 +217,7 @@ class Dashboard extends Component {
   }
   timer() {
     let now = new Date(new Date().getTime() - this.offset.getTime());
-    let deadline = new Date(this.deadline);
+    let deadline = new Date(this.state.deadline);
     let t = new Date(deadline.getTime() - now.getTime()).getTime();
     // console.log("quiz", deadline, now, deadline - new Date());
     if (t <= 0) {
@@ -278,20 +298,23 @@ class Dashboard extends Component {
         </Row>
       );
     }
+    if (this.state.early) {
+      return (
+        <Row className="warning">
+          <div className="submit-warning">
+            <h1>Competition starts in {this.state.wait}</h1>
+            Please wait for the competion to start
+          </div>{" "}
+        </Row>
+      );
+    }
     if (this.state.timeup) {
       // console.log(this.state);
       return (
         <Row className="warning">
-          {this.state.early ? (
-            <div className="submit-warning">
-              <h1>Competition starts in {this.state.wait}</h1>
-              Please wait for the competion to start
-            </div>
-          ) : (
-            <div className="submit-warning">
-              <h1>Time's Up</h1> Your answers have been saved please logout
-            </div>
-          )}
+          <div className="submit-warning">
+            <h1>Time's Up</h1> Your answers have been saved please logout
+          </div>
           <button className="submit" onClick={this.handleLogout}>
             Logout
           </button>
@@ -328,7 +351,7 @@ class Dashboard extends Component {
                 <h1>Are you sure you want to submit?</h1> You can't change your answers once you submit
               </div>
               <button onClick={() => this.revise()}>Go back</button>
-              <button className="submit" onClick={this.handleLogout}>
+              <button className="submit" onClick={this.handleSubmit}>
                 Submit and Leave
               </button>
             </Row>

@@ -17,8 +17,10 @@ class Login extends Component {
       password: "",
       selectedOption: "english",
       pswshow: false,
-      contact: { name: "Nisal", tel: "075 781 1429" },
-      tamilContact: { name: "Afham", tel: "0768663823" },
+      contactname: "Nisal",
+      contacttel: "075 781 1429",
+      tamilContactname: "Afham",
+      tamilContacttel: "0768663823",
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -29,9 +31,11 @@ class Login extends Component {
       .then(
         (contact) => {
           var arr = contact.data().english;
-          var tamil = contact.data().tamil;
-          this.setState({ contact: arr[Math.floor(Math.random() * arr.length)] });
-          this.setState({ tamilContact: tamil[Math.floor(Math.random() * arr.length)] });
+          var tamilarr = contact.data().tamil;
+          let contacty = arr[Math.floor(Math.random() * arr.length)];
+          let tamil = tamilarr[Math.floor(Math.random() * tamilarr.length)];
+          this.setState({ contactname: contacty.name, contacttel: contacty.tel });
+          this.setState({ tamilContactname: tamil.name, tamilContacttel: tamil.tel });
         },
         (err) => {
           console.log(err);
@@ -119,8 +123,8 @@ class Login extends Component {
               </button>
               {loginError && <div className="errorText">Incorrect email or password.</div>}
               <p>
-                If you have trouble logging in, please contact {this.state.contact.name} - <a href={`tel:${this.state.contact.tel}`}>{this.state.contact.tel}</a>
-                <br></br>Tamil: {this.state.tamilContact.name} - <a href={`tel:${this.state.tamilContact.tel}`}>{this.state.tamilContact.tel}</a>
+                If you have trouble logging in, please contact {this.state.contactname} - <a href={`tel:${this.state.contacttel}`}>{this.state.contacttel}</a>
+                <br></br>Tamil: {this.state.tamilContactname} - <a href={`tel:${this.state.tamilContacttel}`}>{this.state.tamilContacttel}</a>
               </p>
               {/* </Form> */}
             </div>

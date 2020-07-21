@@ -2,11 +2,29 @@ import React, { Component, Fragment } from "react";
 import Navbar, { Footer } from "./Navbar";
 import { Row, Container, Col } from "react-bootstrap";
 import { Email, CodeSharp, Help, Call, Functions } from "@material-ui/icons";
+import { db, storage } from "../firebase/firebase";
 import logo from "../assets/png.png";
 import UniLogo from "../assets/mora.png";
 import eclub from "../assets/eclub.png";
 import entc from "../assets/entc.png";
 class About extends Component {
+  // componentDidMount() {
+  //   db.collection("downloads")
+  //     .get()
+  //     .then((querySnapshot) => {
+  //       querySnapshot.forEach((doc) => {
+  //         let lang = ls.get("language");
+  //         let link = linkref.data()[lang];
+  //         // console.log(link);
+  //         storage
+  //           .ref(link)
+  //           .getDownloadURL()
+  //           .then((url) => {
+  //             this.setState({ english: engurl });
+  //           });
+  //       });
+  //     });
+  // }
   render() {
     return (
       <Fragment>
@@ -33,7 +51,13 @@ class About extends Component {
                 Please go through the rules and regulations thoroughly before participating.{" "}
               </p>
               <p>Wish you all the best for an experience of a lifetime!</p>
+              <div className="text-center mb-4">
+                <a className="link special" href="https://bit.ly/%CE%BCMoraRound1QnA" target="_blank">
+                  μMora Past Papers
+                </a>
+              </div>
             </Col>
+            <Col sm="12"></Col>
             <Col sm="6">
               <h2 className="text-center">Electronic Club</h2>
               <p className="text-justify">

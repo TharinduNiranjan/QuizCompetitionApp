@@ -1,0 +1,71 @@
+#congratulations,
+#thankyou {
+  font-size: 2em;
+  font-weight: 700;
+  padding: 1rem 0.5rem;
+  color: rgb(0, 116, 151);
+  text-align: center;
+}
+#congratulations {
+  color: rgb(255, 169, 57);
+}
+#captionResult {
+  background-color: rgb(197, 224, 255);
+  padding: 5px 5px;
+  margin: auto;
+  margin-top: 20px;
+}
+#resultbox {
+  max-width: 450px;
+  text-align: center;
+}
+.resultsflex-container {
+  display: flex;
+}
+.resultsimagecolumn {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("../assets/CountdownBG.png");
+  background-size: cover;
+}
+.resultcolumn {
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+  justify-content: center;
+  align-items: center;
+}
+// #resultsbox button {
+//   border: 2px solid rgb(0, 116, 151);
+//   padding: 14px 20px;
+//   margin: 8px auto;
+//   text-align: center;
+//   border-radius: 4px;
+//   cursor: pointer;
+//   font-size: large;
+//   font-weight: 500;
+//   background-color: white;
+// }
+
+// #resultsbox button:hover {
+//   border: 2px solid rgb(255, 145, 0);
+// }
+.table {
+  margin: auto;
+  background-color: rgb(255, 198, 123);
+  max-width: 450px;
+  font-weight: 600;
+  font-size: 1.2em;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+@media (min-width: 767px) {
+  .resultcolumn {
+    height: 90vh;
+  }
+}

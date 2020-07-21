@@ -214,6 +214,15 @@ p#demo {
 .min80 {
   min-height: 82vh;
 }
+.special {
+  background-color: #00b0c7;
+  border: none;
+  color: white;
+  border-radius: 1.2em;
+}
+.special :hover {
+  background-color: black;
+}
 #clublogos {
   display: flex;
   justify-content: space-between;
@@ -537,7 +546,7 @@ button :active {
   .organizinglogos {
     padding-left: 1%;
     padding-right: 1%;
-    max-height: 100px;
+    max-height: 80px;
   }
   .nbparas p {
     // margin-bottom: 0.5em;
