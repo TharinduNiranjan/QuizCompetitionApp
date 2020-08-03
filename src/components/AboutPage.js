@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import Navbar, { Footer } from "./Navbar";
 import { Row, Container, Col } from "react-bootstrap";
 import { Email, CodeSharp, Help, Call, Functions } from "@material-ui/icons";
-import { db, storage } from "../firebase/firebase";
 import logo from "../assets/png.png";
 import UniLogo from "../assets/mora.png";
 import eclub from "../assets/eclub.png";
@@ -38,32 +37,18 @@ class About extends Component {
               <h2 className="text-center">μMora 2020</h2>
               <p className="text-center">Are you ready to wrack your brains?</p>
               <p className="text-justify">
-                The Department of Electronics and Telecommunication Engineering of University of Moratuwa proudly presents, <strong>μMora 2020</strong>, the first-ever island wide online mathematics
-                competition to be held in Sri Lanka. 6000+ likeminded individuals from all around the island will compete under three categories: Junior, Intermediate and Senior, to become the best
-                brainiac among all!
+                The Department of Electronics and Telecommunication Engineering of University of Moratuwa proudly presents, <strong>μMora 2020</strong>, the first-ever island wide online mathematics competition to be held in Sri Lanka. 6000+ likeminded individuals from all around the island will compete under three categories: Junior, Intermediate and Senior, to become the best brainiac among all!
               </p>
-              <p className="text-justify">
-                The competition features numerous mathematical problems from some of the most fascinating areas in mathematics. Encouraging young mathematics enthusiasts around the globe, The
-                Department of Electronics and Telecommunication Engineering will be taking the competition to the international level in the coming years.
-              </p>
-              <p className="text-justify">
-                μMora 2020 will consist of 2 rounds under each category, and the first round will be held online on the 28th of June 2020. You will be using this platform to enter the competition.
-                Please go through the rules and regulations thoroughly before participating.{" "}
-              </p>
+              <p className="text-justify">The competition features numerous mathematical problems from some of the most fascinating areas in mathematics. Encouraging young mathematics enthusiasts around the globe, The Department of Electronics and Telecommunication Engineering will be taking the competition to the international level in the coming years.</p>
+              <p className="text-justify">μMora 2020 will consist of 2 rounds under each category, and the first round will be held online on the 28th of June 2020. You will be using this platform to enter the competition. Please go through the rules and regulations thoroughly before participating. </p>
               <p>Wish you all the best for an experience of a lifetime!</p>
-              <div className="text-center mb-4">
-                <a className="link special" href="https://bit.ly/%CE%BCMoraRound1QnA" target="_blank">
-                  μMora Past Papers
-                </a>
-              </div>
             </Col>
             <Col sm="12"></Col>
             <Col sm="6">
               <h2 className="text-center">Electronic Club</h2>
               <p className="text-justify">
-                Electronics Club, now affectionately known as the E- Club is the official student association of the Department of Electronic and Telecommunication Engineering, University of Moratuwa.
-                Established over two decades ago, Electronic Club has grown from strength to strength over the years. Many activities are carried out by the students of the club focusing on community
-                service as well as professional development.
+                Electronics Club, now affectionately known as the E- Club is the official student association of the Department of Electronic and Telecommunication Engineering, University of Moratuwa. Established over two decades ago, Electronic Club has grown from strength to strength over the years. Many activities are carried out by the students of the club focusing on community service as well
+                as professional development.
               </p>
             </Col>
             <Col sm="6" className="vertical-align">

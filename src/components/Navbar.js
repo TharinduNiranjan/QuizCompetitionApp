@@ -31,17 +31,18 @@ class Navbar extends Component {
               <Link to="/login">Login</Link>
             </li>
           )}
+                    <li className="right">
+            <Link to="/quiz">Quiz</Link>
+          </li>
           <li className="right">
             <Link to="/results">Results</Link>
           </li>
-          <li className="right">
-            <Link to="/about">About</Link>
-          </li>
+
           <li className="right">
             <Link to="/faq">FAQ</Link>
           </li>
           <li className="right">
-            <Link to="/instructions">Instructions</Link>
+            <Link to="/about">About</Link>
           </li>
         </div>
       </ul>

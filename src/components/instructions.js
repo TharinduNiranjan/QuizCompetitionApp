@@ -109,7 +109,7 @@ class Instruction extends Component {
           <p>9. If you were unable to submit the answers when the timer ends, the answers that you have recorded will be automatically submitted and you will be asked to logout.</p>
           <img alt="Time Up Notification" className="insTimeup" src={TimeUp}></img>
         </div>
-      ),
+       ),
     });
   };
   instruct = () => {

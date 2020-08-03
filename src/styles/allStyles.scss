@@ -76,6 +76,21 @@ ul.topnav li.right :hover {
   background-size: cover;
   background-blend-mode: hard-light;
 }
+.result_bg {
+  background-image: url("../assets/results.jpg");
+  height: 80vh;
+  background-size: contain;
+  // background-blend-mode: lighten;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.rflex-container {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .timercolumn {
   display: flex;
@@ -108,6 +123,25 @@ p#demo {
   color: white;
   background-color: black;
 }
+.link2 {
+  text-decoration: none;
+  display: inline-block;
+  color: black;
+  width: 100%;
+  padding: 0.5em 0em;
+  margin-bottom: 0.5em;
+  border-radius: 5px;
+  border: solid 1px black;
+}
+.dark {
+  background-color: black;
+  color: white;
+}
+.link2:hover {
+  text-decoration: none;
+  color: white;
+  background-color: black;
+}
 .footer {
   text-align: center;
   min-height: 8vh;
@@ -117,7 +151,7 @@ p#demo {
   background-color: white;
   // background-color: #1de9b6;
   border-top: solid 2px#00d2ee;
-  margin-top: 2em;
+  // margin-top: 2em;
   /* position: fixed;
   left: 0;
   bottom: 0;
@@ -431,14 +465,16 @@ label {
   padding: 0;
 }
 
-button {
+button,
+.button {
   padding: 0.2em 1em;
   border: solid 1px;
   background: white;
   color: black;
   border-radius: 5px;
 }
-button:hover {
+button:hover,
+.button:hover {
   text-decoration: none;
   color: white;
   background-color: black;
@@ -474,6 +510,41 @@ button :focus,
 button :active {
   background-color: black;
   color: white;
+}
+
+#Round_1,
+#Round_2 {
+  // background-color:#222;
+  // color: white;
+  width: 100%;
+  // border-radius: 10px;
+}
+#menu-tile {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 25px;
+  color: inherit;
+}
+#Round_1 button,
+#Round_2 button {
+  min-width: unset;
+  background-color: transparent;
+  color: inherit;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+  border-style: none;
+}
+#results hr {
+  border-top: 1px solid rgba(0, 0, 0, 1);
+}
+#Round_1 button:hover,
+#Round_2 button:hover {
+  box-shadow: 0 0 2px 1px white;
+}
+.hr {
+  border-top: 2px solid #000;
 }
 
 // changes when coming to desktop
@@ -564,6 +635,19 @@ button :active {
     align-items: center;
     padding-top: 0;
   }
+  #Round_1 button,
+  #Round_2 button {
+    margin-bottom: 10px;
+  }
+  #menu-tile {
+    margin-bottom: 15px;
+  }
+  .link2 {
+    margin-bottom: 1em;
+  }
+  .hr {
+    border-top: none;
+  }
 }
 @media screen and (min-width: 767px) and (max-width: 940px) {
   .lflex-container {
@@ -580,6 +664,17 @@ button :active {
   .tflex-container,
   .timercolumn {
     height: 90vh;
+  }
+  .rflex-container {
+    min-height: 40vh;
+  }
+  .result_bg {
+    height: 50vh;
+  }
+
+  #Round_1 button,
+  #Round_2 button {
+    padding: 5px;
   }
 }
 @media screen and (min-width: 480px) and (max-width: 767px) {

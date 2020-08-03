@@ -1,65 +1,61 @@
 import React, { Component, Fragment } from "react";
-import Navbar, { MiniFooter } from "./Navbar";
-import { Row, Container, Col } from "react-bootstrap";
+import Navbar, { Footer } from "./Navbar";
+import { Row, Col, Container, Form, FormControl } from "react-bootstrap";
 import { db, storage } from "../firebase/firebase";
-import ls from "local-storage";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.getlink = this.getlink.bind(this);
     this.state = {
-      email: "username",
-      marks: "00",
-      selected: false,
-      url: "",
+      j1url: "gs://umoraquiz.appspot.com/R1_Junior.pdf",
+      j2url: "gs://umoraquiz.appspot.com/R2_Junior.pdf",
+      m1url: "gs://umoraquiz.appspot.com/R1_Intermediate.pdf",
+      m2url: "gs://umoraquiz.appspot.com/R2_Intermediate.pdf",
+      s1url: "gs://umoraquiz.appspot.com/R1_Senior.pdf",
+      a1url: "https://bit.ly/%CE%BCMoraRound1QnA",
+      a2url: "https://drive.google.com/drive/folders/1NyOQjmjHelc0DeVEQiYSjgkdXYOTsuQp?usp=sharing",
+      value: "",
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    let uid = ls.get("UserId");
-    // console.log(uid);
-    db.collection("results")
-      .doc(uid)
+    db.collection("downloads")
+      .doc("results")
       .get()
       .then(
         (item) => {
-          let email = item.data().email;
-          let marks = item.data().marks;
-          let selected = item.data().selected;
-          this.setState({
-            email: email,
-            marks: marks,
-            selected: selected,
-          });
-          this.getlink(uid);
+          let data = item.data();
+          this.getlink(data.j1, "j1url");
+          this.getlink(data.m1, "m1url");
+          this.getlink(data.s1, "s1url");
+          this.getlink(data.j2, "j2url");
+          this.getlink(data.m2, "m2url");
+          // this.getlink(data.a1, "a1url");
+          // this.getlink(data.a2, "a2url");
         },
         (err) => {
           console.log(err);
         }
       );
   }
-  getlink() {
-    let email = this.state.email;
-    let doc = "junior";
-    if (email.includes("sr")) {
-      doc = "senior";
-    } else {
-      doc = "junior";
-    }
-    db.collection("downloads")
-      .doc(doc)
-      .get()
-      .then((linkref) => {
-        let lang = ls.get("language");
-        let link = linkref.data()[lang];
-        // console.log(link);
-        storage
-          .ref(link)
-          .getDownloadURL()
-          .then((url) => {
-            this.setState({ url: url });
-          });
+  getlink(link, stateparam) {
+    storage
+      .ref(link)
+      .getDownloadURL()
+      .then((url) => {
+        this.setState({ [stateparam]: url });
       });
+  }
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    this.props.history.push(`/certificate/${this.state.value}`);
+    event.preventDefault();
   }
   render() {
     return (
@@ -67,50 +63,90 @@ class Home extends Component {
         <Navbar></Navbar>
         <Container fluid>
           <Row>
-            <Col sm="9" className="vertical-align">
-              <div className="resultcolumn">
-                <div id="resultbox">
-                  <p id="thankyou">THANK YOU</p>
-                  <p>
-                    For participating in the 1<sup>st</sup> round of μMora Mathematics Competition 2020
-                  </p>
-                  <Row className="table py-2">
-                    <Col xs="6">Username</Col>
-                    <Col xs="6">Marks</Col>
-                    <Col xs="6">{this.state.email}</Col>
-                    <Col xs="6">{this.state.marks}</Col>
-                  </Row>
-                  {this.state.marks === "*" ? (
-                    <p id="captionResult my-4"> You have not attempted the paper</p>
-                  ) : this.state.selected ? (
-                    <div>
-                      {" "}
-                      <p id="captionResult">
-                        You have been <b>selected</b> to participate to the next round of the competiiton
-                      </p>
-                      <div id="congratulations">Congratulations !</div>
-                    </div>
-                  ) : (
-                    <div>
-                      <p id="captionResult">You have not been selected</p> <div id="congratulations">Better Luck Next Time</div>
-                    </div>
-                  )}
-                  {this.state.url ? (
-                    <a href={this.state.url} className="link" target="_blank">
-                      {" "}
-                      Answers of Round 1
-                    </a>
-                  ) : (
-                    ""
-                  )}
+            <Col lg="4" sm="12" className=" order-lg-2 tflex-container result_bg desktop-only"></Col>
+            <Col lg="8" sm="12" className="p-0 m-0 order-lg-1">
+              <div className="container rflex-container" id="results">
+                <div className="row mb-4 mt-4">
+                  <div className="text-center">
+                    {" "}
+                    <h2>
+                      μMora Mathematics Competition <br></br>Results - 2020
+                    </h2>
+                  </div>
                 </div>
-                <MiniFooter></MiniFooter>
+                <form className="row mb-4 text-center col-12" onSubmit={this.handleSubmit}>
+                  <div className="col-sm-3">
+                    <label>Validate Certificate</label>
+                  </div>
+                  <div className="col-sm-9 ">
+                    <input className="col-9" type="text" value={this.state.value} onChange={this.handleChange} />
+                    <input className="button col-3 px-0" type="submit" value="Check" />
+                  </div>
+                </form>
+                <div className="row text-center mb-4" id="Round_1">
+                  <div className="col-sm-3 " id="menu-tile">
+                    <div className="text-center">Round 1</div>
+                  </div>
+                  <div className="col-sm-9">
+                    <div className="row">
+                      <div className="col-sm-4 ">
+                        <a className="link2" href={this.state.j1url} target="_blank" rel="noopener noreferrer">
+                          Junior
+                        </a>
+                      </div>
+                      <div className="col-sm-4 ">
+                        <a className="link2" href={this.state.m1url} target="_blank" rel="noopener noreferrer">
+                          Intermediate
+                        </a>
+                      </div>
+                      <div className="col-sm-4 ">
+                        <a className="link2" href={this.state.s1url} target="_blank" rel="noopener noreferrer">
+                          Senior
+                        </a>
+                      </div>
+                    </div>
+                    <hr className="desktop-only"></hr>
+                    <div className="row">
+                      <div className="col-lg-12 ">
+                        <a href={this.state.a1url} className="link2 dark" target="_blank" rel="noopener noreferrer">
+                          Round 1 Past Papers and Answers
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="row text-center hr mb-4 pt-4 pt-sm-0" id="Round_2">
+                  <div className=" col-sm-3 " id="menu-tile">
+                    <div className="text-center ">Round 2</div>
+                  </div>
+                  <div className="col-sm-9">
+                    <div className="row">
+                      <div className="col-sm-6">
+                        <a href={this.state.j2url} className="link2" target="_blank" rel="noopener noreferrer">
+                          Junior
+                        </a>
+                      </div>
+                      <div className="col-sm-6">
+                        <a href={this.state.m2url} className="link2" target="_blank" rel="noopener noreferrer">
+                          Intermediate
+                        </a>
+                      </div>
+                    </div>
+                    <hr className="desktop-only"></hr>
+                    <div className="row">
+                      <div className="col-12">
+                        <a href={this.state.a2url} className="link2 dark" target="_blank" rel="noopener noreferrer">
+                          Round 2 Past Papers and Answers
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </Col>
-            <Col sm="3" className="tflex-container color-change-5x order-sm-2"></Col>
-          </Row>{" "}
+          </Row>
         </Container>
-        {/* <Footer></Footer> */}
+        <Footer></Footer>
       </Fragment>
     );
   }

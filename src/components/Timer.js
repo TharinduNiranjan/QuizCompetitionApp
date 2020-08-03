@@ -56,8 +56,8 @@ class Timer extends Component {
             {/* <p id="demo">{count}</p>
             <p> Days : Hours : Minutes : Seconds </p> */}
             <br></br>
-            <a className="link" href="/login">
-              Login
+            <a className="link" href="/results">
+              View
             </a>
           </div>
           <MiniFooter></MiniFooter>
