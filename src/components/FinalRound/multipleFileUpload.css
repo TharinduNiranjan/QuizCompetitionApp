@@ -49,11 +49,9 @@
   border: solid 1px #000;
   border-radius: 5px;
 }
-/* .file-area .progress {
-  position: absolute;
-  bottom: 0;
-  width: 90%;
-} */
+.uploaded {
+  background-color: #99ff99;
+}
 .upload-area {
   display: flex !important;
   flex-wrap: wrap;

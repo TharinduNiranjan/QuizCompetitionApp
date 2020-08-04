@@ -1,21 +1,27 @@
 import React, { Component } from "react";
 import { db, storage } from "../../firebase/firebase";
-import "./dropzone.css";
+import "./multipleFileUpload.css";
 class MultiFileUpload extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: [],
+      filesToUpload: [],
+      uploadedFiles: [],
       hightlight: false,
       uploaded: false,
     };
+    this.folder_path = "finalRound/user/";
     this.fileInputRef = React.createRef();
     this.onFileChange = this.onFileChange.bind(this);
-    this.uploadSubmit = this.uploadSubmit.bind(this);
+    this.uploadFiles = this.uploadFiles.bind(this);
     this.openFileDialog = this.openFileDialog.bind(this);
     this.onDragOver = this.onDragOver.bind(this);
     this.onDragLeave = this.onDragLeave.bind(this);
     this.onDrop = this.onDrop.bind(this);
+    this.getFirebaseFileList = this.getFirebaseFileList.bind(this);
+  }
+  componentDidMount() {
+    this.getFirebaseFileList();
   }
   // event handlers
   openFileDialog() {
@@ -34,62 +40,21 @@ class MultiFileUpload extends Component {
     event.preventDefault();
     if (this.props.disabled) return;
     const files = event.dataTransfer.files;
-    for (let i = 0; i < files.length; i++) {
-      const newFile = files[i];
-      newFile["id"] = Math.random();
-      newFile["progress"] = 0;
-      // add an "id" property to each File object
-      this.setState({ files: [...this.state.files, newFile] });
-    }
-    this.setState({ hightlight: false });
+    this.setState({ filesToUpload: files, hightlight: false });
+    this.uploadFiles(files);
   }
-
   onFileChange(e) {
-    let newFileList = [];
-    for (let i = 0; i < e.target.files.length; i++) {
-      const newFile = e.target.files[i];
-      newFile["id"] = Math.random();
-      newFile["progress"] = 0;
-      newFileList.push(newFile);
-      this.setState((prevState) => {
-        const newItems = [...prevState.files];
-        newItems.push(newFile);
-        return { files: newItems };
-      });
-    }
+    this.setState({ filesToUpload: e.target.files });
+    this.uploadFiles(e.target.files);
   }
-  //   uploadFiles(files){
-  //     const promises = [];
-  //     files.forEach((file, index) => {
-  //       const uploadTask = storage.ref().child(`finalRound/user/${file.name}`).put(file);
-  //       promises.push(uploadTask);
-  //       uploadTask.on(
-  //         "state_changed",
-  //         (snapshot) => {
-  //           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-  //           if (snapshot.state === "running") {
-  //             console.log(`Progress: ${progress}%`);
-  //             this.updateProgress(index, progress);
-  //           }
-  //         },
-  //         (error) => console.log(error.code),
-  //         async () => {
-  //           const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
-  //           console.log(downloadURL);
-  //           // do something with the url
-  //         }
-  //       );
-  //     });
-  //     Promise.all(promises)
-  //       .then(() => alert("All files uploaded"))
-  //       .catch((err) => console.log(err.code));
-
-  //   }
-  uploadSubmit(e) {
-    e.preventDefault();
+  uploadFiles(files) {
+    console.log(files);
     const promises = [];
-    this.state.files.forEach((file, index) => {
-      const uploadTask = storage.ref().child(`finalRound/user/${file.name}`).put(file);
+    Object.keys(files).map((index) => {
+      const uploadTask = storage
+        .ref()
+        .child(this.folder_path + files[index].name)
+        .put(files[index]);
       promises.push(uploadTask);
       uploadTask.on(
         "state_changed",
@@ -109,22 +74,40 @@ class MultiFileUpload extends Component {
       );
     });
     Promise.all(promises)
-      .then(() => this.setState({ uploaded: true }))
+      .then(() => {
+        this.setState({ filesToUpload: [] });
+        this.getFirebaseFileList();
+      })
       .catch((err) => console.log(err.code));
   }
+
   updateProgress = (index, progress) => {
     this.setState((prevState) => {
-      const newItems = [...prevState.files];
-      newItems[index].progress = progress;
-      return { files: newItems };
+      const newItems = [...prevState.filesToUpload];
+      newItems[index]["progress"] = Math.round((progress + Number.EPSILON) * 100) / 100;
+      return { filesToUpload: newItems };
     });
   };
-  removefile(index) {
+  removefile(itemRef, index) {
+    storage.ref().child(itemRef).delete();
     this.setState((prevState) => {
-      const newItems = [...prevState.files];
+      const newItems = [...prevState.uploadedFiles];
       newItems.splice(index, 1);
-      return { files: newItems };
+      return { uploadedFiles: newItems };
     });
+    // firebase get didn't update the front end. Therefore the state change workaround was used
+    // this.getFirebaseFileList();
+  }
+
+  getFirebaseFileList() {
+    this.setState({ uploadedFiles: [] });
+    storage
+      .ref()
+      .child(this.folder_path)
+      .listAll()
+      .then((res) => {
+        this.setState({ uploadedFiles: res.items });
+      });
   }
   render() {
     return (
@@ -137,31 +120,28 @@ class MultiFileUpload extends Component {
             <span>Upload Files</span>
           </div>
           <div className="col-sm-8 upload-area">
-            <h2> Files to be Uploaded</h2>
             {/* Preview */}
-            {this.state.files.map((file, key) => (
+            {Object.keys(this.state.filesToUpload).map((key) => (
               <div key={key} className="file-area">
-                <div className="file-name">{file.name}</div>
-                <div className="close" onClick={() => this.removefile(key)}>
-                  x
-                </div>
+                <div className="file-name">{this.state.filesToUpload[key].name}</div>
                 <div className="progress">
-                  <div className="progress-bar" style={{ width: file.progress + "%" }}>
-                    {file.progress}
+                  <div className="progress-bar" style={{ width: this.state.filesToUpload[key].progress + "%" }}>
+                    {this.state.filesToUpload[key].progress}
                   </div>
+                </div>
+              </div>
+            ))}
+            {this.state.uploadedFiles.map((fileRef, key) => (
+              <div key={key} className="file-area uploaded">
+                <div className="file-name">{fileRef.fullPath.split("/").pop()}</div>
+                <div className="close" onClick={() => this.removefile(fileRef.fullPath, key)}>
+                  x
                 </div>
               </div>
             ))}
           </div>
           {/* Upload Button */}
         </div>
-        {this.state.uploaded ? (
-          <button className="upload-button">Done</button>
-        ) : (
-          <button className="upload-button" onClick={this.uploadSubmit}>
-            Upload All Files
-          </button>
-        )}
       </div>
     );
   }
