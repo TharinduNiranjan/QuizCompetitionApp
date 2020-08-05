@@ -10,7 +10,8 @@ class MultiFileUpload extends Component {
       hightlight: false,
       uploaded: false,
     };
-    this.folder_path = "finalRound/user/";
+    this.mounted = true;
+    this.folder_path = "finalRound/" + this.props.folderName + "/";
     this.fileInputRef = React.createRef();
     this.onFileChange = this.onFileChange.bind(this);
     this.uploadFiles = this.uploadFiles.bind(this);
@@ -21,7 +22,18 @@ class MultiFileUpload extends Component {
     this.getFirebaseFileList = this.getFirebaseFileList.bind(this);
   }
   componentDidMount() {
+    this.mounted = true;
     this.getFirebaseFileList();
+    this.folder_path = "finalRound/" + this.props.folderName + "/";
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.folderName != this.props.folderName) {
+      this.getFirebaseFileList();
+      this.folder_path = "finalRound/" + this.props.folderName + "/";
+    }
+  }
+  componentWillUnmount() {
+    this.mounted = false;
   }
   // event handlers
   openFileDialog() {
@@ -75,8 +87,10 @@ class MultiFileUpload extends Component {
     });
     Promise.all(promises)
       .then(() => {
-        this.setState({ filesToUpload: [] });
-        this.getFirebaseFileList();
+        if (this.mounted) {
+          this.setState({ filesToUpload: [] });
+          this.getFirebaseFileList();
+        }
       })
       .catch((err) => console.log(err.code));
   }
@@ -100,13 +114,14 @@ class MultiFileUpload extends Component {
   }
 
   getFirebaseFileList() {
-    this.setState({ uploadedFiles: [] });
     storage
       .ref()
       .child(this.folder_path)
       .listAll()
       .then((res) => {
-        this.setState({ uploadedFiles: res.items });
+        if (this.mounted) {
+          this.setState({ uploadedFiles: res.items });
+        }
       });
   }
   render() {
@@ -126,7 +141,7 @@ class MultiFileUpload extends Component {
                 <div className="file-name">{this.state.filesToUpload[key].name}</div>
                 <div className="progress">
                   <div className="progress-bar" style={{ width: this.state.filesToUpload[key].progress + "%" }}>
-                    {this.state.filesToUpload[key].progress}
+                    {this.state.filesToUpload[key].progress + "%"}
                   </div>
                 </div>
               </div>

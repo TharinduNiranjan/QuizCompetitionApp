@@ -31,8 +31,8 @@ class Dashboard extends Component {
       timeup: false,
       early: true,
       questioncol: "testing",
-      startTime : 0,
-      deadline : 0,
+      startTime: 0,
+      deadline: 0,
     };
     // this.usercol = process.env.REACT_APP_USER_DB;
     // this.questioncol = process.env.REACT_APP_JUNIOR_DB;
@@ -91,7 +91,7 @@ class Dashboard extends Component {
           Object.keys(qRef).forEach((snap) => {
             allquestions[snap - 1] = qRef[snap];
           });
-          this.setState({ questions: allquestions, done: submit, questioncol: questioncol, startTime:startTime, deadline:deadline});
+          this.setState({ questions: allquestions, done: submit, questioncol: questioncol, startTime: startTime, deadline: deadline });
           this.changeQuestion(this.state.number);
           // if (new Date(deadline) - new Date() + this.offset < 0) {
           //   //console.log("EndQuiz", deadline);
@@ -147,7 +147,7 @@ class Dashboard extends Component {
     this.changeQuestion(this.state.number);
   }
   //logout user
-  handleSubmit = () =>{
+  handleSubmit = () => {
     const { dispatch } = this.props;
     analytics.logEvent("submit");
     dispatch(logoutUser());
@@ -155,14 +155,12 @@ class Dashboard extends Component {
       .doc(this.state.userid)
       .update({ submit: true })
       .then(
-        (val) => {
-
-        },
+        (val) => {},
         (err) => {
           console.log(err);
         }
       );
-  }
+  };
   handleLogout = () => {
     const { dispatch } = this.props;
     analytics.logEvent("submit");
@@ -333,11 +331,7 @@ class Dashboard extends Component {
                 {this.state.questions.map((question, key) => {
                   return (
                     // create the question base
-                    <div
-                      key={key}
-                      onClick={() => this.changeQuestion(key)}
-                      className={`q ${this.state.number === key ? "bDefault" : !question.flag ? (question.selected == "" ? "bRed" : "bGreen") : "bYellow"} `}
-                    >
+                    <div key={key} onClick={() => this.changeQuestion(key)} className={`q ${this.state.number === key ? "bDefault" : !question.flag ? (question.selected == "" ? "bRed" : "bGreen") : "bYellow"} `}>
                       {key + 1}
                     </div>
                   );
@@ -356,17 +350,7 @@ class Dashboard extends Component {
               </button>
             </Row>
           ) : (
-            <QuestionPage
-              question={this.state.question.id}
-              user={this.state.userid}
-              usercol={this.usercol}
-              questioncol={this.state.questioncol}
-              number={this.state.number}
-              changeQuestion={this.changeQuestion}
-              submitAll={this.submitAll}
-              lang={this.state.lang}
-              length={this.state.questions.length}
-            ></QuestionPage>
+            <QuestionPage question={this.state.question.id} user={this.state.userid} usercol={this.usercol} questioncol={this.state.questioncol} number={this.state.number} changeQuestion={this.changeQuestion} submitAll={this.submitAll} lang={this.state.lang} length={this.state.questions.length}></QuestionPage>
           )}
           {/* <button onClick={() => this.addUser()}>Add User</button> 
         <button onClick={this.handleLogout}>Logout</button>*/}

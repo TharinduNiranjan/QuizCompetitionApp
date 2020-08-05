@@ -15,14 +15,14 @@ import JuniorAdmin from "./components/quiz/juniorAdmin";
 import About from "./components/AboutPage";
 import Faq from "./components/faq";
 import Instruction from "./components/instructions";
-import MultiFileUpload from "./components/FinalRound/multipleFileUpload";
+import Competition from "./components/FinalRound/competition";
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
   return (
     <Switch>
       <Route exact path="/" component={Home} />
-      <ProtectedRoute path="/quiz" component={Quiz} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
-      <Route path="/finals" component={MultiFileUpload} />
+      {/* <ProtectedRoute path="/quiz" component={Quiz} isAuthenticated={isAuthenticated} isVerifying={isVerifying} /> */}
+      <ProtectedRoute path="/quiz" component={Competition} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
       <Route path="/results" component={Results} />
       <Route path="/login" component={LoginPage} />
       <Route path="/certificate/:id" component={Certificate} />
