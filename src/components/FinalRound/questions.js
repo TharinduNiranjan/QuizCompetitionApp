@@ -35,10 +35,12 @@ class QuestionPaper extends Component {
   render() {
     return (
       <Fragment>
-        <h2>Final Round Question Paper</h2>
-        <a className="link" href={this.state.downloadLink}>
-          Download
-        </a>
+        {/* <h2>Final Round Question Paper</h2> */}
+        <p>
+          <a className="link" href={this.state.downloadLink}>
+            Download Question Paper
+          </a>
+        </p>
       </Fragment>
     );
   }

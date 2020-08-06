@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { db, storage } from "../../firebase/firebase";
+import { HighlightOff } from "@material-ui/icons";
 import "./multipleFileUpload.css";
 class MultiFileUpload extends Component {
   constructor(props) {
@@ -23,13 +24,15 @@ class MultiFileUpload extends Component {
   }
   componentDidMount() {
     this.mounted = true;
-    this.getFirebaseFileList();
+    // this.getFirebaseFileList();
     this.folder_path = "finalRound/" + this.props.folderName + "/";
   }
   componentDidUpdate(prevProps) {
     if (prevProps.folderName != this.props.folderName) {
-      this.getFirebaseFileList();
+      this.mounted = true;
       this.folder_path = "finalRound/" + this.props.folderName + "/";
+      this.getFirebaseFileList();
+      console.log("updatedProps");
     }
   }
   componentWillUnmount() {
@@ -60,7 +63,7 @@ class MultiFileUpload extends Component {
     this.uploadFiles(e.target.files);
   }
   uploadFiles(files) {
-    console.log(files);
+    // console.log(files);
     const promises = [];
     Object.keys(files).map((index) => {
       const uploadTask = storage
@@ -119,41 +122,45 @@ class MultiFileUpload extends Component {
       .child(this.folder_path)
       .listAll()
       .then((res) => {
+        console.log(this.state);
         if (this.mounted) {
           this.setState({ uploadedFiles: res.items });
+          console.log("updated state", this.state);
         }
       });
   }
   render() {
     return (
       <div className="col-12">
-        <div className="row mb-2">
+        <div className="row">
           {/* Dragzone */}
-          <div className={`col-sm-4 Dropzone ${this.state.hightlight ? "Highlight" : ""}`} onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop} onClick={this.openFileDialog} style={{ cursor: this.props.disabled ? "default" : "pointer" }}>
+          <div className={`col-sm-4 mb-3 Dropzone ${this.state.hightlight ? "Highlight" : ""}`} onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop} onClick={this.openFileDialog} style={{ cursor: this.props.disabled ? "default" : "pointer" }}>
             <input ref={this.fileInputRef} className="FileInput" type="file" accept="image/*" multiple onChange={this.onFileChange} />
             <img alt="upload" className="Icon" src="baseline-cloud_upload-24px.svg" />
             <span>Upload Files</span>
           </div>
-          <div className="col-sm-8 upload-area">
-            {/* Preview */}
-            {Object.keys(this.state.filesToUpload).map((key) => (
-              <div key={key} className="file-area">
-                <div className="file-name">{this.state.filesToUpload[key].name}</div>
-                <div className="progress">
-                  <div className="progress-bar" style={{ width: this.state.filesToUpload[key].progress + "%" }}>
-                    {this.state.filesToUpload[key].progress + "%"}
+          <div className="col-sm-8 mb-3 upload-area">
+            <div className="row">
+              {/* Preview */}
+              {Object.keys(this.state.filesToUpload).map((key) => (
+                <div key={key} className="file-area col-sm-6">
+                  <div className="file-name">{this.state.filesToUpload[key].name}</div>
+                  <div className="progress">
+                    <div className="progress-bar" style={{ width: this.state.filesToUpload[key].progress + "%" }}>
+                      {this.state.filesToUpload[key].progress + "%"}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-            {this.state.uploadedFiles.map((fileRef, key) => (
-              <div key={key} className="file-area uploaded">
-                <div className="file-name">{fileRef.fullPath.split("/").pop()}</div>
-                <div className="close" onClick={() => this.removefile(fileRef.fullPath, key)}>
-                  x
+              ))}
+              {this.state.uploadedFiles.map((fileRef, key) => (
+                <div key={key} className="file-area col-sm-6 uploaded">
+                  <div className="file-name">{fileRef.fullPath.split("/").pop().slice(0, 20)}</div>
+                  <div className="deleteFile" onClick={() => this.removefile(fileRef.fullPath, key)}>
+                    <HighlightOff></HighlightOff>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
           {/* Upload Button */}
         </div>

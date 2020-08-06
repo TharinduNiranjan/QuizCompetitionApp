@@ -161,7 +161,7 @@ class Competition extends Component {
     let minutes = ("0" + Math.floor((t % (1000 * 60 * 60)) / (1000 * 60))).slice(-2);
     let seconds = ("0" + Math.floor((t % (1000 * 60)) / 1000)).slice(-2);
     let display = (
-      <div className="xtimervalue">
+      <div className="timervalue">
         {hours}:{minutes}
         <span className="small-text">:{seconds}</span>
       </div>
@@ -226,13 +226,12 @@ class Competition extends Component {
             </Row>
           ) : (
             <Fragment>
+              <h2>Final Round</h2>
+              <p> Download the question paper from the link below and write your answers on a paper. Take clear photographs of your work and upload it.</p>
               <QuestionPaper url={this.state.url}></QuestionPaper>
-              <Row>
-                <Col>
-                  <h2>Time left </h2>
-                </Col>
-                <Col className="xtimervalue">{this.state.time}</Col>
-              </Row>
+
+              <h3 className="mt-5">Upload Answers</h3>
+              <div className="timer">Time remaining to upload: {this.state.time}</div>
               <MultiFileUpload folderName={this.state.userid}></MultiFileUpload>
               <button onClick={() => this.submitAll()}>Done Uploading</button>
             </Fragment>

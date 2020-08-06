@@ -26,31 +26,29 @@
 }
 
 .file-name {
-  margin-bottom: 1em;
-  margin-top: 1em;
   display: inline-block;
 }
-.close {
-  color: #f00;
-  position: absolute;
-  top: 5px;
-  right: 5px;
+.deleteFile {
+  color: red;
+  float: right;
+  display: inline-block;
+  cursor: pointer;
 }
-.close:hover {
-  color: #aa0000;
-}
+
 .file-area {
-  flex: 0 0 48%;
-  max-width: 48%;
-  position: relative;
-  display: inline-block;
+  max-height: 72px;
+  align-items: center;
+  justify-content: space-between;
   margin: 1%;
-  padding: 0.5em;
+  padding: 0.5em 0.5em 0.5em 1em;
   border: solid 1px #000;
   border-radius: 5px;
+  color: #aaa;
 }
 .uploaded {
-  background-color: #99ff99;
+  background-color: #aad2ee;
+  font-weight: bold;
+  color: #000;
 }
 .upload-area {
   display: flex !important;
@@ -59,4 +57,14 @@
 }
 .upload-button {
   width: 100%;
+}
+
+@media (min-width: 767px) {
+  .file-area {
+    flex: 0 0 48%;
+    max-width: 48%;
+  }
+  .Dropzone {
+    min-height: 150px;
+  }
 }

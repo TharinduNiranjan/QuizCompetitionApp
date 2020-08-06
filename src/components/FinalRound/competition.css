@@ -1,3 +1,13 @@
 .content {
   min-height: 82vh;
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 2em;
+}
+.timer {
+  font-size: 18px;
+}
+
+.timervalue {
+  display: inline-block;
 }
