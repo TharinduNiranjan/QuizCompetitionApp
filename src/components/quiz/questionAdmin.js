@@ -185,13 +185,13 @@ class QAdmin extends Component {
       <div key={key}>
         <p>Text: {question.description}</p>
         <p>Image URL: {question.image}</p>
-        <ol type="A">{this.renderChoices(question.choices, question.correct)}</ol>
+        {/* <ol type="A">{this.renderChoices(question.choices, question.correct)}</ol> */}
         {/* sinhala */}
         <p>Text: {question.sinhalaDescription}</p>
-        <ol type="A">{this.renderChoices(question.sinhalaChoices, question.correct)}</ol>
+        {/* <ol type="A">{this.renderChoices(question.sinhalaChoices, question.correct)}</ol> */}
         {/* Tamil */}
         <p>Text: {question.tamilDescription}</p>
-        <ol type="A">{this.renderChoices(question.tamilChoices, question.correct)}</ol>
+        {/* <ol type="A">{this.renderChoices(question.tamilChoices, question.correct)}</ol> */}
         <button onClick={() => this.editQuestion(question.id)}>Edit</button>
       </div>
     ));
@@ -206,7 +206,7 @@ class QAdmin extends Component {
               <div>
                 <Form.Control as="textarea" rows="3" value={this.state.description} onChange={this.handleChange} name="description" placeholder="English" />
                 {show_latex(this.state.description)}
-                {Object.keys(this.state.choices)
+                {/* {Object.keys(this.state.choices)
                   .sort()
                   .map((key) => (
                     <Form.Group as={Row} key={key}>
@@ -218,12 +218,12 @@ class QAdmin extends Component {
                         {show_latex(this.state.choices[key])}
                       </Col>
                     </Form.Group>
-                  ))}
+                  ))} */}
               </div>
             </Col>
             {/* Correct Answer */}
             <Col sm="6">
-              <div>
+              {/* <div>
                 <Form.Label>Correct Answer</Form.Label>
                 <Form.Control as="select" name="correct" value={this.state.correct} onChange={this.handleChange}>
                   <option>A</option>
@@ -238,7 +238,7 @@ class QAdmin extends Component {
                   <option>Medium</option>
                   <option>Hard</option>
                 </Form.Control>
-              </div>
+              </div> */}
               {/* Image */}
               <div>
                 <Form.File onChange={this.fileUpload} type="file" name="image" label="Question Image" />
@@ -258,7 +258,7 @@ class QAdmin extends Component {
                 {/* Sinhala Input */}
                 <Form.Control as="textarea" rows="3" value={this.state.sinhalaDescription} onChange={this.handleChange} name="sinhalaDescription" placeholder="සිංහල​" />
                 {show_latex(this.state.sinhalaDescription)}
-                {Object.keys(this.state.sinhalaChoices)
+                {/* {Object.keys(this.state.sinhalaChoices)
                   .sort()
                   .map((key) => (
                     <Form.Group as={Row} key={key}>
@@ -270,7 +270,7 @@ class QAdmin extends Component {
                         {show_latex(this.state.sinhalaChoices[key])}
                       </Col>
                     </Form.Group>
-                  ))}
+                  ))} */}
               </div>
             </Col>{" "}
             <Col sm="6">
@@ -278,7 +278,7 @@ class QAdmin extends Component {
                 {/* Tamil Input */}
                 <Form.Control as="textarea" rows="3" value={this.state.tamilDescription} onChange={this.handleChange} name="tamilDescription" placeholder="தமிழ்" />
                 {show_latex(this.state.tamilDescription)}
-                {Object.keys(this.state.tamilChoices)
+                {/* {Object.keys(this.state.tamilChoices)
                   .sort()
                   .map((key) => (
                     <Form.Group as={Row} key={key}>
@@ -290,7 +290,7 @@ class QAdmin extends Component {
                         {show_latex(this.state.tamilChoices[key])}
                       </Col>
                     </Form.Group>
-                  ))}
+                  ))} */}
               </div>
             </Col>
           </Row>

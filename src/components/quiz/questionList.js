@@ -45,18 +45,18 @@ class QList extends Component {
           </Col>
         </Row>
         <Row>
-          <Col>Difficulty: {question.hardness}</Col>
+          {/* <Col>Difficulty: {question.hardness}</Col> */}
           <Col>Image URL: {question.image}</Col>
         </Row>
         <h4>English</h4>
         {show_latex(question.description)}
-        <div>{this.renderChoices(question.choices, question.correct)}</div>
+        {/* <div>{this.renderChoices(question.choices, question.correct)}</div> */}
         {/* sinhala */}
         <h4>Sinhala</h4> {show_latex(question.sinhalaDescription)}
-        <div>{this.renderChoices(question.sinhalaChoices, question.correct)}</div>
+        {/* <div>{this.renderChoices(question.sinhalaChoices, question.correct)}</div> */}
         {/* Tamil */}
         <h4>Tamil</h4> {show_latex(question.tamilDescription)}
-        <div>{this.renderChoices(question.tamilChoices, question.correct)}</div>
+        {/* <div>{this.renderChoices(question.tamilChoices, question.correct)}</div> */}
       </div>
     ));
   }
