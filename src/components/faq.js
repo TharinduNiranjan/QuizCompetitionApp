@@ -9,9 +9,62 @@ import QuestionColors from "../assets/Ins_questionclrs.png";
 import Submitwindow from "../assets/Ins_submit.png";
 import PrevNextFlag from "../assets/Ins_prevNextFlag.png";
 import TimeUp from "../assets/Ins_timeup.png";
+import { storage } from "../firebase/firebase";
 
 class Faq extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { j1url: "", m1url: "", s1url: "" };
+    this.getlink = this.getlink.bind(this);
+    this.mounted = true;
+  }
+  componentDidMount() {
+    this.getlink("uMora_Final_Rules-English.pdf", "j1url");
+    this.getlink("uMora_Final_Rules-Sinhala.pdf", "m1url");
+    this.getlink("uMora_Final_Rules-Tamil.pdf", "s1url");
+  }
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
+  getlink(link, stateparam) {
+    storage
+      .ref(link)
+      .getDownloadURL()
+      .then((url) => {
+        if (this.mounted) {
+          this.setState({ [stateparam]: url });
+        } else {
+          return;
+        }
+      })
+      .catch((err) => {
+        // console.log(err);
+      });
+  }
   render() {
+    const ContentFinal = () => (
+      <div>
+        <p>Please read the following documents</p>
+        <div className="row">
+          <div className="col-sm-4 ">
+            <a className="link2" href={this.state.j1url} target="_blank" rel="noopener noreferrer">
+              Rules in English
+            </a>
+          </div>
+          <div className="col-sm-4 ">
+            <a className="link2" href={this.state.m1url} target="_blank" rel="noopener noreferrer">
+              Rules in Sinhala
+            </a>
+          </div>
+          <div className="col-sm-4 ">
+            <a className="link2" href={this.state.s1url} target="_blank" rel="noopener noreferrer">
+              Rules in Tamil
+            </a>
+          </div>
+        </div>
+      </div>
+    );
     const ContentA = () => (
       <div>
         <br></br>
@@ -318,6 +371,9 @@ class Faq extends Component {
           <h2>Frequently Asked Questions</h2>
           <br></br>
           <Accordion atomic={true}>
+            <AccordionItem title="IMPORTANT! Final Round Rules and Guidelines?" className="red-text">
+              <ContentFinal />
+            </AccordionItem>
             <AccordionItem title="IMPORTANT! How to use the uMora Platform?" className="red-text">
               <ContentA />
             </AccordionItem>
