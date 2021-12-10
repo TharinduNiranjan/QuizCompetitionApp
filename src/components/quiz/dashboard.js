@@ -34,9 +34,9 @@ class Dashboard extends Component {
       startTime: 0,
       deadline: 0,
     };
-    // this.usercol = process.env.REACT_APP_USER_DB;
-    // this.questioncol = process.env.REACT_APP_JUNIOR_DB;
-    this.usercol = "competition";
+    this.usercol = process.env.REACT_APP_USER_DB;
+    this.questioncol = process.env.REACT_APP_JUNIOR_DB;
+    // this.usercol = "competition";
     this.offset = 0;
     // this.startTime = 0;
     // this.deadline = 0;
