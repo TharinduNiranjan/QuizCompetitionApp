@@ -1,7 +1,7 @@
 .Dropzone {
   min-height: 200px;
   width: 100%;
-  background-color: #fff;
+  background-color: #edf2f7;
   border: 2px dashed rgb(187, 186, 186);
   border-radius: 5px;
   display: flex;
@@ -9,6 +9,7 @@
   justify-content: center;
   flex-direction: column;
   font-size: 16px;
+  user-select: none;
 }
 
 .Highlight {
@@ -27,6 +28,8 @@
 
 .file-name {
   display: inline-block;
+  width: 100%;
+  word-break: break-all;
 }
 .deleteFile {
   color: red;
@@ -34,10 +37,18 @@
   display: inline-block;
   cursor: pointer;
 }
-
+.Dropzone .button {
+  background-color: #00a4b9;
+}
+.Dropzone .button:hover {
+  color: #000;
+  font-size: 18px;
+}
 .file-area {
   max-height: 72px;
+  width: 100%;
   align-items: center;
+  display: flex;
   justify-content: space-between;
   margin: 1%;
   padding: 0.5em 0.5em 0.5em 1em;
@@ -50,11 +61,19 @@
   font-weight: bold;
   color: #000;
 }
+.file-list {
+  width: 100vw;
+}
+.pre-upload {
+  width: 100%;
+  overflow: hidden;
+}
 .upload-area {
   display: flex !important;
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
 .upload-button {
   width: 100%;
 }

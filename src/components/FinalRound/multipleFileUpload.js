@@ -21,18 +21,21 @@ class MultiFileUpload extends Component {
     this.onDragLeave = this.onDragLeave.bind(this);
     this.onDrop = this.onDrop.bind(this);
     this.getFirebaseFileList = this.getFirebaseFileList.bind(this);
+    console.log("constructor", this.state.uploadedFiles, this.props.folderName);
   }
   componentDidMount() {
     this.mounted = true;
-    // this.getFirebaseFileList();
     this.folder_path = "finalRound/" + this.props.folderName + "/";
+    this.getFirebaseFileList();
+    console.log("mounted", this.state.uploadedFiles, this.props.folderName);
   }
+
   componentDidUpdate(prevProps) {
     if (prevProps.folderName != this.props.folderName) {
       this.mounted = true;
       this.folder_path = "finalRound/" + this.props.folderName + "/";
       this.getFirebaseFileList();
-      console.log("updatedProps");
+      console.log("updated", this.state.uploadedFiles, this.props.folderName);
     }
   }
   componentWillUnmount() {
@@ -122,10 +125,10 @@ class MultiFileUpload extends Component {
       .child(this.folder_path)
       .listAll()
       .then((res) => {
-        console.log(this.state);
+        // console.log(this.state);
         if (this.mounted) {
           this.setState({ uploadedFiles: res.items });
-          console.log("updated state", this.state);
+          // console.log("updated state", this.state);
         }
       });
   }
@@ -136,25 +139,29 @@ class MultiFileUpload extends Component {
           {/* Dragzone */}
           <div className={`col-sm-4 mb-3 Dropzone ${this.state.hightlight ? "Highlight" : ""}`} onDragOver={this.onDragOver} onDragLeave={this.onDragLeave} onDrop={this.onDrop} onClick={this.openFileDialog} style={{ cursor: this.props.disabled ? "default" : "pointer" }}>
             <input ref={this.fileInputRef} className="FileInput" type="file" accept="image/*" multiple onChange={this.onFileChange} />
-            <img alt="upload" className="Icon" src="baseline-cloud_upload-24px.svg" />
-            <span>Upload Files</span>
+            {/* <img alt="upload" className="Icon" src="baseline-cloud_upload-24px.svg" /> */}
+            <span> Drag and Drop files here</span>
+            <small>OR</small>
+            <div className="button">Upload</div>
           </div>
           <div className="col-sm-8 mb-3 upload-area">
-            <div className="row">
+            <div className="row file-list">
               {/* Preview */}
               {Object.keys(this.state.filesToUpload).map((key) => (
                 <div key={key} className="file-area col-sm-6">
-                  <div className="file-name">{this.state.filesToUpload[key].name}</div>
-                  <div className="progress">
-                    <div className="progress-bar" style={{ width: this.state.filesToUpload[key].progress + "%" }}>
-                      {this.state.filesToUpload[key].progress + "%"}
+                  <div className="file-name">
+                    {this.state.filesToUpload[key].name}
+                    <div className="progress">
+                      <div className="progress-bar" style={{ width: this.state.filesToUpload[key].progress + "%" }}>
+                        {this.state.filesToUpload[key].progress + "%"}
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
               {this.state.uploadedFiles.map((fileRef, key) => (
                 <div key={key} className="file-area col-sm-6 uploaded">
-                  <div className="file-name">{fileRef.fullPath.split("/").pop().slice(0, 20)}</div>
+                  <div className="file-name">{fileRef.fullPath.split("/").pop().slice(0, 19)}</div>
                   <div className="deleteFile" onClick={() => this.removefile(fileRef.fullPath, key)}>
                     <HighlightOff></HighlightOff>
                   </div>
