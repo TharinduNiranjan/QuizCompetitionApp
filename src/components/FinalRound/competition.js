@@ -17,7 +17,7 @@ class Competition extends Component {
       userid: "default",
       lang: "sinhala",
       url: "notfound",
-      early: false,
+      early: true,
       timeup: false,
       done: false,
     };
@@ -29,10 +29,23 @@ class Competition extends Component {
     this.updateTimer = ""; // timer variable to clear on exit
     this.timer = this.timer.bind(this);
     this.waitingTimer = this.waitingTimer.bind(this);
+    this.init = this.init.bind(this);
     this.submitAll = this.submitAll.bind(this); // displays submit screen by toggling state parameter submit
   }
   // get all questions from Firestore collection users on loading dashboard and map to array
   componentDidMount() {
+    this.init();
+    this.updateTimer = setInterval(this.timer, 1000);
+    this.waitingTime = setInterval(this.waitingTimer, 1000);
+  }
+  componentWillUnmount() {
+    if (this.disconnectUsers) {
+      this.disconnectUsers();
+    }
+    clearInterval(this.updateTimer);
+    clearInterval(this.waitingTime);
+  }
+  init() {
     if (ls.get("UserId")) {
       let userid = ls.get("UserId");
       // let folderName = auth.getInstance().getCurrentUser().getDisplayName();
@@ -46,14 +59,14 @@ class Competition extends Component {
         .doc(userid)
         .onSnapshot(
           (snapshot) => {
-            console.log(snapshot);
+            // console.log(snapshot);
             let datafromUser = snapshot.data();
             let startTime = datafromUser.startTime;
             let deadline = datafromUser.deadline;
             let url = datafromUser.questions[lang]; //
             let submit = datafromUser.submit;
             this.setState({ done: submit, startTime: startTime, deadline: deadline, url: url });
-            console.log("updated");
+            // console.log("updated");
           },
           (error) => {
             console.log(error);
@@ -70,16 +83,6 @@ class Competition extends Component {
     } else {
       this.offset = new Date(ls.get("offset"));
     }
-
-    this.updateTimer = setInterval(this.timer, 1000);
-    this.waitingTime = setInterval(this.waitingTimer, 1000);
-  }
-  componentWillUnmount() {
-    if (this.disconnectUsers) {
-      this.disconnectUsers();
-    }
-    clearInterval(this.updateTimer);
-    clearInterval(this.waitingTime);
   }
   // submit answers and log out
   submitAll() {
@@ -132,6 +135,7 @@ class Competition extends Component {
     }
     if (t > 0) {
       // let days = Math.floor(t / (1000 * 60 * 60 * 24));
+      this.setState({ early: true });
       let hours = ("0" + Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).slice(-2);
       let minutes = ("0" + Math.floor((t % (1000 * 60 * 60)) / (1000 * 60))).slice(-2);
       let seconds = ("0" + Math.floor((t % (1000 * 60)) / 1000)).slice(-2);
@@ -226,14 +230,17 @@ class Competition extends Component {
             </Row>
           ) : (
             <Fragment>
-              <h2>Final Round</h2>
+              <h2>Final Round {/* <span className="float-right">{this.state.time}</span> */}</h2>
+              <h3>1) View paper</h3>
               <p> Download the question paper from the link below and write your answers on a paper. Take clear photographs of your work and upload it.</p>
               <QuestionPaper url={this.state.url}></QuestionPaper>
 
-              <h3 className="mt-5">Upload Answers</h3>
+              <h3 className="mt-5">2) Upload Answers</h3>
               <div className="timer">Time remaining to upload: {this.state.time}</div>
               <MultiFileUpload folderName={this.state.userid}></MultiFileUpload>
-              <button onClick={() => this.submitAll()}>Done Uploading</button>
+              <button className="submit ml-2" onClick={() => this.submitAll()}>
+                Submit and Exit
+              </button>
             </Fragment>
           )}
         </Fragment>
